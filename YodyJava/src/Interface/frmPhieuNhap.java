@@ -4,19 +4,44 @@
  */
 package Interface;
 
+import java.sql.*;
+import Proccess.PhieuNhap;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ngocanh
  */
 public class frmPhieuNhap extends javax.swing.JFrame {
+    private final PhieuNhap pn= new PhieuNhap();
+    private final DefaultTableModel tableModel= new DefaultTableModel();
     
+    
+    public void ShowData() throws SQLException{
+        List<PhieuNhap> list = pn.getAll(); 
+        for(PhieuNhap phieu:list){
+            Object[] row = new Object[6];
+            row[0] = phieu.getMaPhieuNhap();
+            row[1] = phieu.getNgayNhap();
+            row[2]=phieu.getMaNCC();
+            row[3]=phieu.getMaNV();
+            row[4]=phieu.getTongTien();
+            row[5]=phieu.getGhiChu();     
+            tableModel.addRow(row);
+        }
+    }
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmPhieuNhap.class.getName());
 
     /**
      * Creates new form frmKho
      */
-    public frmPhieuNhap() {
+    public frmPhieuNhap() throws SQLException {
         initComponents();
+        tableModel.setColumnIdentifiers(new Object[]{"Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền", "Ghi chú"});
+        tblPN.setModel(tableModel);
+        
+        ShowData();
     }
 
     /**
@@ -212,26 +237,9 @@ public class frmPhieuNhap extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new frmPhieuNhap().setVisible(true));
+    public static void main(String args[]) throws SQLException {
+        frmPhieuNhap fr=new frmPhieuNhap();
+        fr.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
