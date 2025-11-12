@@ -6,7 +6,9 @@ package Interface;
 
 import java.sql.*;
 import Proccess.PhieuNhap;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,9 +17,46 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmPhieuNhap extends javax.swing.JFrame {
     private final PhieuNhap pn= new PhieuNhap();
+    private boolean cothem = true;   
     private final DefaultTableModel tableModel= new DefaultTableModel();
     
-    
+    public void loadComboBoxMaNCC() {
+        try {
+            cbMaNCC.removeAllItems();
+            List<Integer> list = pn.getAllNCC(); 
+            for (Integer maNCC : list) {
+                cbMaNCC.addItem(maNCC);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi nạp danh sách NCC: " + e.getMessage());
+        }
+    }
+    public void loadMANv(){
+        try {
+            cbMaNV.removeAllItems();
+            List<Integer> list = pn.getAllMNV();
+            for(Integer manv:list){
+                cbMaNV.addItem(manv);
+            }
+        } catch (SQLException ex) {
+            System.getLogger(frmPhieuNhap.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    public void setnull(){
+        txtGhiChu.setText("");
+        txtMaPN.setText("");
+        txtNgayNhap.setText("");
+        cbMaNCC.setSelectedItem(null);
+        cbMaNV.setSelectedItem(null);
+    }
+    public void setbutton(boolean a){
+        btnThemPN.setEnabled(a);
+        btnSuaPN.setEnabled(a);
+        btnXoaPN.setEnabled(a);
+        btnLuuPN.setEnabled(!a);
+        btnKLuuPN.setEnabled(!a);
+        
+    }
     public void ShowData() throws SQLException{
         List<PhieuNhap> list = pn.getAll(); 
         for(PhieuNhap phieu:list){
@@ -31,6 +70,13 @@ public class frmPhieuNhap extends javax.swing.JFrame {
             tableModel.addRow(row);
         }
     }
+    public void ClearData() throws SQLException{
+        int n=tableModel.getRowCount()-1;
+        for(int i=n;i>=0;i--){
+            tableModel.removeRow(i);
+        }
+    }
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmPhieuNhap.class.getName());
 
     /**
@@ -40,8 +86,11 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         initComponents();
         tableModel.setColumnIdentifiers(new Object[]{"Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền", "Ghi chú"});
         tblPN.setModel(tableModel);
-        
+        loadMANv();
+        loadComboBoxMaNCC();
         ShowData();
+        setnull();
+        setbutton(true);
     }
 
     /**
@@ -96,19 +145,39 @@ public class frmPhieuNhap extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblPN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPNMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPN);
 
         btnThemPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThemPN.setText("Thêm");
+        btnThemPN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemPNActionPerformed(evt);
+            }
+        });
 
         btnSuaPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSuaPN.setText("Sửa");
 
         btnXoaPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnXoaPN.setText("Xóa");
+        btnXoaPN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaPNActionPerformed(evt);
+            }
+        });
 
         btnLuuPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLuuPN.setText("Lưu");
+        btnLuuPN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuPNActionPerformed(evt);
+            }
+        });
 
         btnKLuuPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnKLuuPN.setText("Klưu");
@@ -122,12 +191,8 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Mã NCC");
 
-        cbMaNCC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Mã NV");
-
-        cbMaNV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Ghi chú");
@@ -234,6 +299,57 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblPNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPNMouseClicked
+        try {
+            // TODO add your handling code here:
+            int row=tblPN.getSelectedRow();
+            String ma=tblPN.getValueAt(row,0).toString();
+            PhieuNhap obj=pn.getPhieuNhap(ma);
+            if(obj!=null){
+                txtGhiChu.setText(obj.getGhiChu());
+                txtMaPN.setText(String.valueOf(obj.getMaPhieuNhap()));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                txtNgayNhap.setText(sdf.format(obj.getNgayNhap()));
+                cbMaNCC.setSelectedItem(obj.getMaNCC());
+                cbMaNV.setSelectedItem(obj.getMaNV());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi đọc dữ liệu: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_tblPNMouseClicked
+
+    private void btnXoaPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPNActionPerformed
+        // TODO add your handling code here:
+        String ma=txtMaPN.getText();
+        try{
+            if(ma.isEmpty()){
+                JOptionPane.showMessageDialog(this,"Hãy chọn sản phẩm cần xóa!");
+                return;
+            }
+            int mpn=Integer.parseInt(ma);
+            if(JOptionPane.showConfirmDialog(this,"Bạn có chắc chắn muốn xóa không!")==JOptionPane.YES_OPTION){
+                pn.deleteData(mpn); 
+                ClearData();
+                ShowData();
+                setnull();
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this,"Xóa thất bại");
+        }
+    }//GEN-LAST:event_btnXoaPNActionPerformed
+
+    private void btnThemPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPNActionPerformed
+        // TODO add your handling code here:
+        setnull();
+        setbutton(false);
+        cothem=true; 
+    }//GEN-LAST:event_btnThemPNActionPerformed
+
+    private void btnLuuPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuPNActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnLuuPNActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -248,8 +364,8 @@ public class frmPhieuNhap extends javax.swing.JFrame {
     private javax.swing.JButton btnSuaPN;
     private javax.swing.JButton btnThemPN;
     private javax.swing.JButton btnXoaPN;
-    private javax.swing.JComboBox<String> cbMaNCC;
-    private javax.swing.JComboBox<String> cbMaNV;
+    private javax.swing.JComboBox<Integer> cbMaNCC;
+    private javax.swing.JComboBox<Integer> cbMaNV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -91,8 +91,85 @@ public class PhieuNhap {
         }
         return list;
     }
-    
-    
-    
-    
+    public List<Integer> getAllNCC() throws SQLException{
+        List<Integer> list = new ArrayList<>();
+        String sql="select MaNhaCungCap from Nha_cung_cap";
+        try(Connection con=cn.connectSQL();
+                PreparedStatement ps=con.prepareStatement(sql);
+                ResultSet rs=ps.executeQuery();){
+            while (rs.next()){
+                list.add(rs.getInt("Manhacungcap"));
+            }
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Phiếu Nhập: " + e.getMessage());
+        }
+        return list;
+    }
+    public List<Integer> getAllMNV() throws SQLException{
+        List<Integer> list=new ArrayList<>();
+        String sql="select Manhanvien from Nhan_vien";
+        try(Connection con=cn.connectSQL();
+                PreparedStatement ps=con.prepareStatement(sql);
+                ResultSet rs=ps.executeQuery()){
+            while (rs.next()){
+                list.add(rs.getInt("manhanvien"));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Phiếu Nhập: " + e.getMessage());
+        }
+        return list;
+    }
+    public PhieuNhap getPhieuNhap(String MaPN) throws SQLException{
+        String sql = "select * from Phieu_nhap where Maphieunhap=?";
+        try(Connection con=cn.connectSQL();
+                PreparedStatement ps=con.prepareStatement(sql);){
+            ps.setString(1,MaPN);
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()){
+                    PhieuNhap obj = new PhieuNhap();
+                    obj.ghiChu=rs.getString("GhiChu");
+                    obj.maNCC=rs.getInt("MaNCC");
+                    obj.maNV=rs.getInt("MaNV");
+                    obj.maPhieuNhap=rs.getInt("MaPhieuNhap");
+                    obj.ngayNhap=rs.getDate("NgayNhap");
+                    obj.tongTien=rs.getFloat("TongTien");
+                    return obj;
+                }
+            }
+        }
+        return null;
+    } 
+    public boolean deleteData(int maPN) throws SQLException {
+        try (Connection con = cn.connectSQL()) {
+            con.setAutoCommit(false); // bật transaction
+            try (PreparedStatement ps1 = con.prepareStatement("DELETE FROM CHI_TIET_PHIEU_NHAP WHERE MaPhieuNhap = ?");
+                 PreparedStatement ps2 = con.prepareStatement("DELETE FROM PHIEU_NHAP WHERE MaPhieuNhap = ?")) {
+
+                ps1.setInt(1, maPN);
+                ps1.executeUpdate();
+
+                ps2.setInt(1, maPN);
+                int rows = ps2.executeUpdate();
+
+                con.commit();
+                return rows > 0;
+            } catch (SQLException e) {
+                con.rollback();
+                throw e;
+            }
+        }
+    }
+    public boolean InsertData(PhieuNhap obj) throws SQLException{
+        String sql="insert into Phieu_nhap values (?,?,?,?,?)";
+        try(Connection con=cn.connectSQL();
+                PreparedStatement ps=con.prepareStatement(sql)){
+            java.util.Date now = new java.util.Date();
+            ps.setDate(1, new java.sql.Date(now.getTime()));
+            ps.setInt(2, obj.maNCC);
+            ps.setInt(3,obj.maNV);
+            ps.setString(4,obj.ghiChu);
+            return ps.executeUpdate()>0;
+        }
+    }
+
 }
