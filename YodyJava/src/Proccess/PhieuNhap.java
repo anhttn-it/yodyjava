@@ -79,7 +79,7 @@ public class PhieuNhap {
             while (rs.next()) {
                 PhieuNhap pn = new PhieuNhap();
                 pn.maPhieuNhap = rs.getInt("MaPhieuNhap");
-                pn.ngayNhap = rs.getDate("NgayNhap");
+                pn.ngayNhap = rs.getTimestamp("NgayNhap");
                 pn.maNCC = rs.getInt("MaNCC");
                 pn.maNV = rs.getInt("MaNV");
                 pn.tongTien = rs.getDouble("TongTien");
@@ -131,7 +131,7 @@ public class PhieuNhap {
                     obj.maNCC=rs.getInt("MaNCC");
                     obj.maNV=rs.getInt("MaNV");
                     obj.maPhieuNhap=rs.getInt("MaPhieuNhap");
-                    obj.ngayNhap=rs.getDate("NgayNhap");
+                    obj.ngayNhap=rs.getTimestamp("NgayNhap");
                     obj.tongTien=rs.getFloat("TongTien");
                     return obj;
                 }
@@ -160,14 +160,27 @@ public class PhieuNhap {
         }
     }
     public boolean InsertData(PhieuNhap obj) throws SQLException{
-        String sql="insert into Phieu_nhap values (?,?,?,?,?)";
+        String sql="INSERT INTO PHIEU_NHAP (NgayNhap, MaNCC, MaNV, TongTien, GhiChu) VALUES (?, ?, ?, ?, ?)";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps=con.prepareStatement(sql)){
-            java.util.Date now = new java.util.Date();
-            ps.setDate(1, new java.sql.Date(now.getTime()));
+            ps.setTimestamp(1, new java.sql.Timestamp(obj.ngayNhap.getTime()));
             ps.setInt(2, obj.maNCC);
-            ps.setInt(3,obj.maNV);
-            ps.setString(4,obj.ghiChu);
+            ps.setInt(3, obj.maNV);
+            ps.setDouble(4, obj.tongTien);
+            ps.setString(5, obj.ghiChu);
+            return ps.executeUpdate()>0;
+        }
+    }
+    public boolean EditData(PhieuNhap obj) throws SQLException{
+        String sql="update Phieu_nhap set NgayNhap=?, MaNCC=?,MaNV=?,TongTien=?,GhiChu=? where MaPhieunhap=?";
+        try(Connection con=cn.connectSQL();
+                PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setTimestamp(1,new java.sql.Timestamp(obj.ngayNhap.getTime()));
+            ps.setInt(2, obj.maNCC);
+            ps.setInt(3, obj.maNV);
+            ps.setDouble(4, obj.tongTien);
+            ps.setString(5, obj.ghiChu);
+            ps.setInt(6,obj.maPhieuNhap);
             return ps.executeUpdate()>0;
         }
     }

@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmPhieuNhap extends javax.swing.JFrame {
     private final PhieuNhap pn= new PhieuNhap();
-    private boolean cothem = true;   
+    private boolean cothem = false;   
     private final DefaultTableModel tableModel= new DefaultTableModel();
     
     public void loadComboBoxMaNCC() {
@@ -57,6 +57,11 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         btnKLuuPN.setEnabled(!a);
         
     }
+    public void setKhoa(boolean a){
+        txtGhiChu.setEditable(!a);
+        cbMaNCC.setEnabled(!a);
+        cbMaNV.setEnabled(!a);
+    }
     public void ShowData() throws SQLException{
         List<PhieuNhap> list = pn.getAll(); 
         for(PhieuNhap phieu:list){
@@ -91,6 +96,7 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         ShowData();
         setnull();
         setbutton(true);
+        setKhoa(true);
     }
 
     /**
@@ -162,6 +168,11 @@ public class frmPhieuNhap extends javax.swing.JFrame {
 
         btnSuaPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSuaPN.setText("Sửa");
+        btnSuaPN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaPNActionPerformed(evt);
+            }
+        });
 
         btnXoaPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnXoaPN.setText("Xóa");
@@ -181,12 +192,21 @@ public class frmPhieuNhap extends javax.swing.JFrame {
 
         btnKLuuPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnKLuuPN.setText("Klưu");
+        btnKLuuPN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKLuuPNActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Mã phiếu nhập");
 
+        txtMaPN.setEditable(false);
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Ngày nhập");
+
+        txtNgayNhap.setEditable(false);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Mã NCC");
@@ -342,13 +362,77 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         // TODO add your handling code here:
         setnull();
         setbutton(false);
+        setKhoa(false);
         cothem=true; 
+        tblPN.setEnabled(false);
+        
     }//GEN-LAST:event_btnThemPNActionPerformed
 
     private void btnLuuPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuPNActionPerformed
         // TODO add your handling code here:
+        Object manccObj = cbMaNCC.getSelectedItem();
+        Object manvObj = cbMaNV.getSelectedItem();
+        String ghichu = txtGhiChu.getText().trim();
+        String mapn=txtMaPN.getText();
+
+        if(manccObj == null || manvObj == null){
+            JOptionPane.showMessageDialog(this,"Vui lòng điền đầy đủ thông tin!");
+        }
         
+        else{
+            try {
+            int mancc = (int) manccObj;
+            int manv = (int) manvObj;
+            int maphieunhap = Integer.parseInt(mapn);
+            PhieuNhap obj = new PhieuNhap();
+            java.util.Date now = new java.util.Date();
+            obj.setNgayNhap(now);   // tự động lấy thời gian hiện tại
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            txtNgayNhap.setText(sdf.format(now));
+            obj.setMaNCC(mancc);
+            obj.setMaNV(manv);
+            obj.setTongTien(0); // mặc định 0 khi mới nhập
+            obj.setGhiChu(ghichu);
+            obj.setMaPhieuNhap(maphieunhap);
+            if(cothem==true){
+                pn.InsertData(obj);
+            }
+            else{
+                pn.EditData(obj);
+            }
+            ClearData();
+            ShowData();
+            setnull();
+            setbutton(true);
+            setKhoa(true);
+            cothem=false;
+            tblPN.setEnabled(true);
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(this,"Cập nhật thất bại");
+            }
+        }
     }//GEN-LAST:event_btnLuuPNActionPerformed
+
+    private void btnSuaPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaPNActionPerformed
+        // TODO add your handling code here:
+        String mapn=txtMaPN.getText();
+        if(mapn.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Hãy chọn sản phẩm cần sửa!");
+        }
+        else{
+            setKhoa(false);
+            tblPN.setEnabled(false);
+            setbutton(false);
+            cothem=false;
+        }
+    }//GEN-LAST:event_btnSuaPNActionPerformed
+
+    private void btnKLuuPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKLuuPNActionPerformed
+        // TODO add your handling code here:
+        setnull();
+        setKhoa(true);
+        setbutton(true);
+    }//GEN-LAST:event_btnKLuuPNActionPerformed
 
     /**
      * @param args the command line arguments
