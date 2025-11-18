@@ -17,7 +17,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmPhieuNhap extends javax.swing.JFrame {
     private final PhieuNhap pn= new PhieuNhap();
-    private boolean cothem = false;   
+    private boolean cothem = false;  
+    private int mapn = -1;
     private final DefaultTableModel tableModel= new DefaultTableModel();
     
     public void loadComboBoxMaNCC() {
@@ -127,6 +128,7 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtGhiChu = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -221,6 +223,15 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         txtGhiChu.setRows(5);
         jScrollPane2.setViewportView(txtGhiChu);
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel6.setForeground(java.awt.SystemColor.textHighlight);
+        jLabel6.setText("Chi tiết phiếu nhập");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -232,16 +243,6 @@ public class frmPhieuNhap extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnThemPN)
-                        .addGap(24, 24, 24)
-                        .addComponent(btnSuaPN)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnXoaPN)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLuuPN)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnKLuuPN))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -265,8 +266,21 @@ public class frmPhieuNhap extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addGap(61, 61, 61)
                                         .addComponent(cbMaNV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(223, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(223, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnThemPN)
+                        .addGap(24, 24, 24)
+                        .addComponent(btnSuaPN)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnXoaPN)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLuuPN)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnKLuuPN)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(52, 52, 52))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +291,8 @@ public class frmPhieuNhap extends javax.swing.JFrame {
                     .addComponent(btnSuaPN)
                     .addComponent(btnXoaPN)
                     .addComponent(btnLuuPN)
-                    .addComponent(btnKLuuPN))
+                    .addComponent(btnKLuuPN)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -324,7 +339,8 @@ public class frmPhieuNhap extends javax.swing.JFrame {
             // TODO add your handling code here:
             int row=tblPN.getSelectedRow();
             String ma=tblPN.getValueAt(row,0).toString();
-            PhieuNhap obj=pn.getPhieuNhap(ma);
+            mapn = Integer.parseInt(ma); 
+            PhieuNhap obj=pn.getPhieuNhap(mapn);
             if(obj!=null){
                 txtGhiChu.setText(obj.getGhiChu());
                 txtMaPN.setText(String.valueOf(obj.getMaPhieuNhap()));
@@ -373,7 +389,7 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         Object manccObj = cbMaNCC.getSelectedItem();
         Object manvObj = cbMaNV.getSelectedItem();
         String ghichu = txtGhiChu.getText().trim();
-        String mapn=txtMaPN.getText();
+        String maphieu=txtMaPN.getText();
 
         if(manccObj == null || manvObj == null){
             JOptionPane.showMessageDialog(this,"Vui lòng điền đầy đủ thông tin!");
@@ -383,7 +399,6 @@ public class frmPhieuNhap extends javax.swing.JFrame {
             try {
             int mancc = (int) manccObj;
             int manv = (int) manvObj;
-            int maphieunhap = Integer.parseInt(mapn);
             PhieuNhap obj = new PhieuNhap();
             java.util.Date now = new java.util.Date();
             obj.setNgayNhap(now);   // tự động lấy thời gian hiện tại
@@ -393,11 +408,12 @@ public class frmPhieuNhap extends javax.swing.JFrame {
             obj.setMaNV(manv);
             obj.setTongTien(0); // mặc định 0 khi mới nhập
             obj.setGhiChu(ghichu);
-            obj.setMaPhieuNhap(maphieunhap);
             if(cothem==true){
                 pn.InsertData(obj);
             }
             else{
+                int maphieunhap = Integer.parseInt(maphieu);
+                obj.setMaPhieuNhap(maphieunhap);
                 pn.EditData(obj);
             }
             ClearData();
@@ -434,6 +450,23 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         setbutton(true);
     }//GEN-LAST:event_btnKLuuPNActionPerformed
 
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        try {
+        if (mapn == -1) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn phiếu nhập nào!");
+            return;
+        }
+
+        // TRUYỀN selectedMaPN QUA FORM CHI TIẾT
+        frmChiTietPhieuNhap fr = new frmChiTietPhieuNhap(mapn);
+        //this.setVisible(false);
+        fr.setVisible(true);
+
+        } catch (SQLException ex) {
+            System.getLogger(frmPhieuNhap.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_jLabel6MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -455,6 +488,7 @@ public class frmPhieuNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

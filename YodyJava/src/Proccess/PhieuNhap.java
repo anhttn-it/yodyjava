@@ -119,11 +119,11 @@ public class PhieuNhap {
         }
         return list;
     }
-    public PhieuNhap getPhieuNhap(String MaPN) throws SQLException{
+    public PhieuNhap getPhieuNhap(int MaPN) throws SQLException{
         String sql = "select * from Phieu_nhap where Maphieunhap=?";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps=con.prepareStatement(sql);){
-            ps.setString(1,MaPN);
+            ps.setInt(1,MaPN);
             try(ResultSet rs=ps.executeQuery()){
                 if(rs.next()){
                     PhieuNhap obj = new PhieuNhap();
