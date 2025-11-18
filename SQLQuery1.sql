@@ -89,16 +89,14 @@ create table BIEN_THE_SAN_PHAM (
 
 create table MUA_HANG (
 	MaMuaHang int identity(1,1) primary key,
-	NgayNhap datetime not null default getdate(),
+	NgayMua datetime not null default getdate(),
 	MaNCC int not null,
 	MaNV int not null,
+	TrangThai tinyint not null default 0;
 	foreign key (MaNCC) references NHA_CUNG_CAP(MaNhaCungCap),
 	foreign key (MaNV) references NHAN_VIEN(MaNhanVien)
 );
-EXEC sp_rename 'MUA_HANG.NgayNhap', 'NgayMua', 'COLUMN';
 
-drop table MUA_HANG
-alter table MUA_HANG ADD TrangThai tinyint not null default 0;
 INSERT INTO MUA_HANG (NgayNhap, MaNCC, MaNV) VALUES
 ('2025-10-25 10:30:00', 3, 1),
 ('2025-10-26 14:45:00', 8, 3),
