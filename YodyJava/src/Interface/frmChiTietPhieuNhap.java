@@ -218,6 +218,11 @@ public class frmChiTietPhieuNhap extends javax.swing.JFrame {
 
         btnLuuCTPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLuuCTPN.setText("Lưu");
+        btnLuuCTPN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuCTPNActionPerformed(evt);
+            }
+        });
 
         btnKLuuCTPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnKLuuCTPN.setText("KLưu");
@@ -385,6 +390,10 @@ public class frmChiTietPhieuNhap extends javax.swing.JFrame {
             System.getLogger(frmChiTietPhieuNhap.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }//GEN-LAST:event_tblCTPNMouseClicked
+
+    private void btnLuuCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuCTPNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLuuCTPNActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKLuuCTPN;
