@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author ngocanh
  */
-public class ChiTietPhieuNhap {
+public class ChiTietPhieuXuat {
     private String TenSP;
     private int MaSP;
     private String MauSac;
@@ -24,10 +24,10 @@ public class ChiTietPhieuNhap {
     private int MaBienThe;
     private final Connect cn=new Connect();
 
-    public ChiTietPhieuNhap() {
+    public ChiTietPhieuXuat() {
     }
 
-    public ChiTietPhieuNhap(String TenSP, int MaSP, String MauSac, int KichCo, int SoLuong, float DonGia) {
+    public ChiTietPhieuXuat(String TenSP, int MaSP, String MauSac, int KichCo, int SoLuong, float DonGia) {
         this.TenSP = TenSP;
         this.MaSP = MaSP;
         this.MauSac = MauSac;
@@ -100,7 +100,7 @@ public class ChiTietPhieuNhap {
                 listMasp.add(rs.getInt("MaSanPham"));
             }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Chi Tiet Phiếu Nhập: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Chi Tiet Phiếu Xuất: " + e.getMessage());
         }
         return listMasp;
     }
@@ -146,20 +146,20 @@ public class ChiTietPhieuNhap {
         return listkichco;
     }
      
-    public List<ChiTietPhieuNhap> getall(int mapn) throws SQLException{
-        List<ChiTietPhieuNhap> list = new ArrayList<>();
-        String sql="SELECT ctpn.SoLuong, ctpn.DonGia, " +
-                   "sp.TenSanPham, bt.MauSac, bt.KichCo, ctpn.MaSanPham " +
-                   "FROM CHI_TIET_PHIEU_NHAP ctpn " +
-                   "JOIN SAN_PHAM sp ON ctpn.MaSanPham = sp.MaSanPham " +
-                   "JOIN BIEN_THE_SAN_PHAM bt ON bt.Ma = ctpn.MaBienThe " +
-                   "WHERE ctpn.MaPhieuNhap = ?";
+    public List<ChiTietPhieuXuat> getall(int mapn) throws SQLException{
+        List<ChiTietPhieuXuat> list = new ArrayList<>();
+        String sql="SELECT ctpx.SoLuong, ctpx.DonGia, " +
+                   "sp.TenSanPham, bt.MauSac, bt.KichCo, ctpx.MaSanPham " +
+                   "FROM CHI_TIET_PHIEU_XUAT ctpx " +
+                   "JOIN SAN_PHAM sp ON ctpx.MaSanPham = sp.MaSanPham " +
+                   "JOIN BIEN_THE_SAN_PHAM bt ON bt.Ma = ctpx.MaBienThe " +
+                   "WHERE ctpx.MaPhieuXuat = ?";
         try(Connection con= cn.connectSQL();
             PreparedStatement ps = con.prepareStatement(sql);){
             ps.setInt(1, mapn);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()){
-                    ChiTietPhieuNhap ctpn=new ChiTietPhieuNhap();
+                    ChiTietPhieuXuat ctpn=new ChiTietPhieuXuat();
                     ctpn.DonGia = rs.getFloat("DonGia");
                     ctpn.KichCo = rs.getInt("KichCo");
                     ctpn.MaSP = rs.getInt("MaSanPham");
@@ -175,20 +175,20 @@ public class ChiTietPhieuNhap {
         return list;
     }
 
-    public ChiTietPhieuNhap getCTPN(int mapn,int mabt) throws SQLException{
-        String sql="SELECT ctpn.SoLuong, ctpn.DonGia, " +
-                 "sp.TenSanPham, bt.MauSac, bt.KichCo, ctpn.MaSanPham " +
-                 "FROM CHI_TIET_PHIEU_NHAP ctpn " +
-                 "JOIN SAN_PHAM sp ON ctpn.MaSanPham = sp.MaSanPham " +
-                 "JOIN BIEN_THE_SAN_PHAM bt ON bt.Ma = ctpn.MaBienThe " +
-                 "WHERE ctpn.MaPhieuNhap = ? AND ctpn.Mabienthe = ?";
+    public ChiTietPhieuXuat getCTPN(int mapn,int mabt) throws SQLException{
+        String sql="SELECT ctpx.SoLuong, ctpx.DonGia, " +
+                 "sp.TenSanPham, bt.MauSac, bt.KichCo, ctpx.MaSanPham " +
+                 "FROM CHI_TIET_PHIEU_XUAT ctpx " +
+                 "JOIN SAN_PHAM sp ON ctpx.MaSanPham = sp.MaSanPham " +
+                 "JOIN BIEN_THE_SAN_PHAM bt ON bt.Ma = ctpx.MaBienThe " +
+                 "WHERE ctpx.MaPhieuXuat = ? AND ctpx.Mabienthe = ?";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps=con.prepareStatement(sql)){
             ps.setInt(1, mapn);
             ps.setInt(2, mabt);
             try(ResultSet rs=ps.executeQuery()){
                 if(rs.next()){
-                   ChiTietPhieuNhap obj=new ChiTietPhieuNhap();
+                   ChiTietPhieuXuat obj=new ChiTietPhieuXuat();
                     obj.DonGia=rs.getFloat("DonGia");
                     obj.KichCo=rs.getInt("KichCo");
                     obj.MaSP=rs.getInt("MaSanPham");
@@ -219,16 +219,16 @@ public class ChiTietPhieuNhap {
         return null;
     }
 
-    public boolean addCTPN(int maPN, int maSP, String mausac, int kichco, int soluong, float dongia) throws SQLException {
+    public boolean addCTPN(int maPX, int maSP, String mausac, int kichco, int soluong, float dongia) throws SQLException {
         Integer maBienThe = getMaBienThe(maSP, mausac, kichco);
         if (maBienThe == null) {
             JOptionPane.showMessageDialog(null, "Biến thể không tồn tại!");
             return false;
         }
-        String sql = "INSERT INTO CHI_TIET_PHIEU_NHAP (MaPhieuNhap, MaSanPham, MaBienThe, SoLuong, DonGia) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CHI_TIET_PHIEU_XUAT (MaPhieuXuat, MaSanPham, MaBienThe, SoLuong, DonGia) VALUES (?, ?, ?, ?, ?)";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, maPN);
+            ps.setInt(1, maPX);
             ps.setInt(2, maSP);
             ps.setInt(3, maBienThe);
             ps.setInt(4, soluong);
@@ -238,25 +238,25 @@ public class ChiTietPhieuNhap {
     }
 
 
-    public boolean updateCTPN(int maPN, int maSP,String mausac, int kichco, int soluong, float dongia) throws SQLException {
+    public boolean updateCTPN(int maPX, int maSP,String mausac, int kichco, int soluong, float dongia) throws SQLException {
         Integer maBienThe = getMaBienThe(maSP, mausac, kichco);
-        String sql = "UPDATE CHI_TIET_PHIEU_NHAP SET SoLuong=?, DonGia=? WHERE MaPhieuNhap=? AND MaBienThe=?";
+        String sql = "UPDATE CHI_TIET_PHIEU_XUAT SET SoLuong=?, DonGia=? WHERE MaPhieuXuat=? AND MaBienThe=?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, soluong);       
             ps.setFloat(2, dongia);  
-            ps.setInt(3, maPN);        
+            ps.setInt(3, maPX);        
             ps.setInt(4, maBienThe);    
             return ps.executeUpdate() > 0;
         }
     }
 
 
-    public boolean deleteCTPN(int maPN, int maBienThe) throws SQLException {
-        String sql = "DELETE FROM CHI_TIET_PHIEU_NHAP WHERE MaPhieuNhap=? AND MaBienThe=?";
+    public boolean deleteCTPN(int maPX, int maBienThe) throws SQLException {
+        String sql = "DELETE FROM CHI_TIET_PHIEU_XUAT WHERE MaPhieuXuat=? AND MaBienThe=?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, maPN);
+            ps.setInt(1, maPX);
             ps.setInt(2, maBienThe);
             return ps.executeUpdate() > 0;
         }
