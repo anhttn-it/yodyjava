@@ -273,18 +273,21 @@ private void fillToForm() {
             }
         });
 
+        txtngaytao.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         txtngaytao.setForeground(new java.awt.Color(153, 153, 153));
-        txtngaytao.setText("dd/mm/yyyy");
+        txtngaytao.setText("dd-mm-yyyy");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Email:");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 102, 255));
         jLabel1.setText("Tìm kiếm:");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel12.setText("Ngày sinh:");
 
+        txttimkiem.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         txttimkiem.setForeground(new java.awt.Color(153, 153, 153));
         txttimkiem.setText("Họ tên, Mã nhân viên, Ngày sinh");
         txttimkiem.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -293,8 +296,9 @@ private void fillToForm() {
             }
         });
 
+        txtngaysinh.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         txtngaysinh.setForeground(new java.awt.Color(153, 153, 153));
-        txtngaysinh.setText("dd/mm/yyyy");
+        txtngaysinh.setText("dd-mm-yyyy");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Họ:");
@@ -314,6 +318,9 @@ private void fillToForm() {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -362,14 +369,11 @@ private void fillToForm() {
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(4, 4, 4))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btthem)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(btsua)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(btxoa)))
+                                .addComponent(btthem)
+                                .addGap(40, 40, 40)
+                                .addComponent(btsua)
+                                .addGap(38, 38, 38)
+                                .addComponent(btxoa)
                                 .addGap(45, 45, 45)
                                 .addComponent(btluu)
                                 .addGap(48, 48, 48)
