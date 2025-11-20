@@ -155,7 +155,7 @@ public class frmDangNhap extends javax.swing.JFrame {
 
             if (hopLe) {
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
-                frmPhieuNhap frm = new frmPhieuNhap();
+                frmHome frm = new frmHome();
                 frm.setVisible(true);
                 this.dispose();
             } else {
