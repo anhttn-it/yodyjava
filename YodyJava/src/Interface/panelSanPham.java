@@ -1,9 +1,8 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Interface;
-
 import Proccess.SanPham;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,25 +10,25 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
- * @author ngocanh
+ * @author Admin
  */
-public class frmSanPham extends javax.swing.JFrame {
-   private SanPham dao = new SanPham();
+public class panelSanPham extends javax.swing.JPanel {
+private SanPham dao = new SanPham();
     private boolean isAdding = false;
     private DefaultTableModel model;
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmSanPham.class.getName());
-
+    //private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmSanPham.class.getName());
     /**
-     * Creates new form frmSanPham
+     * Creates new form panelSanPham
      */
-    public frmSanPham() {
+    public panelSanPham() {
+        initComponents();
         initComponents();
         model = (DefaultTableModel) tbsanpham.getModel();
         loadData();
         setButton(true);
     }
-    private void clearFields() {
+private void clearFields() {
         txttensp.setText("");
         txtmsp.setText("");
         txtmncc.setText("");
@@ -142,7 +141,6 @@ private boolean validateInput() {
     return true;
 }
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -152,33 +150,58 @@ private boolean validateInput() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btsua = new javax.swing.JButton();
+        txtmsp = new javax.swing.JTextField();
+        btxoa = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btluuu = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbsanpham = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txttimkiemsp = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txttensp = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtmsp = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         txtdongia = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtmncc = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        txtgiamgia = new javax.swing.JTextField();
-        btthem = new javax.swing.JButton();
-        btsua = new javax.swing.JButton();
-        btxoa = new javax.swing.JButton();
-        btluuu = new javax.swing.JButton();
         btkluu = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         btthoat = new javax.swing.JButton();
+        txtmncc = new javax.swing.JTextField();
         lbbienthe = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        txttimkiemsp = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtgiamgia = new javax.swing.JTextField();
+        txttensp = new javax.swing.JTextField();
+        btthem = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btsua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btsua.setText("Sửa");
+        btsua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btsuaActionPerformed(evt);
+            }
+        });
+
+        btxoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btxoa.setText("Xóa");
+        btxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btxoaActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setText("Đơn giá:");
+
+        btluuu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btluuu.setText("Lưu");
+        btluuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btluuuActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 255)));
 
@@ -214,14 +237,6 @@ private boolean validateInput() {
             }
         });
         jScrollPane1.setViewportView(tbsanpham);
-        if (tbsanpham.getColumnModel().getColumnCount() > 0) {
-            tbsanpham.getColumnModel().getColumn(0).setResizable(false);
-            tbsanpham.getColumnModel().getColumn(1).setResizable(false);
-            tbsanpham.getColumnModel().getColumn(2).setResizable(false);
-            tbsanpham.getColumnModel().getColumn(3).setResizable(false);
-            tbsanpham.getColumnModel().getColumn(4).setResizable(false);
-            tbsanpham.getColumnModel().getColumn(5).setResizable(false);
-        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -234,80 +249,6 @@ private boolean validateInput() {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(4, 121, 227));
-        jLabel1.setText("Danh sách sản phẩm");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel2.setText("Tìm kiếm:");
-
-        txttimkiemsp.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        txttimkiemsp.setForeground(new java.awt.Color(153, 153, 153));
-        txttimkiemsp.setText("Tên sản phẩm, Mã sản phẩm, Mã NCC");
-        txttimkiemsp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txttimkiemspActionPerformed(evt);
-            }
-        });
-        txttimkiemsp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txttimkiemspKeyReleased(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Tên sản phẩm:");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Mã sản phẩm:");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setText("Đơn giá:");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setText("Mã nhà cung cấp:");
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("Trạng thái SP:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1" }));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setText("Giảm giá:");
-
-        btthem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btthem.setText("Thêm");
-        btthem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btthemActionPerformed(evt);
-            }
-        });
-
-        btsua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btsua.setText("Sửa");
-        btsua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btsuaActionPerformed(evt);
-            }
-        });
-
-        btxoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btxoa.setText("Xóa");
-        btxoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btxoaActionPerformed(evt);
-            }
-        });
-
-        btluuu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btluuu.setText("Lưu");
-        btluuu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btluuuActionPerformed(evt);
-            }
-        });
-
         btkluu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btkluu.setText("K.Lưu");
         btkluu.addActionListener(new java.awt.event.ActionListener() {
@@ -315,6 +256,9 @@ private boolean validateInput() {
                 btkluuActionPerformed(evt);
             }
         });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Mã nhà cung cấp:");
 
         btthoat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btthoat.setText("Thoát");
@@ -333,14 +277,58 @@ private boolean validateInput() {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(4, 121, 227));
+        jLabel1.setText("Danh sách sản phẩm");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setText("Trạng thái SP:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 102, 255));
+        jLabel2.setText("Tìm kiếm:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1" }));
+
+        txttimkiemsp.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        txttimkiemsp.setForeground(new java.awt.Color(153, 153, 153));
+        txttimkiemsp.setText("Tên sản phẩm, Mã sản phẩm, Mã NCC");
+        txttimkiemsp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttimkiemspActionPerformed(evt);
+            }
+        });
+        txttimkiemsp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttimkiemspKeyReleased(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setText("Giảm giá:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Tên sản phẩm:");
+
+        btthem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btthem.setText("Thêm");
+        btthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btthemActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Mã sản phẩm:");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,27 +419,11 @@ private boolean validateInput() {
                     .addComponent(btkluu)
                     .addComponent(btthoat)
                     .addComponent(lbbienthe))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btthemActionPerformed
-        // TODO add your handling code here:
-        isAdding = true;
-        setEnableFields(true);
-        clearFields();
-        setButton(false);
-        txtmsp.setEnabled(false);
-    }//GEN-LAST:event_btthemActionPerformed
-
-    private void txttimkiemspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimkiemspActionPerformed
-        // TODO add your handling code here:
-         
-    }//GEN-LAST:event_txttimkiemspActionPerformed
 
     private void btsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btsuaActionPerformed
         // TODO add your handling code here:
@@ -460,7 +432,7 @@ private boolean validateInput() {
             JOptionPane.showMessageDialog(this, "Chọn sản phẩm để sửa!");
             return;
         }
-        
+
         setEnableFields(true);
         txtmsp.setEnabled(false); // Mã SP không sửa
         setButton(false);
@@ -468,7 +440,7 @@ private boolean validateInput() {
 
     private void btxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btxoaActionPerformed
         // TODO add your handling code here:
-       int row = tbsanpham.getSelectedRow();
+        int row = tbsanpham.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(this, "Chọn sản phẩm để xóa!");
             return;
@@ -492,107 +464,98 @@ private boolean validateInput() {
         // TODO add your handling code here:
         if (!validateInput()) return; // kiểm tra dữ liệu trước
 
-    try {
-        SanPham sp = new SanPham();
-        sp.setTenSanPham(txttensp.getText().trim());
-        sp.setMaNCC(Integer.parseInt(txtmncc.getText().trim()));
-        sp.setDonGia(Double.parseDouble(txtdongia.getText().trim()));
-        sp.setGiamGia(Double.parseDouble(txtgiamgia.getText().trim()));
-        sp.setTrangThaiSanPham(Integer.parseInt(jComboBox1.getSelectedItem().toString()));
+        try {
+            SanPham sp = new SanPham();
+            sp.setTenSanPham(txttensp.getText().trim());
+            sp.setMaNCC(Integer.parseInt(txtmncc.getText().trim()));
+            sp.setDonGia(Double.parseDouble(txtdongia.getText().trim()));
+            sp.setGiamGia(Double.parseDouble(txtgiamgia.getText().trim()));
+            sp.setTrangThaiSanPham(Integer.parseInt(jComboBox1.getSelectedItem().toString()));
 
-        boolean success;
-        if (isAdding) {
-            success = dao.insert(sp);
-        } else {
-            sp.setMaSanPham(Integer.parseInt(txtmsp.getText().trim()));
-            success = dao.update(sp);
-        }
+            boolean success;
+            if (isAdding) {
+                success = dao.insert(sp);
+            } else {
+                sp.setMaSanPham(Integer.parseInt(txtmsp.getText().trim()));
+                success = dao.update(sp);
+            }
 
-        if (success) {
-            JOptionPane.showMessageDialog(this, "Thành công!");
-            loadData();
-            clearFields();
-            setEnableFields(false);
-            setButton(true);
-            isAdding = false; // reset trạng thái
-        } else {
-            JOptionPane.showMessageDialog(this, "Thất bại!");
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Thành công!");
+                loadData();
+                clearFields();
+                setEnableFields(false);
+                setButton(true);
+                isAdding = false; // reset trạng thái
+            } else {
+                JOptionPane.showMessageDialog(this, "Thất bại!");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi cơ sở dữ liệu: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Lỗi cơ sở dữ liệu: " + e.getMessage());
-    }
     }//GEN-LAST:event_btluuuActionPerformed
-
-    private void btkluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btkluuActionPerformed
-        // TODO add your handling code here:
-         clearFields();
-        setEnableFields(false);
-        setButton(true);
-    }//GEN-LAST:event_btkluuActionPerformed
-
-    private void btthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btthoatActionPerformed
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_btthoatActionPerformed
 
     private void tbsanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbsanphamMouseClicked
         // TODO add your handling code here:
         fillToForm();
     }//GEN-LAST:event_tbsanphamMouseClicked
 
+    private void btkluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btkluuActionPerformed
+        // TODO add your handling code here:
+        clearFields();
+        setEnableFields(false);
+        setButton(true);
+    }//GEN-LAST:event_btkluuActionPerformed
+
+    private void btthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btthoatActionPerformed
+        // TODO add your handling code here:
+        
+    
+    }//GEN-LAST:event_btthoatActionPerformed
+
     private void lbbientheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbbientheMouseClicked
         // TODO add your handling code here:
         int row = tbsanpham.getSelectedRow();
-if (row < 0) {
-    JOptionPane.showMessageDialog(this, "Hãy chọn sản phẩm!");
-    return;
-}
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Hãy chọn sản phẩm!");
+            return;
+        }
 
-// Lấy mã sản phẩm từ table
-int maSP = Integer.parseInt(tbsanpham.getValueAt(row, 1).toString());
+        // Lấy mã sản phẩm từ table
+        int maSP = Integer.parseInt(tbsanpham.getValueAt(row, 1).toString());
 
-// Mở form biến thể và truyền mã sản phẩm
-frmBienTheSanPham frm = new frmBienTheSanPham(maSP);
+        // Mở form biến thể và truyền mã sản phẩm
+        frmBienTheSanPham frm = new frmBienTheSanPham(maSP);
 
-// Gọi callback để reload lại nếu cần
-frm.setOnDataChanged(() -> loadData());
+        // Gọi callback để reload lại nếu cần
+        frm.setOnDataChanged(() -> loadData());
 
-frm.setVisible(true);
-        
+        frm.setVisible(true);
+
     }//GEN-LAST:event_lbbientheMouseClicked
+
+    private void txttimkiemspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttimkiemspActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txttimkiemspActionPerformed
 
     private void txttimkiemspKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttimkiemspKeyReleased
         // TODO add your handling code here:
         try {
-        List<SanPham> list = dao.search(txttimkiemsp.getText());
-        loadTable(list);
-    } catch (Exception e) {}
+            List<SanPham> list = dao.search(txttimkiemsp.getText());
+            loadTable(list);
+        } catch (Exception e) {}
     }//GEN-LAST:event_txttimkiemspKeyReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btthemActionPerformed
+        // TODO add your handling code here:
+        isAdding = true;
+        setEnableFields(true);
+        clearFields();
+        setButton(false);
+        txtmsp.setEnabled(false);
+    }//GEN-LAST:event_btthemActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new frmSanPham().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btkluu;

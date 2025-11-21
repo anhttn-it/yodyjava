@@ -1,9 +1,8 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Interface;
-
 import Proccess.BanHang;
 import Proccess.ChiTietBanHang;
 import Database.Connect;
@@ -16,19 +15,17 @@ import java.sql.*;
 import java.util.List;
 /**
  *
- * @author ngocanh
+ * @author Admin
  */
-public class frmBanHang extends javax.swing.JFrame {
-    private DefaultTableModel model;
+public class panelBanHang extends javax.swing.JPanel {
+private DefaultTableModel model;
     private boolean editMode = false; // true khi đang thêm/sửa
     private Connect cn = new Connect();
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmBanHang.class.getName());
-
+//private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmBanHang.class.getName());
     /**
-     * Creates new form frmBanHang
+     * Creates new form panelBanHang
      */
-    public frmBanHang() {
+    public panelBanHang() {
         initComponents();
         model = (DefaultTableModel) tbbanhang.getModel();
         setButton(true);
@@ -46,7 +43,7 @@ public class frmBanHang extends javax.swing.JFrame {
         });
     }
 
-    private void loadComboBoxes() {
+     private void loadComboBoxes() {
         try (Connection con = cn.connectSQL()) {
             // Nhân viên
             Statement st1 = con.createStatement();
@@ -158,29 +155,101 @@ public class frmBanHang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cbtrangthai = new javax.swing.JComboBox<>();
+        btthem = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btsua = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        btxoa = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btluu = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btkluu = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btthoat = new javax.swing.JButton();
+        txtmbh = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        cbmnv = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        cbmkh = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbbanhang = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtmbh = new javax.swing.JTextField();
-        cbmnv = new javax.swing.JComboBox<>();
-        cbmkh = new javax.swing.JComboBox<>();
         txtngaydat = new javax.swing.JTextField();
-        cbtrangthai = new javax.swing.JComboBox<>();
-        btthem = new javax.swing.JButton();
-        btsua = new javax.swing.JButton();
-        btxoa = new javax.swing.JButton();
-        btluu = new javax.swing.JButton();
-        btkluu = new javax.swing.JButton();
-        btthoat = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        cbtrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chờ xác nhận", "Xác nhận", "Đã giao" }));
+
+        btthem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btthem.setText("Thêm");
+        btthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btthemActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Mã bán hàng:");
+
+        btsua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btsua.setText("Sửa");
+        btsua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btsuaActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Mã khách hàng:");
+
+        btxoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btxoa.setText("Xóa");
+        btxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btxoaActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Mã nhân viên:");
+
+        btluu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btluu.setText("Lưu");
+        btluu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btluuActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setText("Ngày đặt hàng:");
+
+        btkluu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btkluu.setText("K.Lưu");
+        btkluu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btkluuActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Trạng thái:");
+
+        btthoat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btthoat.setText("Thoát");
+        btthoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btthoatActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 102, 255));
+        jLabel7.setText("Chi tiết bán hàng");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 121, 227));
@@ -215,13 +284,6 @@ public class frmBanHang extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbbanhang);
-        if (tbbanhang.getColumnModel().getColumnCount() > 0) {
-            tbbanhang.getColumnModel().getColumn(0).setResizable(false);
-            tbbanhang.getColumnModel().getColumn(1).setResizable(false);
-            tbbanhang.getColumnModel().getColumn(2).setResizable(false);
-            tbbanhang.getColumnModel().getColumn(3).setResizable(false);
-            tbbanhang.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -234,82 +296,8 @@ public class frmBanHang extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Mã bán hàng:");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Mã khách hàng:");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Mã nhân viên:");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setText("Ngày đặt hàng:");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setText("Trạng thái:");
-
-        cbtrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chờ xác nhận", "Xác nhận", "Đã giao" }));
-
-        btthem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btthem.setText("Thêm");
-        btthem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btthemActionPerformed(evt);
-            }
-        });
-
-        btsua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btsua.setText("Sửa");
-        btsua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btsuaActionPerformed(evt);
-            }
-        });
-
-        btxoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btxoa.setText("Xóa");
-        btxoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btxoaActionPerformed(evt);
-            }
-        });
-
-        btluu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btluu.setText("Lưu");
-        btluu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btluuActionPerformed(evt);
-            }
-        });
-
-        btkluu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btkluu.setText("K.Lưu");
-        btkluu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btkluuActionPerformed(evt);
-            }
-        });
-
-        btthoat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btthoat.setText("Thoát");
-        btthoat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btthoatActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel7.setText("Chi tiết bán hàng");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -352,7 +340,7 @@ public class frmBanHang extends javax.swing.JFrame {
                             .addComponent(btkluu)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btthoat))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,8 +377,6 @@ public class frmBanHang extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btthemActionPerformed
@@ -436,7 +422,7 @@ public class frmBanHang extends javax.swing.JFrame {
 
         BanHang bh = new BanHang();
         if (!txtmbh.getText().trim().isEmpty())
-            bh.setMaBanHang(Integer.parseInt(txtmbh.getText()));
+        bh.setMaBanHang(Integer.parseInt(txtmbh.getText()));
         bh.setMaNV(Integer.parseInt(cbmnv.getSelectedItem().toString()));
         bh.setMaKhachHang(Integer.parseInt(cbmkh.getSelectedItem().toString()));
         bh.setNgayDatHang(Timestamp.valueOf(txtngaydat.getText() + " 00:00:00"));
@@ -468,7 +454,7 @@ public class frmBanHang extends javax.swing.JFrame {
 
     private void btthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btthoatActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        
     }//GEN-LAST:event_btthoatActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -483,30 +469,6 @@ public class frmBanHang extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_jLabel7MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new frmBanHang().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btkluu;

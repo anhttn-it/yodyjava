@@ -77,15 +77,30 @@ public class frmHome extends javax.swing.JFrame {
 
         btnSanPham.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnSanPham.setText("Sản phẩm");
+        btnSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSanPhamActionPerformed(evt);
+            }
+        });
 
         btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDangXuat.setText("Đăng xuất");
 
         btnBan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnBan.setText("Bán hàng");
+        btnBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanActionPerformed(evt);
+            }
+        });
 
         btnNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnNhanVien.setText("Nhân viên");
+        btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhanVienActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,6 +207,24 @@ public class frmHome extends javax.swing.JFrame {
             System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }//GEN-LAST:event_btnXuatActionPerformed
+
+    private void btnSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSanPhamActionPerformed
+        // TODO add your handling code here:
+        panelSanPham sp = new panelSanPham();
+        setPanel(sp);
+    }//GEN-LAST:event_btnSanPhamActionPerformed
+
+    private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
+        // TODO add your handling code here:
+        panelBanHang bh = new panelBanHang();
+        setPanel(bh);
+    }//GEN-LAST:event_btnBanActionPerformed
+
+    private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
+        // TODO add your handling code here:
+        panelNhanVien nv = new panelNhanVien();
+        setPanel(nv);
+    }//GEN-LAST:event_btnNhanVienActionPerformed
 
     /**
      * @param args the command line arguments
