@@ -77,10 +77,8 @@
                       </Group>
                       <EmptySpace pref="51" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtten" pref="193" max="32767" attributes="0"/>
-                              <Component id="txtpass" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txtten" pref="193" max="32767" attributes="0"/>
+                          <Component id="txtpass" max="32767" attributes="0"/>
                           <Component id="txtdiachi" pref="195" max="32767" attributes="0"/>
                           <Component id="jComboBox3" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -184,7 +182,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

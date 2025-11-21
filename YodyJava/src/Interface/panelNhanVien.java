@@ -507,9 +507,7 @@ private void fillToForm() {
 
     private void btthoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btthoatActionPerformed
         // TODO add your handling code here:
-        /*java.awt.Window win = javax.swing.SwingUtilities.getWindowAncestor(this);
-    if (win != null) {
-        win.dispose();}*/
+        this.dispose();
     }//GEN-LAST:event_btthoatActionPerformed
 
 
@@ -548,4 +546,8 @@ private void fillToForm() {
     private javax.swing.JTextField txtten;
     private javax.swing.JTextField txttimkiem;
     // End of variables declaration//GEN-END:variables
+
+    private void dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
