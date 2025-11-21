@@ -183,5 +183,26 @@ public class PhieuXuat {
             return ps.executeUpdate()>0;
         }
     }
+    
+    public List<PhieuXuat> TimKiemPX(String keyword) throws SQLException {
+        List<PhieuXuat> list = new ArrayList<>();
+        String sql = "SELECT * FROM PHIEU_XUAT WHERE maphieuxuat LIKE ?";
+        try(Connection con=cn.connectSQL();
+                PreparedStatement ps = con.prepareStatement(sql)){
+        ps.setString(1, "%" + keyword + "%");
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            PhieuXuat px = new PhieuXuat();
+            px.setMaPhieuXuat(rs.getInt("MaPhieuXuat"));
+            px.setNgayXuat(rs.getTimestamp("NgayXuat"));
+            px.setMaKH(rs.getInt("MaKH"));
+            px.setMaNV(rs.getInt("MaNV"));
+            px.setTongTien(rs.getFloat("TongTien"));
+            px.setGhiChu(rs.getString("GhiChu"));
+            list.add(px);
+        }
+        return list;
+        }
+    }
 
 }

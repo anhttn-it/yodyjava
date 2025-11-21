@@ -127,6 +127,10 @@ public class frmPhieuXuat extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         txtGhiChuX = new javax.swing.JTextArea();
         jLabel18 = new javax.swing.JLabel();
+        btnLamMoiX = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtTimKiem = new javax.swing.JTextField();
+        btnTim = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -231,6 +235,23 @@ public class frmPhieuXuat extends javax.swing.JFrame {
             }
         });
 
+        btnLamMoiX.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLamMoiX.setText("Làm mới");
+        btnLamMoiX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiXActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Tìm kiếm");
+
+        btnTim.setText("Tìm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -265,8 +286,7 @@ public class frmPhieuXuat extends javax.swing.JFrame {
                                         .addComponent(jLabel16)
                                         .addGap(61, 61, 61)
                                         .addComponent(cbMaNVX, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(231, Short.MAX_VALUE))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnThemPX)
                         .addGap(24, 24, 24)
@@ -277,9 +297,19 @@ public class frmPhieuXuat extends javax.swing.JFrame {
                         .addComponent(btnLuuPX)
                         .addGap(18, 18, 18)
                         .addComponent(btnKLuuPX)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel18)
-                        .addGap(52, 52, 52))))
+                        .addGap(105, 105, 105)
+                        .addComponent(btnLamMoiX)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(113, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel18)
+                .addGap(82, 82, 82))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +321,10 @@ public class frmPhieuXuat extends javax.swing.JFrame {
                     .addComponent(btnXoaPX)
                     .addComponent(btnLuuPX)
                     .addComponent(btnKLuuPX)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLamMoiX)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTim))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -309,8 +342,10 @@ public class frmPhieuXuat extends javax.swing.JFrame {
                     .addComponent(jLabel17)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -464,6 +499,45 @@ public class frmPhieuXuat extends javax.swing.JFrame {
             System.getLogger(frmPhieuXuat.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }//GEN-LAST:event_jLabel18MouseClicked
+
+    private void btnLamMoiXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiXActionPerformed
+        try {
+            // TODO add your handling code here:
+            ClearData();
+            ShowData();
+        } catch (SQLException ex) {
+            System.getLogger(frmPhieuXuat.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_btnLamMoiXActionPerformed
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        // TODO add your handling code here:
+        String keyword = txtTimKiem.getText().trim();
+        if(keyword.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã phiếu xuất để tìm!");
+            return;
+        }
+        try {
+            ClearData();
+            List<PhieuXuat> list = px.TimKiemPX(keyword);
+            if(list.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Không tìm thấy phiếu xuất nào!");
+            } else {
+                for(PhieuXuat phieu : list){
+                    Object[] row = new Object[6];
+                    row[0] = phieu.getMaPhieuXuat();
+                    row[1] = phieu.getNgayXuat();
+                    row[2] = phieu.getMaKH();
+                    row[3] = phieu.getMaNV();
+                    row[4] = phieu.getTongTien();
+                    row[5] = phieu.getGhiChu();
+                    tableModel.addRow(row);
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi tìm kiếm: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnTimActionPerformed
     public static void main(String args[]) throws SQLException {
         frmPhieuXuat fr=new frmPhieuXuat();
         fr.setVisible(true);
@@ -473,65 +547,29 @@ public class frmPhieuXuat extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnKLuuPN;
-    private javax.swing.JButton btnKLuuPN1;
     private javax.swing.JButton btnKLuuPX;
-    private javax.swing.JButton btnLuuPN;
-    private javax.swing.JButton btnLuuPN1;
+    private javax.swing.JButton btnLamMoiX;
     private javax.swing.JButton btnLuuPX;
-    private javax.swing.JButton btnSuaPN;
-    private javax.swing.JButton btnSuaPN1;
     private javax.swing.JButton btnSuaPX;
-    private javax.swing.JButton btnThemPN;
-    private javax.swing.JButton btnThemPN1;
     private javax.swing.JButton btnThemPX;
-    private javax.swing.JButton btnXoaPN;
-    private javax.swing.JButton btnXoaPN1;
+    private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoaPX;
     private javax.swing.JComboBox<Integer> cbMaKH;
-    private javax.swing.JComboBox<Integer> cbMaNCC;
-    private javax.swing.JComboBox<Integer> cbMaNCC1;
-    private javax.swing.JComboBox<Integer> cbMaNV;
-    private javax.swing.JComboBox<Integer> cbMaNV1;
     private javax.swing.JComboBox<Integer> cbMaNVX;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable tblPN;
-    private javax.swing.JTable tblPN1;
     private javax.swing.JTable tblPX;
-    private javax.swing.JTextArea txtGhiChu;
-    private javax.swing.JTextArea txtGhiChu1;
     private javax.swing.JTextArea txtGhiChuX;
-    private javax.swing.JTextField txtMaPN;
-    private javax.swing.JTextField txtMaPN1;
     private javax.swing.JTextField txtMaPX;
-    private javax.swing.JTextField txtNgayNhap;
-    private javax.swing.JTextField txtNgayNhap1;
     private javax.swing.JTextField txtNgayXuat;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

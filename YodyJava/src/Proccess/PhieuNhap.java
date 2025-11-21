@@ -185,4 +185,25 @@ public class PhieuNhap {
         }
     }
 
+    
+    public List<PhieuNhap> TimKiemPN(String keyword) throws SQLException {
+        List<PhieuNhap> list = new ArrayList<>();
+        String sql = "SELECT * FROM PHIEU_Nhap WHERE maphieunhap LIKE ?";
+        try(Connection con=cn.connectSQL();
+                PreparedStatement ps = con.prepareStatement(sql)){
+        ps.setString(1, "%" + keyword + "%");
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            PhieuNhap pn = new PhieuNhap();
+            pn.setMaPhieuNhap(rs.getInt("MaPhieuNhap"));
+            pn.setNgayNhap(rs.getTimestamp("NgayNhap"));
+            pn.setMaNCC(rs.getInt("MaNCC"));
+            pn.setMaNV(rs.getInt("MaNV"));
+            pn.setTongTien(rs.getFloat("TongTien"));
+            pn.setGhiChu(rs.getString("GhiChu"));
+            list.add(pn);
+        }
+        return list;
+        }
+    }
 }

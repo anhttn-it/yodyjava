@@ -129,6 +129,10 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtGhiChu = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
+        btnLM = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtTK = new javax.swing.JTextField();
+        btnTim = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -232,6 +236,23 @@ public class frmPhieuNhap extends javax.swing.JFrame {
             }
         });
 
+        btnLM.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLM.setText("Làm mới");
+        btnLM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLMActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Tìm kiếm");
+
+        btnTim.setText("Tìm");
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -265,9 +286,13 @@ public class frmPhieuNhap extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addGap(61, 61, 61)
-                                        .addComponent(cbMaNV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(223, Short.MAX_VALUE))
+                                        .addComponent(cbMaNV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addContainerGap(223, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6)
+                                .addGap(50, 50, 50))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnThemPN)
                         .addGap(24, 24, 24)
@@ -278,9 +303,15 @@ public class frmPhieuNhap extends javax.swing.JFrame {
                         .addComponent(btnLuuPN)
                         .addGap(18, 18, 18)
                         .addComponent(btnKLuuPN)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(52, 52, 52))))
+                        .addGap(148, 148, 148)
+                        .addComponent(btnLM)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnTim)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +323,10 @@ public class frmPhieuNhap extends javax.swing.JFrame {
                     .addComponent(btnXoaPN)
                     .addComponent(btnLuuPN)
                     .addComponent(btnKLuuPN)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLM)
+                    .addComponent(jLabel7)
+                    .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTim))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -306,9 +340,11 @@ public class frmPhieuNhap extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(cbMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
@@ -467,6 +503,46 @@ public class frmPhieuNhap extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void btnLMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLMActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            ClearData();
+            ShowData();
+        } catch (SQLException ex) {
+            System.getLogger(frmPhieuXuat.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_btnLMActionPerformed
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        // TODO add your handling code here:
+        String keyword = txtTK.getText().trim();
+        if(keyword.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã phiếu xuất để tìm!");
+            return;
+        }
+        try {
+            ClearData();
+            List<PhieuNhap> list = pn.TimKiemPN(keyword);
+            if(list.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Không tìm thấy phiếu xuất nào!");
+            } else {
+                for(PhieuNhap phieu : list){
+                    Object[] row = new Object[6];
+                    row[0] = phieu.getMaPhieuNhap();
+                    row[1] = phieu.getNgayNhap();
+                    row[2] = phieu.getMaNCC();
+                    row[3] = phieu.getMaNV();
+                    row[4] = phieu.getTongTien();
+                    row[5] = phieu.getGhiChu();
+                    tableModel.addRow(row);
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Lỗi tìm kiếm: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnTimActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -477,9 +553,11 @@ public class frmPhieuNhap extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKLuuPN;
+    private javax.swing.JButton btnLM;
     private javax.swing.JButton btnLuuPN;
     private javax.swing.JButton btnSuaPN;
     private javax.swing.JButton btnThemPN;
+    private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoaPN;
     private javax.swing.JComboBox<Integer> cbMaNCC;
     private javax.swing.JComboBox<Integer> cbMaNV;
@@ -489,6 +567,7 @@ public class frmPhieuNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -496,5 +575,6 @@ public class frmPhieuNhap extends javax.swing.JFrame {
     private javax.swing.JTextArea txtGhiChu;
     private javax.swing.JTextField txtMaPN;
     private javax.swing.JTextField txtNgayNhap;
+    private javax.swing.JTextField txtTK;
     // End of variables declaration//GEN-END:variables
 }
