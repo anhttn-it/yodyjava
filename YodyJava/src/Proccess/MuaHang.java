@@ -1,159 +1,130 @@
 package Proccess;
 
 import java.sql.*;
-import java.util.*;
-import javax.swing.JOptionPane;
 import Database.Connect;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 public class MuaHang {
-    private int MaMuaHang;
-    private java.util.Date NgayMua;
-    private int MaNCC;
-    private int MaNV;
-    private int TrangThai;
+    private int maMuaHang;
+    private Date ngayMua;
+    private int maNCC;
+    private int maNV;
     private final Connect cn = new Connect();
 
     public MuaHang() {}
 
-    public MuaHang(int MaMuaHang, java.util.Date NgayMua, int MaNCC, int MaNV, int TrangThai) {
-        this.MaMuaHang = MaMuaHang;
-        this.NgayMua = NgayMua;
-        this.MaNCC = MaNCC;
-        this.MaNV = MaNV;
-        this.TrangThai = TrangThai;
+    public MuaHang(int maMuaHang, Date ngayMua, int maNCC, int maNV) {
+        this.maMuaHang = maMuaHang;
+        this.ngayMua = ngayMua;
+        this.maNCC = maNCC;
+        this.maNV = maNV;
     }
 
-    // getters/setters
-    public int getMaMuaHang() { return MaMuaHang; }
-    public void setMaMuaHang(int MaMuaHang) { this.MaMuaHang = MaMuaHang; }
-    public java.util.Date getNgayMua() { return NgayMua; }
-    public void setNgayMua(java.util.Date NgayMua) { this.NgayMua = NgayMua; }
-    public int getMaNCC() { return MaNCC; }
-    public void setMaNCC(int MaNCC) { this.MaNCC = MaNCC; }
-    public int getMaNV() { return MaNV; }
-    public void setMaNV(int MaNV) { this.MaNV = MaNV; }
-    public int getTrangThai() { return TrangThai; }
-    public void setTrangThai(int TrangThai) { this.TrangThai = TrangThai; }
+    public int getMaMuaHang() { return maMuaHang; }
+    public void setMaMuaHang(int maMuaHang) { this.maMuaHang = maMuaHang; }
 
-    // --- Lấy danh sách MuaHang + ChiTiet ---
-    public List<Object[]> getAllWithChiTiet() {
-        List<Object[]> list = new ArrayList<>();
-        String sql = "SELECT mh.MaMuaHang, mh.NgayMua, mh.MaNCC, mh.MaNV, " +
-                     "ct.MaSP, ct.SoLuong, ct.DonGia " +
-                     "FROM MuaHang mh " +
-                     "LEFT JOIN ChiTietMuaHang ct ON mh.MaMuaHang = ct.MaMuaHang";
+    public Date getNgayMua() { return ngayMua; }
+    public void setNgayMua(Date ngayMua) { this.ngayMua = ngayMua; }
 
-        try (Connection conn = cn.connectSQL();
-             PreparedStatement pst = conn.prepareStatement(sql);
-             ResultSet rs = pst.executeQuery()) {
+    public int getMaNCC() { return maNCC; }
+    public void setMaNCC(int maNCC) { this.maNCC = maNCC; }
 
+    public int getMaNV() { return maNV; }
+    public void setMaNV(int maNV) { this.maNV = maNV; }
+
+    public List<MuaHang> getAll() {
+        List<MuaHang> list = new ArrayList<>();
+        String sql = "SELECT * FROM MUA_HANG";
+        try (Connection con = cn.connectSQL();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                Object[] row = new Object[7];
-                row[0] = rs.getInt("MaMuaHang");
-                row[1] = rs.getDate("NgayMua");
-                row[2] = rs.getInt("MaNCC");
-                row[3] = rs.getInt("MaNV");
-                row[4] = rs.getObject("MaSP"); // null nếu không có chi tiết
-                row[5] = rs.getObject("SoLuong");
-                row[6] = rs.getObject("DonGia");
-                list.add(row);
+                MuaHang mh = new MuaHang();
+                mh.maMuaHang = rs.getInt("MaMuaHang");
+                mh.ngayMua = rs.getTimestamp("NgayMua");
+                mh.maNCC = rs.getInt("MaNCC");
+                mh.maNV = rs.getInt("MaNV");
+                list.add(mh);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc MuaHang + ChiTiet: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Mua Hàng: " + e.getMessage());
         }
         return list;
     }
 
-    // --- Lấy 1 MuaHang ---
-    public MuaHang getMuaHang(int id) {
-        String sql = "SELECT * FROM MUA_HANG WHERE MaMuaHang=?";
+    public List<Integer> getAllNCC() throws SQLException {
+        List<Integer> list = new ArrayList<>();
+        String sql = "SELECT MaNhaCungCap FROM Nha_cung_cap";
+        try (Connection con = cn.connectSQL();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) list.add(rs.getInt("MaNhaCungCap"));
+        }
+        return list;
+    }
+
+    public List<Integer> getAllMNV() throws SQLException {
+        List<Integer> list = new ArrayList<>();
+        String sql = "SELECT MaNhanVien FROM Nhan_vien";
+        try (Connection con = cn.connectSQL();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) list.add(rs.getInt("MaNhanVien"));
+        }
+        return list;
+    }
+
+    public MuaHang getMuaHang(int maMH) throws SQLException {
+        String sql = "SELECT * FROM MUA_HANG WHERE MaMuaHang = ?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
+            ps.setInt(1, maMH);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    MuaHang mh = new MuaHang();
-                    mh.setMaMuaHang(rs.getInt("MaMuaHang"));
-                    Timestamp ts = rs.getTimestamp("NgayMua");
-                    mh.setNgayMua(ts != null ? new java.util.Date(ts.getTime()) : null);
-                    mh.setMaNCC(rs.getInt("MaNCC"));
-                    mh.setMaNV(rs.getInt("MaNV"));
-                    mh.setTrangThai(rs.getInt("TrangThai"));
-                    return mh;
+                    MuaHang obj = new MuaHang();
+                    obj.maMuaHang = rs.getInt("MaMuaHang");
+                    obj.ngayMua = rs.getTimestamp("NgayMua");
+                    obj.maNCC = rs.getInt("MaNCC");
+                    obj.maNV = rs.getInt("MaNV");
+                    return obj;
                 }
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc MuaHang: " + e.getMessage());
         }
         return null;
     }
 
-    // --- Thêm MuaHang ---
-    public boolean insertData(MuaHang obj) {
-        String sql = "INSERT INTO MUA_HANG (NgayMua, MaNCC, MaNV, TrangThai) VALUES (?, ?, ?, ?)";
-        try (Connection con = cn.connectSQL();
-             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            ps.setTimestamp(1, new Timestamp(obj.getNgayMua().getTime()));
-            ps.setInt(2, obj.getMaNCC());
-            ps.setInt(3, obj.getMaNV());
-            ps.setInt(4, obj.getTrangThai());
-            int rows = ps.executeUpdate();
-            if (rows > 0) {
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.next()) obj.setMaMuaHang(rs.getInt(1));
-                }
-            }
-            return rows > 0;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi thêm MuaHang: " + e.getMessage());
-            return false;
-        }
-    }
-
-    // --- Cập nhật MuaHang ---
-    public boolean editData(MuaHang obj) {
-        String sql = "UPDATE MUA_HANG SET NgayMua=?, MaNCC=?, MaNV=?, TrangThai=? WHERE MaMuaHang=?";
+    public boolean deleteData(int maMH) throws SQLException {
+        String sql = "DELETE FROM MUA_HANG WHERE MaMuaHang = ?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setTimestamp(1, new Timestamp(obj.getNgayMua().getTime()));
-            ps.setInt(2, obj.getMaNCC());
-            ps.setInt(3, obj.getMaNV());
-            ps.setInt(4, obj.getTrangThai());
-            ps.setInt(5, obj.getMaMuaHang());
+            ps.setInt(1, maMH);
             return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi cập nhật MuaHang: " + e.getMessage());
-            return false;
         }
     }
 
-    // --- Xóa MuaHang ---
-    public boolean deleteData(int id) {
-        String sqlChiTiet = "DELETE FROM CHI_TIET_MUA_HANG WHERE MaMuaHang=?";
-        String sqlMuaHang = "DELETE FROM MUA_HANG WHERE MaMuaHang=?";
-        try (Connection con = cn.connectSQL()) {
-            con.setAutoCommit(false);
-            try (PreparedStatement ps1 = con.prepareStatement(sqlChiTiet);
-                 PreparedStatement ps2 = con.prepareStatement(sqlMuaHang)) {
+    public boolean insertData(MuaHang obj) throws SQLException {
+        String sql = "INSERT INTO MUA_HANG (NgayMua, MaNCC, MaNV) VALUES (?, ?, ?)";
+        try (Connection con = cn.connectSQL();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setTimestamp(1, new java.sql.Timestamp(obj.ngayMua.getTime()));
+            ps.setInt(2, obj.maNCC);
+            ps.setInt(3, obj.maNV);
+            return ps.executeUpdate() > 0;
+        }
+    }
 
-                ps1.setInt(1, id);
-                ps1.executeUpdate();
-
-                ps2.setInt(1, id);
-                int rows = ps2.executeUpdate();
-
-                con.commit();
-                return rows > 0;
-            } catch (SQLException e) {
-                con.rollback();
-                throw e;
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi xóa MuaHang: " + e.getMessage());
-            return false;
+    public boolean editData(MuaHang obj) throws SQLException {
+        String sql = "UPDATE MUA_HANG SET NgayMua = ?, MaNCC = ?, MaNV = ? WHERE MaMuaHang = ?";
+        try (Connection con = cn.connectSQL();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setTimestamp(1, new java.sql.Timestamp(obj.ngayMua.getTime()));
+            ps.setInt(2, obj.maNCC);
+            ps.setInt(3, obj.maNV);
+            ps.setInt(4, obj.maMuaHang);
+            return ps.executeUpdate() > 0;
         }
     }
 }
