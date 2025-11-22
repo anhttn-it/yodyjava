@@ -4,8 +4,8 @@
  */
 package Interface;
 
-import java.sql.*;
-import Proccess.ChiTietPhieuNhap;
+import Proccess.ChiTietPhieuXuat;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,32 +13,31 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ngocanh
  */
-public class panelChiTietPhieuNhap extends javax.swing.JPanel {
-    public javax.swing.JTable getTblCTPN() {
-    return tblCTPN;
+public class panelChiTietPhieuXuat extends javax.swing.JPanel {
+    public javax.swing.JTable getTblCTPX() {
+    return tblCTPX;
     }
-    public void loadData(int mapn) throws SQLException {
-    this.maPN = mapn;
+    public void loadData(int mapx) throws SQLException {
+    this.maPX = mapx;
     ShowData();
     }
-    private final ChiTietPhieuNhap ct = new ChiTietPhieuNhap();
-    //private final DefaultTableModel tableModel= new DefaultTableModel();
+    private final ChiTietPhieuXuat ct = new ChiTietPhieuXuat();
     private final DefaultTableModel tableModel = new DefaultTableModel(
     new String[] {"Mã SP", "Tên SP", "Màu sắc", "Kích cỡ", "Số lượng", "Đơn giá"}, 0
     );
-    private int maPN;
+    private int maPX;
     private boolean cothem=true;
     public void ShowData() throws SQLException{
-        List<ChiTietPhieuNhap> list = ct.getall(maPN);
+        List<ChiTietPhieuXuat> list = ct.getall(maPX);
         tableModel.setRowCount(0);
-        for(ChiTietPhieuNhap ctpn:list){
+        for(ChiTietPhieuXuat ctpx:list){
             Object[] row = new Object[7];
-            row[0]= ctpn.getMaSP();
-            row[1]=ctpn.getTenSP();
-            row[2]=ctpn.getMauSac();
-            row[3]=ctpn.getKichCo();
-            row[4]=ctpn.getSoLuong();
-            row[5]=ctpn.getDonGia();
+            row[0]= ctpx.getMaSP();
+            row[1]=ctpx.getTenSP();
+            row[2]=ctpx.getMauSac();
+            row[3]=ctpx.getKichCo();
+            row[4]=ctpx.getSoLuong();
+            row[5]=ctpx.getDonGia();
 
             tableModel.addRow(row);
         }
@@ -83,11 +82,11 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         cbMauSac.setSelectedItem(null);
     }
     public void setbutton(boolean a){
-        btnThemCTPN.setEnabled(a);
-        btnSuaCTPN.setEnabled(a);
-        btnXoaCTPN.setEnabled(a);
-        btnLuuCTPN.setEnabled(!a);
-        btnKLuuCTPN.setEnabled(!a);
+        btnThemCTPX.setEnabled(a);
+        btnSuaCTPX.setEnabled(a);
+        btnXoaCTPX.setEnabled(a);
+        btnLuuCTPX.setEnabled(!a);
+        btnKLuuCTPX.setEnabled(!a);
         
     }
     public void setKhoa(boolean a){
@@ -97,12 +96,29 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         cbMaSP.setEnabled(!a); 
         cbMauSac.setEnabled(!a); 
     }
-    /**
-     * Creates new form panelChiTietPhieuNhap
-     */
-    public panelChiTietPhieuNhap() {
+    /*public panelChiTietPhieuXuat(int mapx) throws SQLException{
+        this.maPX = mapx;
         initComponents();
-        tblCTPN.setModel(tableModel); 
+        tableModel.setColumnIdentifiers(new Object[]{"MaSP","TenSP","Màu sắc","Kích cỡ","Số lượng","Đơn giá"});
+        tblCTPX.setModel(tableModel);
+        loadMaSp();
+        setnull();
+        setbutton(true);
+        setKhoa(true);
+        cbMaSP.addActionListener(e -> {
+            try {
+                loadtensp(); 
+                loadmausac();
+                loadkichco();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+        ShowData();
+    }*/
+    public panelChiTietPhieuXuat() {
+        initComponents();
+        tblCTPX.setModel(tableModel); 
         try {
         loadMaSp();
         } catch (SQLException ex) {
@@ -128,77 +144,36 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbMaSP = new javax.swing.JComboBox<>();
-        btnSuaCTPN = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        btnXoaCTPN = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        btnLuuCTPN = new javax.swing.JButton();
-        cbMauSac = new javax.swing.JComboBox<>();
-        btnKLuuCTPN = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         cbKichCo = new javax.swing.JComboBox<>();
         txtTenSP = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblCTPN = new javax.swing.JTable();
+        tblCTPX = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         txtSoLuong = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtDonGia = new javax.swing.JTextField();
+        cbMaSP = new javax.swing.JComboBox<>();
+        btnSuaCTPX = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnXoaCTPX = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btnLuuCTPX = new javax.swing.JButton();
+        cbMauSac = new javax.swing.JComboBox<>();
+        btnKLuuCTPX = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnThemCTPN = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btnThemCTPX = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 900));
 
-        btnSuaCTPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSuaCTPN.setText("Sửa");
-        btnSuaCTPN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaCTPNActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Tên SP");
-
-        btnXoaCTPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnXoaCTPN.setText("Xóa");
-        btnXoaCTPN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaCTPNActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Màu sắc");
-
-        btnLuuCTPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnLuuCTPN.setText("Lưu");
-        btnLuuCTPN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuuCTPNActionPerformed(evt);
-            }
-        });
-
-        btnKLuuCTPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnKLuuCTPN.setText("KLưu");
-        btnKLuuCTPN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKLuuCTPNActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Kích cỡ");
-
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel9.setForeground(java.awt.SystemColor.textHighlight);
-        jLabel9.setText("Chi tiết phiếu nhập");
+        jLabel9.setText("Chi tiết phiếu xuất");
 
         txtTenSP.setEditable(false);
 
-        tblCTPN.setModel(new javax.swing.table.DefaultTableModel(
+        tblCTPX.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -217,12 +192,12 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        tblCTPN.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblCTPX.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCTPNMouseClicked(evt);
+                tblCTPXMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblCTPN);
+        jScrollPane2.setViewportView(tblCTPX);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Số lượng");
@@ -230,14 +205,55 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Đơn giá");
 
+        btnSuaCTPX.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSuaCTPX.setText("Sửa");
+        btnSuaCTPX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaCTPXActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Tên SP");
+
+        btnXoaCTPX.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnXoaCTPX.setText("Xóa");
+        btnXoaCTPX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaCTPXActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Màu sắc");
+
+        btnLuuCTPX.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLuuCTPX.setText("Lưu");
+        btnLuuCTPX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuCTPXActionPerformed(evt);
+            }
+        });
+
+        btnKLuuCTPX.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnKLuuCTPX.setText("KLưu");
+        btnKLuuCTPX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKLuuCTPXActionPerformed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Mã SP");
 
-        btnThemCTPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnThemCTPN.setText("Thêm");
-        btnThemCTPN.addActionListener(new java.awt.event.ActionListener() {
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Kích cỡ");
+
+        btnThemCTPX.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnThemCTPX.setText("Thêm");
+        btnThemCTPX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemCTPNActionPerformed(evt);
+                btnThemCTPXActionPerformed(evt);
             }
         });
 
@@ -251,7 +267,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThemCTPN)
+                    .addComponent(btnThemCTPX)
                     .addComponent(jLabel6)
                     .addComponent(jLabel4)
                     .addComponent(jLabel1))
@@ -282,15 +298,15 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                         .addGap(109, 109, 109))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(btnSuaCTPN)
+                        .addComponent(btnSuaCTPX)
                         .addGap(48, 48, 48)
-                        .addComponent(btnXoaCTPN)
+                        .addComponent(btnXoaCTPX)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLuuCTPN)
+                .addComponent(btnLuuCTPX)
                 .addGap(49, 49, 49)
-                .addComponent(btnKLuuCTPN)
+                .addComponent(btnKLuuCTPX)
                 .addGap(87, 87, 87))
         );
         layout.setVerticalGroup(
@@ -300,8 +316,8 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(77, 77, 77)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLuuCTPN)
-                            .addComponent(btnKLuuCTPN))
+                            .addComponent(btnLuuCTPX)
+                            .addComponent(btnKLuuCTPX))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,39 +341,65 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                     .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnXoaCTPN)
-                    .addComponent(btnSuaCTPN)
-                    .addComponent(btnThemCTPN))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoaCTPX)
+                    .addComponent(btnSuaCTPX)
+                    .addComponent(btnThemCTPX))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSuaCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaCTPNActionPerformed
+    private void tblCTPXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCTPXMouseClicked
+        try {
+            // TODO add your handling code here:
+            int row =tblCTPX.getSelectedRow();
+            if(row < 0) return;
+            String ma = tblCTPX.getValueAt(row,0).toString();
+            int masp=Integer.parseInt(ma);
+            String mausac = tblCTPX.getValueAt(row, 2).toString();
+            String kt=tblCTPX.getValueAt(row,3).toString();
+            int kichco=Integer.parseInt(kt);
+            int mabt=ct.getMaBienThe(masp, mausac, kichco);
+            ChiTietPhieuXuat obj=ct.getCTPX(maPX,mabt);
+            if(obj!=null){
+                cbMaSP.setSelectedItem(obj.getMaSP());
+                txtDonGia.setText(String.valueOf(obj.getDonGia()));
+                txtSoLuong.setText(String.valueOf(obj.getSoLuong()));
+                txtTenSP.setText(obj.getTenSP());
+                cbKichCo.setSelectedItem(obj.getKichCo());
+
+                cbMauSac.setSelectedItem(obj.getMauSac());
+            }
+        } catch (SQLException ex) {
+            System.getLogger(frmChiTietPhieuNhap.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_tblCTPXMouseClicked
+
+    private void btnSuaCTPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaCTPXActionPerformed
         // TODO add your handling code here:
-        int row = tblCTPN.getSelectedRow();
+        int row = tblCTPX.getSelectedRow();
         if (row >= 0) {
             setbutton(false);
             setKhoa(false);
             cothem = false;
-            tblCTPN.setEnabled(false);
+            tblCTPX.setEnabled(false);
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng để sửa");
         }
-    }//GEN-LAST:event_btnSuaCTPNActionPerformed
+    }//GEN-LAST:event_btnSuaCTPXActionPerformed
 
-    private void btnXoaCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaCTPNActionPerformed
+    private void btnXoaCTPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaCTPXActionPerformed
         // TODO add your handling code here:
-        int row = tblCTPN.getSelectedRow();
+        int row = tblCTPX.getSelectedRow();
         if(row < 0){
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng để xóa!");
             return;
         }
         try {
-            int maSP = (int) tblCTPN.getValueAt(row, 0);
-            String mausac = (String) tblCTPN.getValueAt(row, 2);
-            int kichco = (int) tblCTPN.getValueAt(row, 3);
+            int maSP = (int) tblCTPX.getValueAt(row, 0);
+            String mausac = (String) tblCTPX.getValueAt(row, 2);
+            int kichco = (int) tblCTPX.getValueAt(row, 3);
             Integer maBienThe = ct.getMaBienThe(maSP, mausac, kichco);
             if(maBienThe == null){
                 JOptionPane.showMessageDialog(this, "Biến thể sản phẩm không tồn tại!");
@@ -368,7 +410,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                 "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
 
             if(confirm == JOptionPane.YES_OPTION){
-                boolean kq = ct.deleteCTPN(maPN, maBienThe);
+                boolean kq = ct.deleteCTPN(maPX, maBienThe);
                 if(kq){
                     JOptionPane.showMessageDialog(this, "Xóa thành công!");
                     ShowData();
@@ -381,9 +423,9 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Lỗi khi xóa: " + ex.getMessage());
         }
-    }//GEN-LAST:event_btnXoaCTPNActionPerformed
+    }//GEN-LAST:event_btnXoaCTPXActionPerformed
 
-    private void btnLuuCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuCTPNActionPerformed
+    private void btnLuuCTPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuCTPXActionPerformed
         // TODO add your handling code here:
         try {
             int maSP = (int) cbMaSP.getSelectedItem();
@@ -397,24 +439,24 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
             }
             boolean kq;
             if (cothem) {
-                kq = ct.addCTPN(maPN, maSP, mausac, kichco, soluong, dongia);
+                kq = ct.addCTPN(maPX, maSP, mausac, kichco, soluong, dongia);
                 if (kq) {
                     tableModel.setRowCount(0); // xóa bảng cũ
                     ShowData(); // load lại dữ liệu
                     setnull();
                     setbutton(true);
                     setKhoa(true);
-                    tblCTPN.setEnabled(true);
+                    tblCTPX.setEnabled(true);
                 }
             } else {
-                kq = ct.updateCTPN(maPN, maSP, mausac, kichco, soluong, dongia);
+                kq = ct.updateCTPN(maPX, maSP, mausac, kichco, soluong, dongia);
                 if (kq) {
                     tableModel.setRowCount(0);
                     ShowData();
                     setnull();
                     setbutton(true);
                     setKhoa(true);
-                    tblCTPN.setEnabled(true);
+                    tblCTPX.setEnabled(true);
                 }
             }
         } catch (SQLException ex) {
@@ -422,58 +464,32 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         } catch (NumberFormatException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Số lượng, Đơn giá");
         }
-    }//GEN-LAST:event_btnLuuCTPNActionPerformed
+    }//GEN-LAST:event_btnLuuCTPXActionPerformed
 
-    private void btnKLuuCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKLuuCTPNActionPerformed
+    private void btnKLuuCTPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKLuuCTPXActionPerformed
         // TODO add your handling code here:
         setnull();
         setbutton(true);
         setKhoa(true);
-        tblCTPN.setEnabled(true);
-    }//GEN-LAST:event_btnKLuuCTPNActionPerformed
+        tblCTPX.setEnabled(true);
+    }//GEN-LAST:event_btnKLuuCTPXActionPerformed
 
-    private void tblCTPNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCTPNMouseClicked
-        try {
-            // TODO add your handling code here:
-            int row =tblCTPN.getSelectedRow();
-            if(row < 0) return;
-            String ma = tblCTPN.getValueAt(row,0).toString();
-            int masp=Integer.parseInt(ma);
-            String mausac = tblCTPN.getValueAt(row, 2).toString();
-            String kt=tblCTPN.getValueAt(row,3).toString();
-            int kichco=Integer.parseInt(kt);
-            int mabt=ct.getMaBienThe(masp, mausac, kichco);
-            ChiTietPhieuNhap obj=ct.getCTPN(maPN,mabt);
-            if(obj!=null){
-                cbMaSP.setSelectedItem(obj.getMaSP());
-                txtDonGia.setText(String.valueOf(obj.getDonGia()));
-                txtSoLuong.setText(String.valueOf(obj.getSoLuong()));
-                txtTenSP.setText(obj.getTenSP());
-                cbKichCo.setSelectedItem(obj.getKichCo());
-
-                cbMauSac.setSelectedItem(obj.getMauSac());
-            }
-        } catch (SQLException ex) {
-            System.getLogger(frmChiTietPhieuNhap.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-    }//GEN-LAST:event_tblCTPNMouseClicked
-
-    private void btnThemCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemCTPNActionPerformed
+    private void btnThemCTPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemCTPXActionPerformed
         // TODO add your handling code here:
         setnull();
         setbutton(false);
         setKhoa(false);
         cothem=true;
-        tblCTPN.setEnabled(false);
-    }//GEN-LAST:event_btnThemCTPNActionPerformed
+        tblCTPX.setEnabled(false);
+    }//GEN-LAST:event_btnThemCTPXActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnKLuuCTPN;
-    private javax.swing.JButton btnLuuCTPN;
-    private javax.swing.JButton btnSuaCTPN;
-    private javax.swing.JButton btnThemCTPN;
-    private javax.swing.JButton btnXoaCTPN;
+    private javax.swing.JButton btnKLuuCTPX;
+    private javax.swing.JButton btnLuuCTPX;
+    private javax.swing.JButton btnSuaCTPX;
+    private javax.swing.JButton btnThemCTPX;
+    private javax.swing.JButton btnXoaCTPX;
     private javax.swing.JComboBox<Integer> cbKichCo;
     private javax.swing.JComboBox<Integer> cbMaSP;
     private javax.swing.JComboBox<String> cbMauSac;
@@ -485,7 +501,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblCTPN;
+    private javax.swing.JTable tblCTPX;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;

@@ -258,17 +258,15 @@ public class frmHome extends javax.swing.JFrame {
             try {
         // Panel chính
         panelPhieuNhap pn = new panelPhieuNhap();
-
         // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
         setPanel(pn, null);
-
         // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
         pn.getTblPhieuNhap().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 int row = pn.getTblPhieuNhap().getSelectedRow();
                 if (row >= 0) {
-                    int mapn = (int) pn.getTblPhieuNhap().getValueAt(row, 0); // cột 0 là Mã phiếu
+                    int mapn = (int) pn.getTblPhieuNhap().getValueAt(row, 0);
                     try {
                         panelChiTietPhieuNhap detail = new panelChiTietPhieuNhap();
                         detail.loadData(mapn);
@@ -292,10 +290,41 @@ public class frmHome extends javax.swing.JFrame {
 
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
         // TODO add your handling code here:
+//        try {
+//            // TODO add your handling code here:
+//            panelPhieuXuat px = new panelPhieuXuat();
+//            setPanel(px);
+//        } catch (SQLException ex) {
+//            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+//        }
         try {
-            // TODO add your handling code here:
+            // Panel chính
             panelPhieuXuat px = new panelPhieuXuat();
-            setPanel(px);
+            // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+            setPanel(px, null);
+            // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
+            px.getTblPhieuXuat().addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    int row = px.getTblPhieuXuat().getSelectedRow();
+                    if (row >= 0) {
+                        int mapx = (int) px.getTblPhieuXuat().getValueAt(row, 0);
+                        try {
+                            panelChiTietPhieuXuat detail = new panelChiTietPhieuXuat();
+                            detail.loadData(mapx);
+                            // Load trực tiếp vào panelct
+                            panelct.removeAll();
+                            panelct.setLayout(new java.awt.BorderLayout());
+                            panelct.add(detail);
+                            panelct.revalidate();
+                            panelct.repaint();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            });
+
         } catch (SQLException ex) {
             System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }

@@ -262,5 +262,9 @@ public class ChiTietPhieuXuat {
         }
     }
 
+    public ChiTietPhieuXuat getCTPX(int maPX, int mabt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
 }
