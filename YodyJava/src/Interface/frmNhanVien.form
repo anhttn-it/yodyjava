@@ -352,8 +352,8 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
-            <StringItem index="0" value="0"/>
-            <StringItem index="1" value="1"/>
+            <StringItem index="0" value="Nam"/>
+            <StringItem index="1" value="N&#x1eef;"/>
           </StringArray>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -373,9 +373,10 @@
     <Component class="javax.swing.JComboBox" name="jComboBox2">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="0"/>
-            <StringItem index="1" value="1"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Qu&#x1ea3;n L&#xfd;"/>
+            <StringItem index="1" value="Nh&#xe2;n vi&#xea;n kho"/>
+            <StringItem index="2" value="Nh&#xe2;n vi&#xea;n thu ng&#xe2;n"/>
           </StringArray>
         </Property>
       </Properties>
@@ -428,8 +429,8 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
-            <StringItem index="0" value="0"/>
-            <StringItem index="1" value="1"/>
+            <StringItem index="0" value="Ho&#x1ea1;t &#x111;&#x1ed9;ng"/>
+            <StringItem index="1" value="Kh&#xf4;ng ho&#x1ea1;t &#x111;&#x1ed9;ng"/>
           </StringArray>
         </Property>
       </Properties>
