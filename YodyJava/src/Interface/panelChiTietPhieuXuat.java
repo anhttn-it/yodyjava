@@ -121,6 +121,9 @@ public class panelChiTietPhieuXuat extends javax.swing.JPanel {
         tblCTPX.setModel(tableModel); 
         try {
         loadMaSp();
+        setnull();
+        setbutton(true);
+        setKhoa(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

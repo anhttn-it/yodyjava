@@ -477,7 +477,7 @@ public ChiTietBanHang getChiTiet(int maBanHang, int maBienThe) {
         return list;
     }
 
-    public ChiTietBanHang getCTPN(int mapn,int mabt) throws SQLException{
+    public ChiTietBanHang getCTBH(int mapn,int mabt) throws SQLException{
         String sql="SELECT ctpx.SoLuong, ctpx.DonGia, " +
                  "sp.TenSanPham, bt.MauSac, bt.KichCo, ctpx.MaSanPham " +
                  "FROM CHI_TIET_Ban_Hang ctpx " +
@@ -564,8 +564,5 @@ public ChiTietBanHang getChiTiet(int maBanHang, int maBienThe) {
         }
     }
 
-    public ChiTietBanHang getCTBH(int maPX, int mabt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
 }

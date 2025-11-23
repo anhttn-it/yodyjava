@@ -406,7 +406,7 @@ public class panelPhieuXuat extends javax.swing.JPanel {
             }
 
             // --- HIỂN THỊ CHI TIẾT ---
-            panelChiTietPhieuNhap chiTietPanel = new panelChiTietPhieuNhap();
+            panelChiTietPhieuXuat chiTietPanel = new panelChiTietPhieuXuat();
             chiTietPanel.loadData(mapx);
             chiTietPanel.setVisible(true);
             // Nếu panelChiTietPhieuNhap đã có trong GUI, chỉ cần gọi chiTietPanel.showChiTiet(mapn, pn);

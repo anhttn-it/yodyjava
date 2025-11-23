@@ -105,6 +105,9 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         tblCTPN.setModel(tableModel); 
         try {
         loadMaSp();
+        setnull();
+        setbutton(true);
+        setKhoa(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

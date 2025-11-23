@@ -175,7 +175,7 @@ public class ChiTietPhieuXuat {
         return list;
     }
 
-    public ChiTietPhieuXuat getCTPN(int mapn,int mabt) throws SQLException{
+    public ChiTietPhieuXuat getCTPX(int mapn,int mabt) throws SQLException{
         String sql="SELECT ctpx.SoLuong, ctpx.DonGia, " +
                  "sp.TenSanPham, bt.MauSac, bt.KichCo, ctpx.MaSanPham " +
                  "FROM CHI_TIET_PHIEU_XUAT ctpx " +
@@ -260,10 +260,6 @@ public class ChiTietPhieuXuat {
             ps.setInt(2, maBienThe);
             return ps.executeUpdate() > 0;
         }
-    }
-
-    public ChiTietPhieuXuat getCTPX(int maPX, int mabt) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 

@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class panelNhanVien extends javax.swing.JPanel {
-private NhanVien dao = new NhanVien();
+    private NhanVien dao = new NhanVien();
     private boolean isAdding = false;
     private final DefaultTableModel tableModel= new DefaultTableModel();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmNhanVien.class.getName());
@@ -93,6 +93,7 @@ private void fillToForm() {
     jComboBox2.setSelectedItem(tbnhanvien.getValueAt(row, 8).toString());
     jComboBox3.setSelectedItem(tbnhanvien.getValueAt(row, 9).toString());
     txtngaytao.setText(tbnhanvien.getValueAt(row, 10).toString());
+    
 }
     /**
      * This method is called from within the constructor to initialize the form.

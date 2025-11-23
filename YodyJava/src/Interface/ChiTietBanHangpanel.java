@@ -121,6 +121,9 @@ public javax.swing.JTable getTblCTPX() {
         tblCTPX.setModel(tableModel); 
         try {
         loadMaSp();
+        setnull();
+        setbutton(true);
+        setKhoa(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

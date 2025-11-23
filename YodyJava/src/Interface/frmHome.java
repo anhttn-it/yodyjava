@@ -4,6 +4,7 @@
  */
 package Interface;
 
+import java.awt.Dimension;
 import java.sql.SQLException;
 import javax.swing.JPanel;
 
@@ -12,7 +13,21 @@ import javax.swing.JPanel;
  * @author ngocanh
  */
 public class frmHome extends javax.swing.JFrame {
-
+        private void resetButtonColors() {
+        btnMua.setBackground(null);
+        btnBan.setBackground(null);
+        btnNhap.setBackground(null);
+        btnXuat.setBackground(null);
+        btnSanPham.setBackground(null);
+        btnNhanVien.setBackground(null);
+        btnncc.setBackground(null);
+        btnkh.setBackground(null);
+        btnBaoCao.setBackground(null);
+    }
+        private void highlightButton(javax.swing.JButton selected) {
+        resetButtonColors(); // reset trước
+        selected.setBackground(java.awt.Color.LIGHT_GRAY); // màu đậm hơn
+    }
     private void setPanel(JPanel mainPanel, JPanel detailPanel) {
         // Panel chính
         pane.removeAll();
@@ -59,6 +74,7 @@ public class frmHome extends javax.swing.JFrame {
         btnNhanVien = new javax.swing.JButton();
         btnncc = new javax.swing.JButton();
         btnkh = new javax.swing.JButton();
+        btnBaoCao = new javax.swing.JButton();
         pane = new javax.swing.JPanel();
         panelct = new javax.swing.JPanel();
 
@@ -143,12 +159,20 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
+        btnBaoCao.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        btnBaoCao.setText("Báo Cáo");
+        btnBaoCao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBaoCaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel1))
@@ -165,7 +189,10 @@ public class frmHome extends javax.swing.JFrame {
                             .addComponent(btnkh, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -189,7 +216,9 @@ public class frmHome extends javax.swing.JFrame {
                 .addComponent(btnncc)
                 .addGap(18, 18, 18)
                 .addComponent(btnkh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBaoCao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -257,12 +286,11 @@ public class frmHome extends javax.swing.JFrame {
 //        } catch (SQLException ex) {
 //            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
 //        }
+        highlightButton(btnNhap);
         try {
-            // Panel chính
             panelPhieuNhap pn = new panelPhieuNhap();
-            // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+            pane.setPreferredSize(new Dimension(700, 800));
             setPanel(pn, null);
-            // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
             pn.getTblPhieuNhap().addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -298,12 +326,11 @@ public class frmHome extends javax.swing.JFrame {
 //        } catch (SQLException ex) {
 //            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
 //        }
+        highlightButton(btnXuat);
         try {
-            // Panel chính
             panelPhieuXuat px = new panelPhieuXuat();
-            // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+            pane.setPreferredSize(new Dimension(700, 800));
             setPanel(px, null);
-            // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
             px.getTblPhieuXuat().addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -333,17 +360,18 @@ public class frmHome extends javax.swing.JFrame {
 
     private void btnSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSanPhamActionPerformed
         // TODO add your handling code here:
+        highlightButton(btnSanPham);
         panelSanPham sp = new panelSanPham();
+        pane.setPreferredSize(new Dimension(700, 800));
         setPanel(sp, null);
     }//GEN-LAST:event_btnSanPhamActionPerformed
 
     private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
+        highlightButton(btnBan);
         try {
-            // Panel chính
             BanHangpanel px = new BanHangpanel();
-            // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+            pane.setPreferredSize(new Dimension(700, 800));
             setPanel(px, null);
-            // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
             px.getTblBanHang().addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -373,15 +401,19 @@ public class frmHome extends javax.swing.JFrame {
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         // TODO add your handling code here:
+        highlightButton(btnNhanVien);
         panelNhanVien nv = new panelNhanVien();
+        pane.setPreferredSize(new Dimension(1400, 800));
         setPanel(nv, null);
     }//GEN-LAST:event_btnNhanVienActionPerformed
 
     private void btnnccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnccActionPerformed
         // TODO add your handling code here:
+        highlightButton(btnncc);
         try {
             // TODO add your handling code here:
             panelNhaCungCap ncc = new panelNhaCungCap();
+            pane.setPreferredSize(new Dimension(1400, 800));
             setPanel(ncc, null);
         } catch (SQLException ex) {
             System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
@@ -390,9 +422,11 @@ public class frmHome extends javax.swing.JFrame {
 
     private void btnkhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkhActionPerformed
         // TODO add your handling code here:
+        highlightButton(btnkh);
         try {
             // TODO add your handling code here:
             panelKhachHang kh = new panelKhachHang();
+            pane.setPreferredSize(new Dimension(1400, 800));
             setPanel(kh, null);
         } catch (SQLException ex) {
             System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
@@ -401,12 +435,11 @@ public class frmHome extends javax.swing.JFrame {
 
     private void btnMuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuaActionPerformed
         // TODO add your handling code here:
+        highlightButton(btnMua);
         try {
-            // Panel chính
             panelMuaHang mh = new panelMuaHang();
-            // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+            pane.setPreferredSize(new Dimension(700, 800));
             setPanel(mh, null);
-            // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
             mh.gettblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -436,10 +469,21 @@ public class frmHome extends javax.swing.JFrame {
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
         // TODO add your handling code here:
+        highlightButton(btnDangXuat);
         frmDangNhap dn = new frmDangNhap();
         dn.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDangXuatActionPerformed
+
+    private void btnBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaoCaoActionPerformed
+        // TODO add your handling code here:
+            // TODO add your handling code here:
+            highlightButton(btnBaoCao);
+            pane.setPreferredSize(new Dimension(700, 800));
+            panelDoanhThu dt = new panelDoanhThu();
+            panelThongKe tk = new panelThongKe();
+            setPanel(dt, tk);
+    }//GEN-LAST:event_btnBaoCaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,6 +512,7 @@ public class frmHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBan;
+    private javax.swing.JButton btnBaoCao;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnMua;
     private javax.swing.JButton btnNhanVien;
