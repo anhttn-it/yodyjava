@@ -44,7 +44,7 @@ public class panelPhieuNhap extends javax.swing.JPanel {
                 cbMaNV.addItem(manv);
             }
         } catch (SQLException ex) {
-            System.getLogger(frmPhieuNhap.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            ex.printStackTrace();
         }
     }
     public void setnull(){
@@ -499,7 +499,7 @@ public class panelPhieuNhap extends javax.swing.JPanel {
             ClearData();
             ShowData();
         } catch (SQLException ex) {
-            System.getLogger(frmPhieuXuat.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_btnLMActionPerformed
 

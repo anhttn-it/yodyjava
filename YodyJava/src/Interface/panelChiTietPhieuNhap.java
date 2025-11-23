@@ -453,7 +453,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                 cbMauSac.setSelectedItem(obj.getMauSac());
             }
         } catch (SQLException ex) {
-            System.getLogger(frmChiTietPhieuNhap.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_tblCTPNMouseClicked
 

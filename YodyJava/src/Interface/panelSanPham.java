@@ -15,7 +15,6 @@ public class panelSanPham extends javax.swing.JPanel {
     private SanPham dao = new SanPham();
     private boolean isAdding = false;
     private DefaultTableModel model;
-    private static final Logger logger = Logger.getLogger(frmSanPham.class.getName());
 
     public panelSanPham() {
         initComponents();

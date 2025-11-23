@@ -27,7 +27,7 @@ public class frmHome extends javax.swing.JFrame {
     }
         private void highlightButton(javax.swing.JButton selected) {
         resetButtonColors(); // reset trước
-        selected.setBackground(java.awt.Color.LIGHT_GRAY); // màu đậm hơn
+        selected.setBackground(java.awt.Color.GRAY);
     }
     private void setPanel(JPanel mainPanel, JPanel detailPanel) {
         // Panel chính
@@ -435,71 +435,40 @@ public class frmHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnkhActionPerformed
 
     private void btnMuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuaActionPerformed
-<<<<<<< HEAD
-        // TODO add your handling code here:
+      // TODO add your handling code here:
         highlightButton(btnMua);
-        try {
-            panelMuaHang mh = new panelMuaHang();
-            pane.setPreferredSize(new Dimension(700, 800));
-            setPanel(mh, null);
-            mh.gettblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent e) {
-                    int row = mh.gettblMuaHang().getSelectedRow();
-                    if (row >= 0) {
-                        int maMH = (int) mh.gettblMuaHang().getValueAt(row, 0);
-                        try {
-                            panelChiTietMuaHang detail = new panelChiTietMuaHang();
-                            detail.loadData(maMH);
-                            // Load trực tiếp vào panelct
-                            panelct.removeAll();
-                            panelct.setLayout(new java.awt.BorderLayout());
-                            panelct.add(detail);
-                            panelct.revalidate();
-                            panelct.repaint();
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-=======
-        // TODO add your handling code here:                                      
-        try {
-        // Tạo panel MuaHang
+    try {
+        // Tạo panel MuaHang duy nhất
         panelMuaHang mh = new panelMuaHang();
-
-        // Load panel MuaHang vào panel chính (panelchinh)
+        pane.setPreferredSize(new Dimension(700, 800));
         setPanel(mh, null);
-
-        // Gắn sự kiện click vào bảng mua hàng để load chi tiết bên panelct
-        mh.getTblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
+        mh.gettblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                int row = mh.getTblMuaHang().getSelectedRow();
+                int row = mh.gettblMuaHang().getSelectedRow();
                 if (row >= 0) {
-                    int maMH = (int) mh.getTblMuaHang().getValueAt(row, 0);
+                    int maMH = (int) mh.gettblMuaHang().getValueAt(row, 0);
                     try {
-                        // Tạo panel chi tiết
                         panelChiTietMuaHang detail = new panelChiTietMuaHang();
-                        // Load dữ liệu chi tiết theo MaMuaHang
-                         
-                        detail.loadDataByMaMH(maMH); // load dữ liệu theo MaMuaHang
+                        detail.loadDataByMaMH(maMH);
                         panelct.removeAll();
                         panelct.setLayout(new java.awt.BorderLayout());
                         panelct.add(detail);
                         panelct.revalidate();
                         panelct.repaint();
                     } catch (Exception ex) {
-                        ex.printStackTrace(); // fix lỗi logging
+                        ex.printStackTrace();
                         JOptionPane.showMessageDialog(null, "Lỗi load chi tiết: " + ex.getMessage());
->>>>>>> 465913d28af6e609e4c3c55b86401a5d2e359b90
                     }
                 }
             }
         });
 
     } catch (SQLException ex) {
-        ex.printStackTrace(); // fix lỗi logging
+        ex.printStackTrace();
         JOptionPane.showMessageDialog(null, "Lỗi khởi tạo panel Mua Hàng: " + ex.getMessage());
     }
+ 
     }//GEN-LAST:event_btnMuaActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed

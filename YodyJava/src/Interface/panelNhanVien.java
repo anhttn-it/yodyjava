@@ -18,7 +18,6 @@ public class panelNhanVien extends javax.swing.JPanel {
     private NhanVien dao = new NhanVien();
     private boolean isAdding = false;
     private final DefaultTableModel tableModel= new DefaultTableModel();
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmNhanVien.class.getName());
     /**
      * Creates new form panelNhanVien
      */
