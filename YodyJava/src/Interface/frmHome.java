@@ -338,9 +338,37 @@ public class frmHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSanPhamActionPerformed
 
     private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
-        // TODO add your handling code here:
-        panelBanHang bh = new panelBanHang();
-        setPanel(bh, null);
+        try {
+            // Panel chính
+            BanHangpanel px = new BanHangpanel();
+            // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+            setPanel(px, null);
+            // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
+            px.getTblBanHang().addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    int row = px.getTblBanHang().getSelectedRow();
+                    if (row >= 0) {
+                        int mapx = (int) px.getTblBanHang().getValueAt(row, 0);
+                        try {
+                            ChiTietBanHangpanel detail = new ChiTietBanHangpanel();
+                            detail.loadData(mapx);
+                            // Load trực tiếp vào panelct
+                            panelct.removeAll();
+                            panelct.setLayout(new java.awt.BorderLayout());
+                            panelct.add(detail);
+                            panelct.revalidate();
+                            panelct.repaint();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+        } catch (SQLException ex) {
+            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_btnBanActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed

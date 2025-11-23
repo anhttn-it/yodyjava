@@ -4,7 +4,7 @@
  */
 package Interface;
 
-import Proccess.ChiTietPhieuXuat;
+import Proccess.ChiTietBanHang;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -13,24 +13,24 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ngocanh
  */
-public class panelChiTietPhieuXuat extends javax.swing.JPanel {
-    public javax.swing.JTable getTblCTPX() {
+public class ChiTietBanHangpanel extends javax.swing.JPanel {
+public javax.swing.JTable getTblCTPX() {
     return tblCTPX;
     }
     public void loadData(int mapx) throws SQLException {
     this.maPX = mapx;
     ShowData();
     }
-    private final ChiTietPhieuXuat ct = new ChiTietPhieuXuat();
+    private final ChiTietBanHang ct = new ChiTietBanHang();
     private final DefaultTableModel tableModel = new DefaultTableModel(
     new String[] {"Mã SP", "Tên SP", "Màu sắc", "Kích cỡ", "Số lượng", "Đơn giá"}, 0
     );
     private int maPX;
     private boolean cothem=true;
     public void ShowData() throws SQLException{
-        List<ChiTietPhieuXuat> list = ct.getall(maPX);
+        List<ChiTietBanHang> list = ct.getall(maPX);
         tableModel.setRowCount(0);
-        for(ChiTietPhieuXuat ctpx:list){
+        for(ChiTietBanHang ctpx:list){
             Object[] row = new Object[7];
             row[0]= ctpx.getMaSP();
             row[1]=ctpx.getTenSP();
@@ -116,7 +116,7 @@ public class panelChiTietPhieuXuat extends javax.swing.JPanel {
         });
         ShowData();
     }*/
-    public panelChiTietPhieuXuat() {
+    public ChiTietBanHangpanel() {
         initComponents();
         tblCTPX.setModel(tableModel); 
         try {
@@ -165,11 +165,9 @@ public class panelChiTietPhieuXuat extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         btnThemCTPX = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(800, 900));
-
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel9.setForeground(java.awt.SystemColor.textHighlight);
-        jLabel9.setText("Chi tiết phiếu xuất");
+        jLabel9.setText("Chi tiết bán hàng");
 
         txtTenSP.setEditable(false);
 
@@ -349,7 +347,7 @@ public class panelChiTietPhieuXuat extends javax.swing.JPanel {
                             .addComponent(btnLuuCTPX)
                             .addComponent(btnKLuuCTPX))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -365,7 +363,7 @@ public class panelChiTietPhieuXuat extends javax.swing.JPanel {
             String kt=tblCTPX.getValueAt(row,3).toString();
             int kichco=Integer.parseInt(kt);
             int mabt=ct.getMaBienThe(masp, mausac, kichco);
-            ChiTietPhieuXuat obj=ct.getCTPX(maPX,mabt);
+            ChiTietBanHang obj=ct.getCTBH(maPX,mabt);
             if(obj!=null){
                 cbMaSP.setSelectedItem(obj.getMaSP());
                 txtDonGia.setText(String.valueOf(obj.getDonGia()));
