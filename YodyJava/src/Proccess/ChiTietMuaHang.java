@@ -7,101 +7,114 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ChiTietMuaHang {
-    private int maMH;
-    private int maSP;
-    private String mauSac;
-    private int kichCo;
-    private int soLuong;
-    private double donGia;
-    private int maBienThe;
-
+    private int MaSP;
+    private String TenSP;
+    private String MauSac;
+    private int KichCo;
+    private int SoLuong;
+    private float DonGia;
+    private int MaBienThe;
+    
     private final Connect cn = new Connect();
 
-    // Constructors
-    public ChiTietMuaHang() {}
+    public ChiTietMuaHang() { }
 
-    public ChiTietMuaHang(int maMH, int maSP, String mauSac, int kichCo, int soLuong, double donGia) {
-        this.maMH = maMH;
-        this.maSP = maSP;
-        this.mauSac = mauSac;
-        this.kichCo = kichCo;
-        this.soLuong = soLuong;
-        this.donGia = donGia;
+    public ChiTietMuaHang(int maSP, String tenSP, String mauSac, int kichCo, int soLuong, float donGia, int maBienThe) {
+        this.MaSP = maSP;
+        this.TenSP = tenSP;
+        this.MauSac = mauSac;
+        this.KichCo = kichCo;
+        this.SoLuong = soLuong;
+        this.DonGia = donGia;
+        this.MaBienThe = maBienThe;
     }
 
-    // Getters & Setters
-    public int getMaMH() { return maMH; }
-    public void setMaMH(int maMH) { this.maMH = maMH; }
-    public int getMaSP() { return maSP; }
-    public void setMaSP(int maSP) { this.maSP = maSP; }
-    public String getMauSac() { return mauSac; }
-    public void setMauSac(String mauSac) { this.mauSac = mauSac; }
-    public int getKichCo() { return kichCo; }
-    public void setKichCo(int kichCo) { this.kichCo = kichCo; }
-    public int getSoLuong() { return soLuong; }
-    public void setSoLuong(int soLuong) { this.soLuong = soLuong; }
-    public double getDonGia() { return donGia; }
-    public void setDonGia(double donGia) { this.donGia = donGia; }
-    public int getMaBienThe() { return maBienThe; }
-    public void setMaBienThe(int maBienThe) { this.maBienThe = maBienThe; }
+    // Getter & Setter
+    public int getMaSP() { return MaSP; }
+    public void setMaSP(int maSP) { MaSP = maSP; }
 
-    // ===========================
-    // LẤY DỮ LIỆU
-    // ===========================
+    public String getTenSP() { return TenSP; }
+    public void setTenSP(String tenSP) { TenSP = tenSP; }
 
-    public List<ChiTietMuaHang> getAll() {
-        List<ChiTietMuaHang> list = new ArrayList<>();
-        String sql = "SELECT ctmh.MaMuaHang, ctmh.MaSanPham, bt.MauSac, bt.KichCo, ctmh.SoLuong, ctmh.DonGia, ctmh.MaBienThe " +
-                     "FROM CHI_TIET_MUA_HANG ctmh " +
-                     "JOIN BIEN_THE_SAN_PHAM bt ON ctmh.MaBienThe = bt.Ma";
+    public String getMauSac() { return MauSac; }
+    public void setMauSac(String mauSac) { MauSac = mauSac; }
+
+    public int getKichCo() { return KichCo; }
+    public void setKichCo(int kichCo) { KichCo = kichCo; }
+
+    public int getSoLuong() { return SoLuong; }
+    public void setSoLuong(int soLuong) { SoLuong = soLuong; }
+
+    public float getDonGia() { return DonGia; }
+    public void setDonGia(float donGia) { DonGia = donGia; }
+
+    public int getMaBienThe() { return MaBienThe; }
+    public void setMaBienThe(int maBienThe) { MaBienThe = maBienThe; }
+
+    public Connect getCn() { return cn; }
+
+    // Lấy tất cả MaSP
+    public List<Integer> getAllMaSP() {
+        List<Integer> list = new ArrayList<>();
+        String sql = "SELECT MaSanPham FROM SAN_PHAM";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                ChiTietMuaHang obj = new ChiTietMuaHang();
-                obj.setMaMH(rs.getInt("MaMuaHang"));
-                obj.setMaSP(rs.getInt("MaSanPham"));
-                obj.setMauSac(rs.getString("MauSac"));
-                obj.setKichCo(rs.getInt("KichCo"));
-                obj.setSoLuong(rs.getInt("SoLuong"));
-                obj.setDonGia(rs.getDouble("DonGia"));
-                obj.setMaBienThe(rs.getInt("MaBienThe"));
-                list.add(obj);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Chi Tiết Mua Hàng: " + e.getMessage());
+            while (rs.next()) list.add(rs.getInt("MaSanPham"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi lấy danh sách MaSP: " + e.getMessage());
         }
         return list;
     }
 
-    public List<ChiTietMuaHang> getByMaMuaHang(int maMH) {
-        List<ChiTietMuaHang> list = new ArrayList<>();
-        String sql = "SELECT ctmh.MaMuaHang, ctmh.MaSanPham, bt.MauSac, bt.KichCo, ctmh.SoLuong, ctmh.DonGia, ctmh.MaBienThe " +
-                     "FROM CHI_TIET_MUA_HANG ctmh " +
-                     "JOIN BIEN_THE_SAN_PHAM bt ON ctmh.MaBienThe = bt.Ma " +
-                     "WHERE MaMuaHang = ?";
+    // Lấy tên SP theo MaSP
+    public String getTenSPByMa(int maSP) {
+        String sql = "SELECT TenSanPham FROM SAN_PHAM WHERE MaSanPham=?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, maMH);
+            ps.setInt(1, maSP);
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    ChiTietMuaHang obj = new ChiTietMuaHang();
-                    obj.setMaMH(rs.getInt("MaMuaHang"));
-                    obj.setMaSP(rs.getInt("MaSanPham"));
-                    obj.setMauSac(rs.getString("MauSac"));
-                    obj.setKichCo(rs.getInt("KichCo"));
-                    obj.setSoLuong(rs.getInt("SoLuong"));
-                    obj.setDonGia(rs.getDouble("DonGia"));
-                    obj.setMaBienThe(rs.getInt("MaBienThe"));
-                    list.add(obj);
-                }
+                if (rs.next()) return rs.getString("TenSanPham");
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu theo MaMuaHang: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi lấy tên SP: " + e.getMessage());
+        }
+        return null;
+    }
+
+    // Lấy tất cả màu sắc của SP
+    public List<String> getAllMauSac(int maSP) {
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT DISTINCT MauSac FROM BIEN_THE_SAN_PHAM WHERE MaSanPham=?";
+        try (Connection con = cn.connectSQL();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, maSP);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) list.add(rs.getString("MauSac"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi lấy màu sắc: " + e.getMessage());
         }
         return list;
     }
 
+    // Lấy tất cả kích cỡ của SP
+    public List<Integer> getAllKichCo(int maSP) {
+        List<Integer> list = new ArrayList<>();
+        String sql = "SELECT DISTINCT KichCo FROM BIEN_THE_SAN_PHAM WHERE MaSanPham=?";
+        try (Connection con = cn.connectSQL();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, maSP);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) list.add(rs.getInt("KichCo"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi lấy kích cỡ: " + e.getMessage());
+        }
+        return list;
+    }
+
+    // Lấy MaBienThe từ MaSP, MauSac, KichCo
     public Integer getMaBienThe(int maSP, String mauSac, int kichCo) {
         String sql = "SELECT Ma FROM BIEN_THE_SAN_PHAM WHERE MaSanPham=? AND MauSac=? AND KichCo=?";
         try (Connection con = cn.connectSQL();
@@ -112,130 +125,147 @@ public class ChiTietMuaHang {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) return rs.getInt("Ma");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Lỗi lấy MaBienThe: " + e.getMessage());
         }
         return null;
     }
-
-    // ===========================
-    // THÊM, SỬA, XÓA
-    // ===========================
-
-    // Thêm chi tiết mua hàng
-    public boolean addChiTietMH(int maMH, int maSP, String mauSac, int kichCo, int soLuong, double donGia) {
-        Integer maBienThe = getMaBienThe(maSP, mauSac, kichCo);
-        if (maBienThe == null) {
-            JOptionPane.showMessageDialog(null, "Biến thể không tồn tại!");
-            return false;
+    // Lấy MaMuaHang lớn nhất + 1 để tạo mới
+public int getNewMaMuaHang() {
+    String sql = "SELECT MAX(MaMuaHang) AS maxID FROM CHI_TIET_MUA_HANG";
+    try (Connection con = cn.connectSQL();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
+            return rs.getInt("maxID") + 1;
         }
-        String sql = "INSERT INTO CHI_TIET_MUA_HANG (MaMuaHang, MaSanPham, MaBienThe, SoLuong, DonGia) VALUES (?, ?, ?, ?, ?)";
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Lỗi lấy MaMuaHang mới: " + e.getMessage());
+    }
+    return 1; // Nếu chưa có bản ghi nào
+}
+
+    // Lấy tất cả chi tiết mua hàng
+    public List<ChiTietMuaHang> getAll() {
+        List<ChiTietMuaHang> list = new ArrayList<>();
+        String sql = "SELECT sp.MaSanPham, sp.TenSanPham, bt.MauSac, bt.KichCo, cth.SoLuong, cth.DonGia, cth.MaBienThe " +
+                     "FROM CHI_TIET_MUA_HANG cth " +
+                     "JOIN BIEN_THE_SAN_PHAM bt ON cth.MaBienThe = bt.Ma " +
+                     "JOIN SAN_PHAM sp ON cth.MaSanPham = sp.MaSanPham";
         try (Connection con = cn.connectSQL();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, maMH);
-            ps.setInt(2, maSP);
-            ps.setInt(3, maBienThe);
-            ps.setInt(4, soLuong);
-            ps.setDouble(5, donGia);
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi thêm Chi Tiết Mua Hàng: " + e.getMessage());
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                ChiTietMuaHang obj = new ChiTietMuaHang(
+                        rs.getInt("MaSanPham"),
+                        rs.getString("TenSanPham"),
+                        rs.getString("MauSac"),
+                        rs.getInt("KichCo"),
+                        rs.getInt("SoLuong"),
+                        rs.getFloat("DonGia"),
+                        rs.getInt("MaBienThe")
+                );
+                list.add(obj);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi lấy dữ liệu chi tiết mua hàng: " + e.getMessage());
         }
-        return false;
+        return list;
     }
 
-    // Sửa chi tiết mua hàng
-    public boolean updateChiTietMH(int maMH, int maSP, String mauSac, int kichCo, int soLuong, double donGia) {
+    // Thêm chi tiết
+    public boolean addChiTiet(int maSP, String mauSac, int kichCo, int soLuong, float donGia) {
+    Integer maBienThe = getMaBienThe(maSP, mauSac, kichCo);
+    if (maBienThe == null) {
+        JOptionPane.showMessageDialog(null, "Biến thể không tồn tại!");
+        return false;
+    }
+    int maMuaHang = getNewMaMuaHang(); // tạo MaMuaHang mới
+
+    String sql = "INSERT INTO CHI_TIET_MUA_HANG (MaMuaHang, MaSanPham, MaBienThe, SoLuong, DonGia) VALUES (?, ?, ?, ?, ?)";
+    try (Connection con = cn.connectSQL();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, maMuaHang);
+        ps.setInt(2, maSP);
+        ps.setInt(3, maBienThe);
+        ps.setInt(4, soLuong);
+        ps.setFloat(5, donGia);
+        return ps.executeUpdate() > 0;
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Lỗi thêm chi tiết: " + e.getMessage());
+    }
+    return false;
+}
+
+
+    // Sửa chi tiết
+    public boolean updateChiTiet(int maSP, String mauSac, int kichCo, int soLuong, float donGia) {
         Integer maBienThe = getMaBienThe(maSP, mauSac, kichCo);
         if (maBienThe == null) {
             JOptionPane.showMessageDialog(null, "Biến thể không tồn tại!");
             return false;
         }
-        String sql = "UPDATE CHI_TIET_MUA_HANG SET SoLuong=?, DonGia=? WHERE MaMuaHang=? AND MaBienThe=?";
+        String sql = "UPDATE CHI_TIET_MUA_HANG SET SoLuong=?, DonGia=? WHERE MaBienThe=?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, soLuong);
-            ps.setDouble(2, donGia);
-            ps.setInt(3, maMH);
-            ps.setInt(4, maBienThe);
+            ps.setFloat(2, donGia);
+            ps.setInt(3, maBienThe);
             return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi sửa Chi Tiết Mua Hàng: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi cập nhật chi tiết: " + e.getMessage());
         }
         return false;
     }
 
-    // Xóa chi tiết mua hàng
-    public boolean deleteData(int maMH, int maBienThe) {
-        String sql = "DELETE FROM CHI_TIET_MUA_HANG WHERE MaMuaHang=? AND MaBienThe=?";
+    // Xóa chi tiết
+    public boolean deleteChiTiet(int maSP, String mauSac, int kichCo) {
+        Integer maBienThe = getMaBienThe(maSP, mauSac, kichCo);
+        if (maBienThe == null) {
+            JOptionPane.showMessageDialog(null, "Biến thể không tồn tại!");
+            return false;
+        }
+        String sql = "DELETE FROM CHI_TIET_MUA_HANG WHERE MaBienThe=?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, maMH);
-            ps.setInt(2, maBienThe);
+            ps.setInt(1, maBienThe);
             return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi xóa Chi Tiết Mua Hàng: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi xóa chi tiết: " + e.getMessage());
         }
         return false;
     }
-
-    // Lấy danh sách tất cả MaMuaHang
-    public List<Integer> getAllMaMH() {
-        List<Integer> list = new ArrayList<>();
-        String sql = "SELECT MaMuaHang FROM MUA_HANG ORDER BY MaMuaHang";
-        try (Connection con = cn.connectSQL();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) list.add(rs.getInt("MaMuaHang"));
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi lấy MaMuaHang: " + e.getMessage());
-        }
-        return list;
-    }
-
-    // Lấy danh sách tất cả MaSanPham
-    public List<Integer> getAllMaSP() {
-        List<Integer> list = new ArrayList<>();
-        String sql = "SELECT MaSanPham FROM SAN_PHAM ORDER BY MaSanPham";
-        try (Connection con = cn.connectSQL();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) list.add(rs.getInt("MaSanPham"));
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi lấy MaSanPham: " + e.getMessage());
-        }
-        return list;
-    }
-
-    // Lấy danh sách Màu sắc của 1 MaSP
-    public List<String> getAllMauSac(int maSP) {
-        List<String> list = new ArrayList<>();
-        String sql = "SELECT DISTINCT MauSac FROM BIEN_THE_SAN_PHAM WHERE MaSanPham=?";
-        try (Connection con = cn.connectSQL();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, maSP);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) list.add(rs.getString("MauSac"));
+    // Lấy danh sách chi tiết theo MaMuaHang
+public List<ChiTietMuaHang> getByMaMH(int maMuaHang) {
+    List<ChiTietMuaHang> list = new ArrayList<>();
+    String sql = "SELECT cth.MaMuaHang, cth.MaSanPham, sp.TenSanPham, bt.MauSac, bt.KichCo, cth.SoLuong, cth.DonGia, cth.MaBienThe " +
+                 "FROM CHI_TIET_MUA_HANG cth " +
+                 "JOIN BIEN_THE_SAN_PHAM bt ON cth.MaBienThe = bt.Ma " +
+                 "JOIN SAN_PHAM sp ON cth.MaSanPham = sp.MaSanPham " +
+                 "WHERE cth.MaMuaHang = ?";
+    try (Connection con = cn.connectSQL();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, maMuaHang);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                ChiTietMuaHang obj = new ChiTietMuaHang();
+                // map fields (đảm bảo tên getter/setter có trong class)
+                obj.setMaSP(rs.getInt("MaSanPham"));
+                obj.setTenSP(rs.getString("TenSanPham"));
+                obj.setMauSac(rs.getString("MauSac"));
+                obj.setKichCo(rs.getInt("KichCo"));
+                obj.setSoLuong(rs.getInt("SoLuong"));
+                obj.setDonGia(rs.getFloat("DonGia"));
+                obj.setMaBienThe(rs.getInt("MaBienThe"));
+                // nếu cần lưu MaMuaHang thì bạn có thể thêm field vào class và set ở đây
+                list.add(obj);
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi lấy Màu sắc: " + e.getMessage());
         }
-        return list;
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Lỗi load chi tiết theo MaMuaHang: " + e.getMessage());
     }
+    return list;
+}
+    
 
-    // Lấy danh sách Kích cỡ của 1 MaSP
-    public List<Integer> getAllKichCo(int maSP) {
-        List<Integer> list = new ArrayList<>();
-        String sql = "SELECT DISTINCT KichCo FROM BIEN_THE_SAN_PHAM WHERE MaSanPham=?";
-        try (Connection con = cn.connectSQL();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, maSP);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) list.add(rs.getInt("KichCo"));
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi lấy Kích cỡ: " + e.getMessage());
-        }
-        return list;
-    }
 }

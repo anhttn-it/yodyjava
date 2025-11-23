@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class frmMuaHang extends javax.swing.JFrame {
-
+    
     private final MuaHang mh = new MuaHang();
     private boolean cothem = false;
     private int mamh = -1;
@@ -395,21 +395,26 @@ public class frmMuaHang extends javax.swing.JFrame {
     private void tblMuaHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMuaHangMouseClicked
         // TODO add your handling code here:                                         
         try {
-            int row = tblMuaHang.getSelectedRow();
-            if (row >= 0) {
-                mamh = (int) tblMuaHang.getValueAt(row, 0);
-                MuaHang obj = mh.getMuaHang(mamh);
-                if (obj != null) {
-                    txtMaMuaHang.setText(String.valueOf(obj.getMaMuaHang()));
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    txtNgayMua.setText(obj.getNgayMua() != null ? sdf.format(obj.getNgayMua()) : "");
-                    cbMaNCC.setSelectedItem(obj.getMaNCC());
-                    cbMaNV.setSelectedItem(obj.getMaNV());
-                }
+        int row = tblMuaHang.getSelectedRow();
+        if (row >= 0) {
+            mamh = (int) tblMuaHang.getValueAt(row, 0);
+            MuaHang obj = mh.getMuaHang(mamh);
+            if (obj != null) {
+                txtMaMuaHang.setText(String.valueOf(obj.getMaMuaHang()));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                txtNgayMua.setText(obj.getNgayMua() != null ? sdf.format(obj.getNgayMua()) : "");
+                
+                // Nếu combo box lưu String, chuyển Integer -> String
+                cbMaNCC.setSelectedItem(String.valueOf(obj.getMaNCC()));
+                cbMaNV.setSelectedItem(String.valueOf(obj.getMaNV()));
+                
+                // Điền ghi chú
+                txtGhiChuMH.setText(obj.getGhiChu() != null ? obj.getGhiChu() : "");
             }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Lỗi đọc dữ liệu: " + ex.getMessage());
         }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Lỗi đọc dữ liệu: " + ex.getMessage());
+    }
     }//GEN-LAST:event_tblMuaHangMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -536,21 +541,7 @@ public class frmMuaHang extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        try {
-        if (mamh == -1) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn phiếu mua hàng nào!");
-            return;
-        }
-
-        // Tạo và mở form chi tiết (constructor không ném checked exception)
-        frmChiTietMuaHang fr = new frmChiTietMuaHang(mamh);
-        fr.setLocationRelativeTo(this); // căn giữa form cha
-        fr.setVisible(true);
-
-    } catch (Exception ex) {
-        // Bắt các lỗi runtime bất ngờ, thông báo người dùng
-        JOptionPane.showMessageDialog(this, "Không thể mở Chi Tiết Mua Hàng: " + ex.getMessage());
-    }
+       
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed

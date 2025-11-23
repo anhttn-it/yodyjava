@@ -407,12 +407,12 @@ public class frmHome extends javax.swing.JFrame {
             // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
             setPanel(mh, null);
             // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
-            mh.gettblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
+            mh.getTblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    int row = mh.gettblMuaHang().getSelectedRow();
+                    int row = mh.getTblMuaHang().getSelectedRow();
                     if (row >= 0) {
-                        int maMH = (int) mh.gettblMuaHang().getValueAt(row, 0);
+                        int maMH = (int) mh.getTblMuaHang().getValueAt(row, 0);
                         try {
                             panelChiTietMuaHang detail = new panelChiTietMuaHang();
                             detail.loadData(maMH);
