@@ -5,6 +5,7 @@
 package Interface;
 
 import Proccess.DangNhap;
+import Proccess.MD5Hash;
 import javax.swing.JOptionPane;
 
 /**
@@ -150,8 +151,9 @@ public class frmDangNhap extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tài khoản và mật khẩu!");
                 return;
             }
+            String mkMaHoa = MD5Hash.encrypt(matkhau);
             int tk =Integer.parseInt(taikhoan);
-            boolean hopLe = dn.gettkmk(tk, matkhau);
+            boolean hopLe = dn.gettkmk(tk, mkMaHoa);
 
             if (hopLe) {
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");

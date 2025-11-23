@@ -68,7 +68,7 @@ public class frmHome extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("YODY");
 
-        btnMua.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnMua.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnMua.setText("Mua hàng");
         btnMua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +76,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        btnNhap.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnNhap.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnNhap.setText("Phiếu nhập");
         btnNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +84,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        btnXuat.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnXuat.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnXuat.setText("Phiếu xuất");
         btnXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +92,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        btnSanPham.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnSanPham.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnSanPham.setText("Sản phẩm");
         btnSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +108,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        btnBan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnBan.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnBan.setText("Bán hàng");
         btnBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +116,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        btnNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnNhanVien.setText("Nhân viên");
         btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +124,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        btnncc.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnncc.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnncc.setText("Nhà cung cấp");
         btnncc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +132,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
-        btnkh.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnkh.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnkh.setText("Khách hàng");
         btnkh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +187,7 @@ public class frmHome extends javax.swing.JFrame {
                 .addComponent(btnncc)
                 .addGap(18, 18, 18)
                 .addComponent(btnkh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
         );
