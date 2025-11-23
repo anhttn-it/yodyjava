@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Interface;
+
 import Proccess.NhaCungCap;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,16 +14,15 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class panelNhaCungCap extends javax.swing.JPanel {
-private final NhaCungCap nccProcess = new NhaCungCap();
+
+    private final NhaCungCap nccProcess = new NhaCungCap();
     private boolean cothem = false;
     private int mancc = -1;
     private final DefaultTableModel tableModel = new DefaultTableModel();
-    /**
-    /**
-     * Creates new form panelNhaCungCap
-     */
+
     public panelNhaCungCap() throws SQLException {
         initComponents();
+
         tableModel.setColumnIdentifiers(new Object[]{"Mã NCC", "Tên NCC", "Email"});
         tblNCC.setModel(tableModel);
 
@@ -31,14 +31,15 @@ private final NhaCungCap nccProcess = new NhaCungCap();
         setButton(true);
         setKhoa(true);
     }
-private void setNull() {
+
+    private void setNull() {
         txtMaNCC.setText("");
         txtTenNCC.setText("");
         txtEmail.setText("");
     }
 
     private void setButton(boolean b) {
-        btnThemNCC3.setEnabled(b);
+        btnThemNCC.setEnabled(b);
         btnSuaNCC.setEnabled(b);
         btnXoaNCC.setEnabled(b);
         btnLuuNCC.setEnabled(!b);
@@ -69,6 +70,18 @@ private void setNull() {
             tableModel.addRow(row);
         }
     }
+    private void loadTable(List<NhaCungCap> list) {
+        clearData(); // xóa hết dữ liệu cũ
+        for (NhaCungCap ncc : list) {
+            Object[] row = new Object[]{
+                ncc.getMaNCC(),
+                ncc.getTenNCC(),
+                ncc.getEmail()
+            };
+            tableModel.addRow(row);
+        }
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,8 +91,8 @@ private void setNull() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel4 = new javax.swing.JPanel();
-        btnThemNCC3 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btnThemNCC = new javax.swing.JButton();
         btnSuaNCC = new javax.swing.JButton();
         btnXoaNCC = new javax.swing.JButton();
         btnLuuNCC = new javax.swing.JButton();
@@ -93,14 +106,16 @@ private void setNull() {
         txtEmail = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNCC = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        txtTimNCC = new javax.swing.JTextField();
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhà Cung Cấp", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(51, 153, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhà Cung Cấp", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(51, 153, 255))); // NOI18N
 
-        btnThemNCC3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThemNCC3.setText("Thêm");
-        btnThemNCC3.addActionListener(new java.awt.event.ActionListener() {
+        btnThemNCC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThemNCC.setText("Thêm");
+        btnThemNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemNCC3ActionPerformed(evt);
+                btnThemNCCActionPerformed(evt);
             }
         });
 
@@ -186,66 +201,88 @@ private void setNull() {
         });
         jScrollPane1.setViewportView(tblNCC);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(btnThemNCC3)
-                .addGap(18, 18, 18)
-                .addComponent(btnSuaNCC)
-                .addGap(18, 18, 18)
-                .addComponent(btnXoaNCC)
-                .addGap(18, 18, 18)
-                .addComponent(btnLuuNCC)
-                .addGap(18, 18, 18)
-                .addComponent(btnKLuuNCC)
-                .addGap(18, 18, 18)
-                .addComponent(btnThoatNCC)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEmail))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
-                .addGap(18, 18, 18)
-                .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel4.setText("Tìm kiếm NCC:");
+
+        txtTimNCC.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        txtTimNCC.setForeground(new java.awt.Color(153, 153, 153));
+        txtTimNCC.setText("Mã nhà cung cấp, Tên nhà cung cấp, Email\n");
+        txtTimNCC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimNCCKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnThemNCC)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSuaNCC)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnXoaNCC)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnLuuNCC)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnKLuuNCC)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnThoatNCC))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTimNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThemNCC3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThemNCC)
                     .addComponent(btnSuaNCC)
                     .addComponent(btnXoaNCC)
                     .addComponent(btnLuuNCC)
                     .addComponent(btnKLuuNCC)
                     .addComponent(btnThoatNCC))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtTimNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -253,20 +290,20 @@ private void setNull() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(24, 24, 24))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemNCC3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNCC3ActionPerformed
+    private void btnThemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNCCActionPerformed
         // TODO add your handling code here:
         setNull();
         setButton(false);
@@ -274,7 +311,7 @@ private void setNull() {
         txtMaNCC.setEditable(false); // khóa ô Mã NCC, SQL tự tăng
         cothem = true;
         tblNCC.setEnabled(false);
-    }//GEN-LAST:event_btnThemNCC3ActionPerformed
+    }//GEN-LAST:event_btnThemNCCActionPerformed
 
     private void btnSuaNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNCCActionPerformed
         // TODO add your handling code here:
@@ -384,23 +421,36 @@ private void setNull() {
         }
     }//GEN-LAST:event_tblNCCMouseClicked
 
+    private void txtTimNCCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimNCCKeyReleased
+        // TODO add your handling code here:
+        try {
+            String keyword = txtTimNCC.getText().trim();
+            List<NhaCungCap> list = nccProcess.search(keyword); // gọi hàm search
+            loadTable(list); // load dữ liệu ra bảng
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi tìm kiếm: " + e.getMessage());
+        }
+    }//GEN-LAST:event_txtTimNCCKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKLuuNCC;
     private javax.swing.JButton btnLuuNCC;
     private javax.swing.JButton btnSuaNCC;
-    private javax.swing.JButton btnThemNCC3;
+    private javax.swing.JButton btnThemNCC;
     private javax.swing.JButton btnThoatNCC;
     private javax.swing.JButton btnXoaNCC;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblNCC;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMaNCC;
     private javax.swing.JTextField txtTenNCC;
+    private javax.swing.JTextField txtTimNCC;
     // End of variables declaration//GEN-END:variables
 
     private void dispose() {
