@@ -333,19 +333,19 @@ public class frmHome extends javax.swing.JFrame {
     private void btnSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSanPhamActionPerformed
         // TODO add your handling code here:
         panelSanPham sp = new panelSanPham();
-        setPanel(sp);
+        setPanel(sp,null);
     }//GEN-LAST:event_btnSanPhamActionPerformed
 
     private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
         // TODO add your handling code here:
         panelBanHang bh = new panelBanHang();
-        setPanel(bh);
+        setPanel(bh,null);
     }//GEN-LAST:event_btnBanActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         // TODO add your handling code here:
         panelNhanVien nv = new panelNhanVien();
-        setPanel(nv);
+        setPanel(nv,null);
     }//GEN-LAST:event_btnNhanVienActionPerformed
 
     private void btnnccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnccActionPerformed
@@ -353,7 +353,7 @@ public class frmHome extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             panelNhaCungCap ncc = new panelNhaCungCap();
-            setPanel(ncc);
+            setPanel(ncc,null);
         } catch (SQLException ex) {
             System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -364,7 +364,7 @@ public class frmHome extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             panelKhachHang kh = new panelKhachHang();
-            setPanel(kh);
+            setPanel(kh,null);
         } catch (SQLException ex) {
             System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -373,12 +373,36 @@ public class frmHome extends javax.swing.JFrame {
     private void btnMuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuaActionPerformed
         // TODO add your handling code here:
                 try {
-            // TODO add your handling code here:
-            panelMuaHang mh = new panelMuaHang();
-            setPanel(mh);
-        } catch (SQLException ex) {
-            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
+        // Panel chính
+        panelMuaHang mh = new panelMuaHang();
+        // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+        setPanel(mh, null);
+        // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
+        mh.gettblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int row = mh.gettblMuaHang().getSelectedRow();
+                if (row >= 0) {
+                    int maMH = (int) mh.gettblMuaHang().getValueAt(row, 0);
+                    try {
+                        panelChiTietMuaHang detail = new panelChiTietMuaHang();
+                        detail.loadData(maMH);
+                        // Load trực tiếp vào panelct
+                        panelct.removeAll();
+                        panelct.setLayout(new java.awt.BorderLayout());
+                        panelct.add(detail);
+                        panelct.revalidate();
+                        panelct.repaint();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+
+    } catch (SQLException ex) {
+        System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+    }
     }//GEN-LAST:event_btnMuaActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed

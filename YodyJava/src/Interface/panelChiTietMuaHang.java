@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Interface;
 
@@ -14,19 +14,19 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 
-public class frmChiTietMuaHang extends javax.swing.JFrame {
+public class panelChiTietMuaHang extends javax.swing.JPanel {
 
     private final ChiTietMuaHang ct = new ChiTietMuaHang();
     private boolean cothem = false;
     private final DefaultTableModel tableModel = new DefaultTableModel();
     private int maMHselected = -1; // nếu khác -1 => form mở theo MaMuaHang
 
-    public frmChiTietMuaHang() {
+    public panelChiTietMuaHang() {
         initComponents();
         initForm();
     }
 
-    public frmChiTietMuaHang(int maMHselected) {
+    public panelChiTietMuaHang(int maMHselected) {
         this.maMHselected = maMHselected;
         initComponents();
         initForm();
@@ -95,7 +95,22 @@ public class frmChiTietMuaHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Lỗi nạp Kích cỡ: " + e.getMessage());
         }
     }
+    public void loadData(int maMH) {
+    // clear table trước
+    tableModel.setRowCount(0);
 
+    // lấy dữ liệu từ ChiTietMuaHang
+    try {
+        List<ChiTietMuaHang> list = ct.getByMaMuaHang(maMH);
+        for (ChiTietMuaHang c : list) {
+            tableModel.addRow(new Object[]{
+                c.getMaMH(), c.getMaSP(), c.getMauSac(), c.getKichCo(), c.getSoLuong(), c.getDonGia()
+            });
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Lỗi load chi tiết: " + e.getMessage());
+    }
+}
     private void setNull() {
         if (maMHselected == -1) cbMaMH.setSelectedItem(null);
         cbMaSP.setSelectedItem(null);
@@ -170,8 +185,6 @@ public class frmChiTietMuaHang extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         cbkt = new javax.swing.JComboBox<>();
         cbms = new javax.swing.JComboBox<>();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CHI TIẾT MUA HÀNG", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(51, 153, 255))); // NOI18N
 
@@ -273,14 +286,6 @@ public class frmChiTietMuaHang extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblCTMH);
-        if (tblCTMH.getColumnModel().getColumnCount() > 0) {
-            tblCTMH.getColumnModel().getColumn(0).setResizable(false);
-            tblCTMH.getColumnModel().getColumn(1).setResizable(false);
-            tblCTMH.getColumnModel().getColumn(2).setResizable(false);
-            tblCTMH.getColumnModel().getColumn(3).setResizable(false);
-            tblCTMH.getColumnModel().getColumn(4).setResizable(false);
-            tblCTMH.getColumnModel().getColumn(5).setResizable(false);
-        }
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Kích cỡ:");
@@ -320,7 +325,7 @@ public class frmChiTietMuaHang extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbms, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(14, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnThemCTMH)
                         .addGap(28, 28, 28)
@@ -370,11 +375,11 @@ public class frmChiTietMuaHang extends javax.swing.JFrame {
                     .addComponent(cbms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -389,46 +394,51 @@ public class frmChiTietMuaHang extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCTMHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCTMHMouseClicked
-        // TODO add your handling code here:
-        try {
-        int row = tblCTMH.getSelectedRow();
-        if (row >= 0) {
-            cbMaMH.setSelectedItem(tblCTMH.getValueAt(row, 0).toString());
-            cbMaSP.setSelectedItem(tblCTMH.getValueAt(row, 1).toString());
-
-            // Nạp lại comboBox Màu sắc và Kích cỡ theo Mã SP
-            int maSP = Integer.parseInt(cbMaSP.getSelectedItem().toString());
-            loadComboBoxMauSac(maSP);
-            loadComboBoxKichCo(maSP);
-
-            cbms.setSelectedItem(tblCTMH.getValueAt(row, 2).toString());
-            cbkt.setSelectedItem(tblCTMH.getValueAt(row, 3).toString());
-
-            txtSoluong.setText(tblCTMH.getValueAt(row, 4).toString());
-            txtDongia.setText(tblCTMH.getValueAt(row, 5).toString());
-        }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Lỗi lấy dữ liệu: " + e.getMessage());
-    }
-    }//GEN-LAST:event_tblCTMHMouseClicked
-
-    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnThoatActionPerformed
-
-    private void btnKLuuCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKLuuCTMHActionPerformed
+    private void btnThemCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemCTMHActionPerformed
         // TODO add your handling code here:
         setNull();
-        setButton(true);
-        setKhoa(true);
-        tblCTMH.clearSelection();
-    }//GEN-LAST:event_btnKLuuCTMHActionPerformed
+        setButton(false);
+        setKhoa(false);
+        cothem = true;
+    }//GEN-LAST:event_btnThemCTMHActionPerformed
+
+    private void btnSuaCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaCTMHActionPerformed
+        // TODO add your handling code here:
+        if (cbMaMH.getSelectedItem() == null || cbMaSP.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Hãy chọn chi tiết cần sửa!");
+            return;
+        }
+        setButton(false);
+        setKhoa(false);
+        cothem = false;
+    }//GEN-LAST:event_btnSuaCTMHActionPerformed
+
+    private void btnXoaCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaCTMHActionPerformed
+        // TODO add your handling code here:
+        if (cbMaMH.getSelectedItem() == null || cbMaSP.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Hãy chọn chi tiết cần xóa!");
+            return;
+        }
+        try {
+            int maMH = Integer.parseInt(cbMaMH.getSelectedItem().toString());
+            int maSP = Integer.parseInt(cbMaSP.getSelectedItem().toString());
+            String mausac = cbms.getSelectedItem().toString();
+            int kichco = Integer.parseInt(cbkt.getSelectedItem().toString());
+            int maBienThe = ct.getMaBienThe(maSP, mausac, kichco);
+
+            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xóa", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (ct.deleteData(maMH, maBienThe)) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!");
+                    showData();
+                    setNull();
+                } else JOptionPane.showMessageDialog(this, "Xóa thất bại!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi xóa: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnXoaCTMHActionPerformed
 
     private void btnLuuCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuCTMHActionPerformed
         // TODO add your handling code here:
@@ -463,74 +473,60 @@ public class frmChiTietMuaHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLuuCTMHActionPerformed
 
-    private void btnXoaCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaCTMHActionPerformed
-        // TODO add your handling code here:
-         if (cbMaMH.getSelectedItem() == null || cbMaSP.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this, "Hãy chọn chi tiết cần xóa!");
-            return;
-        }
-        try {
-            int maMH = Integer.parseInt(cbMaMH.getSelectedItem().toString());
-            int maSP = Integer.parseInt(cbMaSP.getSelectedItem().toString());
-            String mausac = cbms.getSelectedItem().toString();
-            int kichco = Integer.parseInt(cbkt.getSelectedItem().toString());
-            int maBienThe = ct.getMaBienThe(maSP, mausac, kichco);
-
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xóa", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                if (ct.deleteData(maMH, maBienThe)) {
-                    JOptionPane.showMessageDialog(this, "Xóa thành công!");
-                    showData();
-                    setNull();
-                } else JOptionPane.showMessageDialog(this, "Xóa thất bại!");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi xóa: " + e.getMessage());
-        }
-    }//GEN-LAST:event_btnXoaCTMHActionPerformed
-
-    private void btnSuaCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaCTMHActionPerformed
-        // TODO add your handling code here:
-        if (cbMaMH.getSelectedItem() == null || cbMaSP.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this, "Hãy chọn chi tiết cần sửa!");
-            return;
-        }
-        setButton(false);
-        setKhoa(false);
-        cothem = false;
-    }//GEN-LAST:event_btnSuaCTMHActionPerformed
-
-    private void btnThemCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemCTMHActionPerformed
+    private void btnKLuuCTMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKLuuCTMHActionPerformed
         // TODO add your handling code here:
         setNull();
-        setButton(false);
-        setKhoa(false);
-        cothem = true;
-    }//GEN-LAST:event_btnThemCTMHActionPerformed
+        setButton(true);
+        setKhoa(true);
+        tblCTMH.clearSelection();
+    }//GEN-LAST:event_btnKLuuCTMHActionPerformed
+
+    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnThoatActionPerformed
 
     private void cbMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaSPActionPerformed
         // TODO add your handling code here:
         if (cbMaSP.getSelectedItem() != null) {
-        try {
-            int maSP = Integer.parseInt(cbMaSP.getSelectedItem().toString());
-            loadComboBoxMauSac(maSP);
-            loadComboBoxKichCo(maSP);
+            try {
+                int maSP = Integer.parseInt(cbMaSP.getSelectedItem().toString());
+                loadComboBoxMauSac(maSP);
+                loadComboBoxKichCo(maSP);
 
-            // nếu ko có giá trị, disable cbms và cbkt
-            cbms.setEnabled(cbms.getItemCount() > 0);
-            cbkt.setEnabled(cbkt.getItemCount() > 0);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Mã sản phẩm không hợp lệ");
+                // nếu ko có giá trị, disable cbms và cbkt
+                cbms.setEnabled(cbms.getItemCount() > 0);
+                cbkt.setEnabled(cbkt.getItemCount() > 0);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Mã sản phẩm không hợp lệ");
+            }
         }
-    }
     }//GEN-LAST:event_cbMaSPActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) throws SQLException {
-        frmChiTietMuaHang fr = new frmChiTietMuaHang();
-        fr.setVisible(true);
-    }
+    private void tblCTMHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCTMHMouseClicked
+        // TODO add your handling code here:
+        try {
+            int row = tblCTMH.getSelectedRow();
+            if (row >= 0) {
+                cbMaMH.setSelectedItem(tblCTMH.getValueAt(row, 0).toString());
+                cbMaSP.setSelectedItem(tblCTMH.getValueAt(row, 1).toString());
+
+                // Nạp lại comboBox Màu sắc và Kích cỡ theo Mã SP
+                int maSP = Integer.parseInt(cbMaSP.getSelectedItem().toString());
+                loadComboBoxMauSac(maSP);
+                loadComboBoxKichCo(maSP);
+
+                cbms.setSelectedItem(tblCTMH.getValueAt(row, 2).toString());
+                cbkt.setSelectedItem(tblCTMH.getValueAt(row, 3).toString());
+
+                txtSoluong.setText(tblCTMH.getValueAt(row, 4).toString());
+                txtDongia.setText(tblCTMH.getValueAt(row, 5).toString());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi lấy dữ liệu: " + e.getMessage());
+        }
+    }//GEN-LAST:event_tblCTMHMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKLuuCTMH;
@@ -555,4 +551,8 @@ public class frmChiTietMuaHang extends javax.swing.JFrame {
     private javax.swing.JTextField txtDongia;
     private javax.swing.JTextField txtSoluong;
     // End of variables declaration//GEN-END:variables
+
+    private void dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

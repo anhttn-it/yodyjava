@@ -107,4 +107,28 @@ public class NhaCungCap {
         }
         return false;
     }
+    public List<NhaCungCap> search(String keyword) {
+    List<NhaCungCap> list = new ArrayList<>();
+    String sql = "SELECT * FROM NHA_CUNG_CAP WHERE "
+               + "CAST(MaNhaCungCap AS NVARCHAR) LIKE ? OR Ten LIKE ? OR Email LIKE ?";
+    try (Connection con = cn.connectSQL();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        String key = "%" + keyword + "%";
+        ps.setString(1, key);
+        ps.setString(2, key);
+        ps.setString(3, key);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                NhaCungCap ncc = new NhaCungCap();
+                ncc.setMaNCC(rs.getInt("MaNhaCungCap"));
+                ncc.setTenNCC(rs.getString("Ten"));
+                ncc.setEmail(rs.getString("Email"));
+                list.add(ncc);
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm NCC: " + e.getMessage());
+    }
+    return list;
+    }
 }
