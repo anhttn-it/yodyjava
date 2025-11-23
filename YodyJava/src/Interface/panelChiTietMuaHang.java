@@ -8,6 +8,7 @@ import Proccess.ChiTietMuaHang;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -106,6 +107,23 @@ public class panelChiTietMuaHang extends javax.swing.JPanel {
                 });
             }
         }
+    }
+    public void loadDataByMaMH(int maMH) {
+        tableModel.setRowCount(0); // xóa dữ liệu cũ
+        List<ChiTietMuaHang> list = ct.getByMaMH(maMH); 
+        if (list != null) {
+            for (ChiTietMuaHang c : list) {
+                tableModel.addRow(new Object[]{
+                    c.getMaSP(), c.getTenSP(), c.getMauSac(),
+                    c.getKichCo(), c.getSoLuong(), c.getDonGia()
+                });
+            }
+        }
+    }
+
+    // Getter cho JTable
+    public JTable getTblCTMH() {
+        return tblCTMH;
     }
 
 
@@ -436,7 +454,7 @@ public class panelChiTietMuaHang extends javax.swing.JPanel {
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+       
     }//GEN-LAST:event_btnThoatActionPerformed
 
     private void cbMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaSPActionPerformed
@@ -493,8 +511,4 @@ public class panelChiTietMuaHang extends javax.swing.JPanel {
     private javax.swing.JTextField txtSoluong;
     private javax.swing.JTextField txtTensp;
     // End of variables declaration//GEN-END:variables
-
-    private void dispose() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
