@@ -87,14 +87,29 @@ private void fillToForm() {
     txtho.setText(tbnhanvien.getValueAt(row, 0).toString());
     txtten.setText(tbnhanvien.getValueAt(row, 1).toString());
     jComboBox1.setSelectedItem(tbnhanvien.getValueAt(row, 2).toString());
-    txtngaysinh.setText(tbnhanvien.getValueAt(row, 3).toString());
+
+    // Chuyển ngày sinh sang định dạng yyyy-MM-dd HH:mm:ss
+    try {
+        String ns = tbnhanvien.getValueAt(row, 3).toString();
+        txtngaysinh.setText(ns); // nếu giá trị trong DB là Timestamp, format lại nếu cần
+    } catch (Exception e) { txtngaysinh.setText(""); }
+
     txtmnv.setText(tbnhanvien.getValueAt(row, 4).toString());
     txtpass.setText(tbnhanvien.getValueAt(row, 5).toString());
     txtemail.setText(tbnhanvien.getValueAt(row, 6).toString());
     txtdiachi.setText(tbnhanvien.getValueAt(row, 7).toString());
     jComboBox2.setSelectedItem(tbnhanvien.getValueAt(row, 8).toString());
     jComboBox3.setSelectedItem(tbnhanvien.getValueAt(row, 9).toString());
-    txtngaytao.setText(tbnhanvien.getValueAt(row, 10).toString());
+
+    try {
+        String nt = tbnhanvien.getValueAt(row, 10).toString();
+        txtngaytao.setText(nt); // nếu cần format Timestamp
+    } catch (Exception e) { txtngaytao.setText(""); }
+}
+private void ClearTable() {
+    DefaultTableModel model = (DefaultTableModel) tbnhanvien.getModel();
+    int n = model.getRowCount() - 1;
+    for (int i = n; i >= 0; i--) model.removeRow(i);
 }
 
 
@@ -209,13 +224,13 @@ private void fillToForm() {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setText("Giới tính:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
         jComboBox1.setToolTipText("");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Vai trò:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản Lý", "Nhân viên kho", "Nhân viên thu ngân" }));
 
         btthem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btthem.setText("Thêm");
@@ -244,7 +259,7 @@ private void fillToForm() {
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoạt động", "Không hoạt động" }));
 
         btluu.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btluu.setText("Lưu");

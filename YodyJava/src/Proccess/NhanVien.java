@@ -78,7 +78,7 @@ public class NhanVien {
     // ================== LẤY TẤT CẢ NHÂN VIÊN ======================
     public List<NhanVien> getAll() throws SQLException {
         List<NhanVien> list = new ArrayList<>();
-        String sql = "SELECT * FROM NHAN_VIEN WHERE XoaTaiKhoan = 0";
+        String sql = "SELECT * FROM NHAN_VIEN";
 
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -111,8 +111,8 @@ public class NhanVien {
     public boolean insert(NhanVien nv) throws SQLException {
         String sql = """
             INSERT INTO NHAN_VIEN
-            (Ho, Ten, Email, NgaySinh, DiaChi, GioiTinh, MatKhau, VaiTro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            (Ho, Ten, Email, NgaySinh, DiaChi, GioiTinh, MatKhau, VaiTro, TrangThai)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
 
         try (Connection con = cn.connectSQL();
@@ -123,9 +123,10 @@ public class NhanVien {
             ps.setString(3, nv.email);
             ps.setString(4, nv.ngaySinh);
             ps.setString(5, nv.diaChi);
-            ps.setInt(6, Integer.parseInt(nv.gioiTinh)); 
+            ps.setString(6, nv.gioiTinh);
             ps.setString(7, nv.matKhau);
-            ps.setInt(8, Integer.parseInt(nv.vaiTro));
+            ps.setString(8, nv.vaiTro);
+            ps.setString(9, nv.trangThai);
 
             return ps.executeUpdate() > 0;
         }
@@ -147,9 +148,9 @@ public class NhanVien {
             ps.setString(3, nv.email);
             ps.setString(4, nv.ngaySinh);
             ps.setString(5, nv.diaChi);
-            ps.setInt(6, Integer.parseInt(nv.gioiTinh));
+            ps.setString(6, nv.gioiTinh);
             ps.setString(7, nv.matKhau);
-            ps.setInt(8, Integer.parseInt(nv.vaiTro));
+            ps.setString(8, nv.vaiTro);
             ps.setString(9, nv.trangThai);
             ps.setString(10, nv.maNV);
 
@@ -157,16 +158,21 @@ public class NhanVien {
         }
     }
 
-    // ======================== XÓA (MỀM) ================================
-    public boolean delete(String maNV) throws SQLException {
-        String sql = "UPDATE NHAN_VIEN SET XoaTaiKhoan = 1 WHERE MaNhanVien=?";
+    // ======================== XÓA THẬT ================================
+    public boolean delete(String maNV) {
+        String sql = "DELETE FROM NHAN_VIEN WHERE MaNhanVien=?";
 
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, maNV);
+            ps.setInt(1, Integer.parseInt(maNV));
             return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi xóa NV: " + e.getMessage());
         }
+
+        return false;
     }
 
     // ====================== TÌM KIẾM ================================
@@ -174,8 +180,7 @@ public class NhanVien {
         List<NhanVien> list = new ArrayList<>();
         String sql = """
             SELECT * FROM NHAN_VIEN
-            WHERE (Ho LIKE ? OR Ten LIKE ? OR MaNhanVien LIKE ?)
-            AND XoaTaiKhoan = 0
+            WHERE Ho LIKE ? OR Ten LIKE ? OR MaNhanVien LIKE ?
         """;
 
         try (Connection con = cn.connectSQL();
