@@ -6,6 +6,7 @@ package Interface;
 
 import java.awt.Dimension;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -434,6 +435,7 @@ public class frmHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnkhActionPerformed
 
     private void btnMuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuaActionPerformed
+<<<<<<< HEAD
         // TODO add your handling code here:
         highlightButton(btnMua);
         try {
@@ -458,13 +460,46 @@ public class frmHome extends javax.swing.JFrame {
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
+=======
+        // TODO add your handling code here:                                      
+        try {
+        // Tạo panel MuaHang
+        panelMuaHang mh = new panelMuaHang();
+
+        // Load panel MuaHang vào panel chính (panelchinh)
+        setPanel(mh, null);
+
+        // Gắn sự kiện click vào bảng mua hàng để load chi tiết bên panelct
+        mh.getTblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int row = mh.getTblMuaHang().getSelectedRow();
+                if (row >= 0) {
+                    int maMH = (int) mh.getTblMuaHang().getValueAt(row, 0);
+                    try {
+                        // Tạo panel chi tiết
+                        panelChiTietMuaHang detail = new panelChiTietMuaHang();
+                        // Load dữ liệu chi tiết theo MaMuaHang
+                         
+                        detail.loadDataByMaMH(maMH); // load dữ liệu theo MaMuaHang
+                        panelct.removeAll();
+                        panelct.setLayout(new java.awt.BorderLayout());
+                        panelct.add(detail);
+                        panelct.revalidate();
+                        panelct.repaint();
+                    } catch (Exception ex) {
+                        ex.printStackTrace(); // fix lỗi logging
+                        JOptionPane.showMessageDialog(null, "Lỗi load chi tiết: " + ex.getMessage());
+>>>>>>> 465913d28af6e609e4c3c55b86401a5d2e359b90
                     }
                 }
-            });
+            }
+        });
 
-        } catch (SQLException ex) {
-            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
+    } catch (SQLException ex) {
+        ex.printStackTrace(); // fix lỗi logging
+        JOptionPane.showMessageDialog(null, "Lỗi khởi tạo panel Mua Hàng: " + ex.getMessage());
+    }
     }//GEN-LAST:event_btnMuaActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
