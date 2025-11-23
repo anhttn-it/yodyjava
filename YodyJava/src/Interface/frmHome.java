@@ -12,20 +12,23 @@ import javax.swing.JPanel;
  * @author ngocanh
  */
 public class frmHome extends javax.swing.JFrame {
-    private void setPanel(JPanel mainPanel, JPanel detailPanel) {
-    // Panel chính
-    pane.removeAll();
-    pane.setLayout(new java.awt.BorderLayout());
-    pane.add(mainPanel);
-    pane.revalidate();
-    pane.repaint();
 
-    // Panel chi tiết
-    panelct.removeAll();
-    panelct.setLayout(new java.awt.BorderLayout());
-    if(detailPanel != null) panelct.add(detailPanel);
-    panelct.revalidate();
-    panelct.repaint();
+    private void setPanel(JPanel mainPanel, JPanel detailPanel) {
+        // Panel chính
+        pane.removeAll();
+        pane.setLayout(new java.awt.BorderLayout());
+        pane.add(mainPanel);
+        pane.revalidate();
+        pane.repaint();
+
+        // Panel chi tiết
+        panelct.removeAll();
+        panelct.setLayout(new java.awt.BorderLayout());
+        if (detailPanel != null) {
+            panelct.add(detailPanel);
+        }
+        panelct.revalidate();
+        panelct.repaint();
     }
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmHome.class.getName());
 
@@ -60,10 +63,10 @@ public class frmHome extends javax.swing.JFrame {
         panelct = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1800, 910));
+        setPreferredSize(new java.awt.Dimension(1630, 810));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setPreferredSize(new java.awt.Dimension(200, 900));
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 800));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("YODY");
@@ -145,25 +148,24 @@ public class frmHome extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(69, 69, 69)
-                            .addComponent(jLabel1))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnncc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(btnNhanVien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSanPham, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnXuat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnNhap, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnkh, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnncc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnNhanVien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSanPham, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnXuat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnNhap, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnkh, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -187,19 +189,19 @@ public class frmHome extends javax.swing.JFrame {
                 .addComponent(btnncc)
                 .addGap(18, 18, 18)
                 .addComponent(btnkh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(34, 34, 34))
         );
 
         pane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pane.setPreferredSize(new java.awt.Dimension(800, 900));
+        pane.setPreferredSize(new java.awt.Dimension(700, 800));
 
         javax.swing.GroupLayout paneLayout = new javax.swing.GroupLayout(pane);
         pane.setLayout(paneLayout);
         paneLayout.setHorizontalGroup(
             paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 786, Short.MAX_VALUE)
+            .addGap(0, 698, Short.MAX_VALUE)
         );
         paneLayout.setVerticalGroup(
             paneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,13 +209,13 @@ public class frmHome extends javax.swing.JFrame {
         );
 
         panelct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panelct.setPreferredSize(new java.awt.Dimension(800, 900));
+        panelct.setPreferredSize(new java.awt.Dimension(700, 800));
 
         javax.swing.GroupLayout panelctLayout = new javax.swing.GroupLayout(panelct);
         panelct.setLayout(panelctLayout);
         panelctLayout.setHorizontalGroup(
             panelctLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 778, Short.MAX_VALUE)
+            .addGap(0, 698, Short.MAX_VALUE)
         );
         panelctLayout.setVerticalGroup(
             panelctLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,20 +229,20 @@ public class frmHome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pane, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelct, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addComponent(pane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(pane, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(panelct, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -255,37 +257,36 @@ public class frmHome extends javax.swing.JFrame {
 //        } catch (SQLException ex) {
 //            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
 //        }
-            try {
-        // Panel chính
-        panelPhieuNhap pn = new panelPhieuNhap();
-        // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
-        setPanel(pn, null);
-        // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
-        pn.getTblPhieuNhap().addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int row = pn.getTblPhieuNhap().getSelectedRow();
-                if (row >= 0) {
-                    int mapn = (int) pn.getTblPhieuNhap().getValueAt(row, 0);
-                    try {
-                        panelChiTietPhieuNhap detail = new panelChiTietPhieuNhap();
-                        detail.loadData(mapn);
-                        // Load trực tiếp vào panelct
-                        panelct.removeAll();
-                        panelct.setLayout(new java.awt.BorderLayout());
-                        panelct.add(detail);
-                        panelct.revalidate();
-                        panelct.repaint();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+        try {
+            // Panel chính
+            panelPhieuNhap pn = new panelPhieuNhap();
+            // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+            setPanel(pn, null);
+            // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
+            pn.getTblPhieuNhap().addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    int row = pn.getTblPhieuNhap().getSelectedRow();
+                    if (row >= 0) {
+                        int mapn = (int) pn.getTblPhieuNhap().getValueAt(row, 0);
+                        try {
+                            panelChiTietPhieuNhap detail = new panelChiTietPhieuNhap();
+                            detail.loadData(mapn);
+                            // Load trực tiếp vào panelct
+                            panelct.removeAll();
+                            panelct.add(detail);
+                            panelct.revalidate();
+                            panelct.repaint();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
 
-    } catch (SQLException ex) {
-        System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-    }
+        } catch (SQLException ex) {
+            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_btnNhapActionPerformed
 
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
@@ -333,19 +334,19 @@ public class frmHome extends javax.swing.JFrame {
     private void btnSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSanPhamActionPerformed
         // TODO add your handling code here:
         panelSanPham sp = new panelSanPham();
-        setPanel(sp,null);
+        setPanel(sp, null);
     }//GEN-LAST:event_btnSanPhamActionPerformed
 
     private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
         // TODO add your handling code here:
         panelBanHang bh = new panelBanHang();
-        setPanel(bh,null);
+        setPanel(bh, null);
     }//GEN-LAST:event_btnBanActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         // TODO add your handling code here:
         panelNhanVien nv = new panelNhanVien();
-        setPanel(nv,null);
+        setPanel(nv, null);
     }//GEN-LAST:event_btnNhanVienActionPerformed
 
     private void btnnccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnccActionPerformed
@@ -353,7 +354,7 @@ public class frmHome extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             panelNhaCungCap ncc = new panelNhaCungCap();
-            setPanel(ncc,null);
+            setPanel(ncc, null);
         } catch (SQLException ex) {
             System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -364,7 +365,7 @@ public class frmHome extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             panelKhachHang kh = new panelKhachHang();
-            setPanel(kh,null);
+            setPanel(kh, null);
         } catch (SQLException ex) {
             System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -372,37 +373,37 @@ public class frmHome extends javax.swing.JFrame {
 
     private void btnMuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuaActionPerformed
         // TODO add your handling code here:
-                try {
-        // Panel chính
-        panelMuaHang mh = new panelMuaHang();
-        // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
-        setPanel(mh, null);
-        // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
-        mh.gettblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int row = mh.gettblMuaHang().getSelectedRow();
-                if (row >= 0) {
-                    int maMH = (int) mh.gettblMuaHang().getValueAt(row, 0);
-                    try {
-                        panelChiTietMuaHang detail = new panelChiTietMuaHang();
-                        detail.loadData(maMH);
-                        // Load trực tiếp vào panelct
-                        panelct.removeAll();
-                        panelct.setLayout(new java.awt.BorderLayout());
-                        panelct.add(detail);
-                        panelct.revalidate();
-                        panelct.repaint();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+        try {
+            // Panel chính
+            panelMuaHang mh = new panelMuaHang();
+            // Panel chi tiết, lúc đầu để null (sẽ load khi click vào bảng bên trong panelPhieuNhap)
+            setPanel(mh, null);
+            // Gắn sự kiện click vào bảng phiếu nhập để load chi tiết bên panelct
+            mh.gettblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    int row = mh.gettblMuaHang().getSelectedRow();
+                    if (row >= 0) {
+                        int maMH = (int) mh.gettblMuaHang().getValueAt(row, 0);
+                        try {
+                            panelChiTietMuaHang detail = new panelChiTietMuaHang();
+                            detail.loadData(maMH);
+                            // Load trực tiếp vào panelct
+                            panelct.removeAll();
+                            panelct.setLayout(new java.awt.BorderLayout());
+                            panelct.add(detail);
+                            panelct.revalidate();
+                            panelct.repaint();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
 
-    } catch (SQLException ex) {
-        System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-    }
+        } catch (SQLException ex) {
+            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_btnMuaActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed

@@ -22,7 +22,7 @@ public class Connect {
             //b2.2 tỌ KẾT NỐI DTB
             String host = "localhost";
             String port="1433";
-            String dbname="YODYJAVA";
+            String dbname="YODYJAVA1";
             String username="sa";
             String password="123456";
             String dbUrl = "jdbc:sqlserver://"+host+":"+port+";databaseName="+dbname+";encrypt=false;";
