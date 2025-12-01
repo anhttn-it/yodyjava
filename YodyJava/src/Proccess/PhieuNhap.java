@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  * @author ngocanh
  */
 public class PhieuNhap {
+    private int maMuaHang;
     private int maPhieuNhap;
     private Date ngayNhap;
     private int maNCC;
@@ -25,7 +26,9 @@ public class PhieuNhap {
     private final Connect cn = new Connect();
     public PhieuNhap() {
     }
-    public PhieuNhap(int maPhieuNhap, Date ngayNhap, int maNCC, int maNV, double tongTien, String ghiChu) {
+
+    public PhieuNhap(int maMuaHang, int maPhieuNhap, Date ngayNhap, int maNCC, int maNV, double tongTien, String ghiChu) {
+        this.maMuaHang = maMuaHang;
         this.maPhieuNhap = maPhieuNhap;
         this.ngayNhap = ngayNhap;
         this.maNCC = maNCC;
@@ -33,6 +36,11 @@ public class PhieuNhap {
         this.tongTien = tongTien;
         this.ghiChu = ghiChu;
     }
+
+    public int getMaMuaHang() {
+        return maMuaHang;
+    }
+    
 
     public int getMaPhieuNhap() {
         return maPhieuNhap;
@@ -52,6 +60,11 @@ public class PhieuNhap {
     public String getGhiChu() {
         return ghiChu;
     }
+
+    public void setMaMuaHang(int maMuaHang) {
+        this.maMuaHang = maMuaHang;
+    }
+    
     public void setMaPhieuNhap(int maPhieuNhap) {
         this.maPhieuNhap = maPhieuNhap;
     }
@@ -78,6 +91,7 @@ public class PhieuNhap {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 PhieuNhap pn = new PhieuNhap();
+                pn.maMuaHang = rs.getInt("MaMuaHang");
                 pn.maPhieuNhap = rs.getInt("MaPhieuNhap");
                 pn.ngayNhap = rs.getTimestamp("NgayNhap");
                 pn.maNCC = rs.getInt("MaNCC");
@@ -87,6 +101,20 @@ public class PhieuNhap {
                 list.add(pn);
             }
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Phiếu Nhập: " + e.getMessage());
+        }
+        return list;
+    }
+    public List<Integer> getmamh() throws SQLException{
+        List<Integer> list = new ArrayList<>();
+        String sql = " select MAMUAHANG FROM MUA_HANG";
+        try(Connection con= cn.connectSQL();
+                PreparedStatement ps=con.prepareStatement(sql);
+                ResultSet rs=ps.executeQuery()){
+            while (rs.next()){
+                list.add(rs.getInt("Mamuahang"));
+            }
+        }catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Phiếu Nhập: " + e.getMessage());
         }
         return list;
@@ -127,6 +155,7 @@ public class PhieuNhap {
             try(ResultSet rs=ps.executeQuery()){
                 if(rs.next()){
                     PhieuNhap obj = new PhieuNhap();
+                    obj.maMuaHang = rs.getInt("MaMuaHang");
                     obj.ghiChu=rs.getString("GhiChu");
                     obj.maNCC=rs.getInt("MaNCC");
                     obj.maNV=rs.getInt("MaNV");
@@ -160,14 +189,15 @@ public class PhieuNhap {
         }
     }
     public boolean InsertData(PhieuNhap obj) throws SQLException{
-        String sql="INSERT INTO PHIEU_NHAP (NgayNhap, MaNCC, MaNV, TongTien, GhiChu) VALUES (?, ?, ?, ?, ?)";
+        String sql="INSERT INTO PHIEU_NHAP (MaMuaHang, NgayNhap, MaNCC, MaNV, TongTien, GhiChu) VALUES (?,?, ?, ?, ?, ?)";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps=con.prepareStatement(sql)){
-            ps.setTimestamp(1, new java.sql.Timestamp(obj.ngayNhap.getTime()));
-            ps.setInt(2, obj.maNCC);
-            ps.setInt(3, obj.maNV);
-            ps.setDouble(4, obj.tongTien);
-            ps.setString(5, obj.ghiChu);
+            ps.setInt(1, obj.maMuaHang);
+            ps.setTimestamp(2, new java.sql.Timestamp(obj.ngayNhap.getTime()));
+            ps.setInt(3, obj.maNCC);
+            ps.setInt(4, obj.maNV);
+            ps.setDouble(5, obj.tongTien);
+            ps.setString(6, obj.ghiChu);
             return ps.executeUpdate()>0;
         }
     }
@@ -188,13 +218,14 @@ public class PhieuNhap {
     
     public List<PhieuNhap> TimKiemPN(String keyword) throws SQLException {
         List<PhieuNhap> list = new ArrayList<>();
-        String sql = "SELECT * FROM PHIEU_Nhap WHERE maphieunhap LIKE ?";
+        String sql = "SELECT * FROM PHIEU_Nhap WHERE MaMuaHang LIKE ?";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps = con.prepareStatement(sql)){
         ps.setString(1, "%" + keyword + "%");
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
             PhieuNhap pn = new PhieuNhap();
+            pn.maMuaHang = rs.getInt("MaMuaHang");
             pn.setMaPhieuNhap(rs.getInt("MaPhieuNhap"));
             pn.setNgayNhap(rs.getTimestamp("NgayNhap"));
             pn.setMaNCC(rs.getInt("MaNCC"));

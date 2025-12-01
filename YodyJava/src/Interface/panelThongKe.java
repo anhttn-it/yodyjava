@@ -15,15 +15,22 @@ import javax.swing.table.DefaultTableModel;
 public class panelThongKe extends javax.swing.JPanel {
     private final Connect cn=new Connect();
     public void loadThongKeSanPham() {
-    String sql = "SELECT sp.MaSanPham, sp.TenSanPham, " +
-                 "ISNULL(SUM(ctpn.SoLuong), 0) AS TongNhap, " +
-                 "ISNULL(SUM(ctx.SoLuong), 0) AS TongXuat, " +
-                 "ISNULL(SUM(ctpn.SoLuong), 0) - ISNULL(SUM(ctx.SoLuong), 0) AS Ton " +
-                 "FROM SAN_PHAM sp " +
-                 "LEFT JOIN CHI_TIET_PHIEU_NHAP ctpn ON sp.MaSanPham = ctpn.MaSanPham " +
-                 "LEFT JOIN CHI_TIET_PHIEU_XUAT ctx ON sp.MaSanPham = ctx.MaSanPham " +
-                 "GROUP BY sp.MaSanPham, sp.TenSanPham " +
-                 "ORDER BY sp.MaSanPham";
+        String sql = "SELECT sp.MaSanPham, sp.TenSanPham, " +
+        "       ISNULL(nhap.TongNhap, 0) AS TongNhap, " +
+        "       ISNULL(xuat.TongXuat, 0) AS TongXuat, " +
+        "       ISNULL(nhap.TongNhap, 0) - ISNULL(xuat.TongXuat, 0) AS Ton " +
+        "FROM SAN_PHAM sp " +
+        "LEFT JOIN ( " +
+        "    SELECT MaSanPham, SUM(SoLuong) AS TongNhap " +
+        "    FROM CHI_TIET_PHIEU_NHAP " +
+        "    GROUP BY MaSanPham " +
+        ") AS nhap ON sp.MaSanPham = nhap.MaSanPham " +
+        "LEFT JOIN ( " +
+        "    SELECT MaSanPham, SUM(SoLuong) AS TongXuat " +
+        "    FROM CHI_TIET_PHIEU_XUAT " +
+        "    GROUP BY MaSanPham " +
+        ") AS xuat ON sp.MaSanPham = xuat.MaSanPham " +
+        "ORDER BY sp.MaSanPham";
 
     try (Connection conn = new Connect().connectSQL();
          PreparedStatement ps = conn.prepareStatement(sql);
@@ -46,9 +53,6 @@ public class panelThongKe extends javax.swing.JPanel {
         e.printStackTrace();
     }
 }
-    /**
-     * Creates new form panelThongKe
-     */
     public panelThongKe() {
         initComponents();
         loadThongKeSanPham();

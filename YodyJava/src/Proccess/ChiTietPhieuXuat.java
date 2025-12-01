@@ -119,7 +119,7 @@ public class ChiTietPhieuXuat {
     }
     public List<String> getallmausac(Integer masp) throws SQLException{
         List<String> listmausac=new ArrayList<>();
-        String sql="select mausac from bien_the_san_pham where masanpham =?";
+        String sql="select DISTINCT mausac from bien_the_san_pham where masanpham =?";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps=con.prepareStatement(sql)){
             ps.setInt(1,masp);
@@ -133,7 +133,7 @@ public class ChiTietPhieuXuat {
     }
      public List<Integer> getallkichco(Integer masp) throws SQLException{
         List<Integer> listkichco=new ArrayList<>();
-        String sql="select kichco from bien_the_san_pham where masanpham =?";
+        String sql="select DISTINCT kichco from bien_the_san_pham where masanpham =?";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps=con.prepareStatement(sql)){
             ps.setInt(1,masp);
@@ -219,7 +219,7 @@ public class ChiTietPhieuXuat {
         return null;
     }
 
-    public boolean addCTPN(int maPX, int maSP, String mausac, int kichco, int soluong, float dongia) throws SQLException {
+    public boolean addCTPX(int maPX, int maSP, String mausac, int kichco, int soluong, float dongia) throws SQLException {
         Integer maBienThe = getMaBienThe(maSP, mausac, kichco);
         if (maBienThe == null) {
             JOptionPane.showMessageDialog(null, "Biến thể không tồn tại!");
@@ -238,7 +238,7 @@ public class ChiTietPhieuXuat {
     }
 
 
-    public boolean updateCTPN(int maPX, int maSP,String mausac, int kichco, int soluong, float dongia) throws SQLException {
+    public boolean updateCTPX(int maPX, int maSP,String mausac, int kichco, int soluong, float dongia) throws SQLException {
         Integer maBienThe = getMaBienThe(maSP, mausac, kichco);
         String sql = "UPDATE CHI_TIET_PHIEU_XUAT SET SoLuong=?, DonGia=? WHERE MaPhieuXuat=? AND MaBienThe=?";
         try (Connection con = cn.connectSQL();
@@ -252,7 +252,7 @@ public class ChiTietPhieuXuat {
     }
 
 
-    public boolean deleteCTPN(int maPX, int maBienThe) throws SQLException {
+    public boolean deleteCTPX(int maPX, int maBienThe) throws SQLException {
         String sql = "DELETE FROM CHI_TIET_PHIEU_XUAT WHERE MaPhieuXuat=? AND MaBienThe=?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {

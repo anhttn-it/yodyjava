@@ -34,29 +34,24 @@ public class panelDoanhThu extends javax.swing.JPanel {
     private void loadDoanhThu(String ngayStr, int thang, int nam) {
         String sql;
         if ("Tất cả".equals(ngayStr)) {
-            // tính cả tháng
-            sql = "SELECT CAST(bh.NgayDatHang AS DATE) AS Ngay, "
-                + "ISNULL(SUM(pn.SoLuong * pn.DonGia), 0) AS Von, "
-                + "ISNULL(SUM(bh.TongTien), 0) AS DoanhThu, "
-                + "ISNULL(SUM(bh.TongTien) - SUM(pn.SoLuong * pn.DonGia), 0) AS LoiNhuan "
-                + "FROM BAN_HANG bh "
-                + "LEFT JOIN CHI_TIET_BAN_HANG ctb ON bh.MaBanHang = ctb.MaBanHang "
-                + "LEFT JOIN CHI_TIET_PHIEU_NHAP pn ON ctb.MaBienThe = pn.MaBienThe "
-                + "WHERE MONTH(bh.NgayDatHang) = ? AND YEAR(bh.NgayDatHang) = ? "
-                + "GROUP BY CAST(bh.NgayDatHang AS DATE) "
-                + "ORDER BY Ngay";
+            sql = "SELECT CAST(NgayNhap AS DATE) AS Ngay, TongTien AS Von, 0 AS DoanhThu, 0 - TongTien AS LoiNhuan " +
+                  "FROM PHIEU_NHAP " +
+                  "WHERE MONTH(NgayNhap)=? AND YEAR(NgayNhap)=? " +
+                  "UNION ALL " +
+                  "SELECT CAST(NgayXuat AS DATE) AS Ngay, 0 AS Von, TongTien AS DoanhThu, TongTien - 0 AS LoiNhuan " +
+                  "FROM PHIEU_XUAT " +
+                  "WHERE MONTH(NgayXuat)=? AND YEAR(NgayXuat)=? " +
+                  "ORDER BY Ngay";
         } else {
-            // tính theo ngày cụ thể
-            sql = "SELECT CAST(bh.NgayDatHang AS DATE) AS Ngay, "
-                + "ISNULL(SUM(pn.SoLuong * pn.DonGia), 0) AS Von, "
-                + "ISNULL(SUM(bh.TongTien), 0) AS DoanhThu, "
-                + "ISNULL(SUM(bh.TongTien) - SUM(pn.SoLuong * pn.DonGia), 0) AS LoiNhuan "
-                + "FROM BAN_HANG bh "
-                + "LEFT JOIN CHI_TIET_BAN_HANG ctb ON bh.MaBanHang = ctb.MaBanHang "
-                + "LEFT JOIN CHI_TIET_PHIEU_NHAP pn ON ctb.MaBienThe = pn.MaBienThe "
-                + "WHERE DAY(bh.NgayDatHang) = ? AND MONTH(bh.NgayDatHang) = ? AND YEAR(bh.NgayDatHang) = ? "
-                + "GROUP BY CAST(bh.NgayDatHang AS DATE) "
-                + "ORDER BY Ngay";
+            int ngay = Integer.parseInt(ngayStr);
+            sql = "SELECT CAST(NgayNhap AS DATE) AS Ngay, TongTien AS Von, 0 AS DoanhThu, 0 - TongTien AS LoiNhuan " +
+                  "FROM PHIEU_NHAP " +
+                  "WHERE DAY(NgayNhap)=? AND MONTH(NgayNhap)=? AND YEAR(NgayNhap)=? " +
+                  "UNION ALL " +
+                  "SELECT CAST(NgayXuat AS DATE) AS Ngay, 0 AS Von, TongTien AS DoanhThu, TongTien - 0 AS LoiNhuan " +
+                  "FROM PHIEU_XUAT " +
+                  "WHERE DAY(NgayXuat)=? AND MONTH(NgayXuat)=? AND YEAR(NgayXuat)=? " +
+                  "ORDER BY Ngay";
         }
 
         try (Connection conn = cn.connectSQL();
@@ -65,34 +60,56 @@ public class panelDoanhThu extends javax.swing.JPanel {
             if ("Tất cả".equals(ngayStr)) {
                 ps.setInt(1, thang);
                 ps.setInt(2, nam);
+                ps.setInt(3, thang);
+                ps.setInt(4, nam);
             } else {
                 int ngay = Integer.parseInt(ngayStr);
                 ps.setInt(1, ngay);
                 ps.setInt(2, thang);
                 ps.setInt(3, nam);
+                ps.setInt(4, ngay);
+                ps.setInt(5, thang);
+                ps.setInt(6, nam);
             }
 
-            ResultSet rs = ps.executeQuery();
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.setRowCount(0);
+        ResultSet rs = ps.executeQuery();
+         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+         model.setRowCount(0);
 
-            while (rs.next()) {
-                Object[] row = new Object[]{
-                    rs.getDate("Ngay"),
-                    rs.getDouble("Von"),
-                    rs.getDouble("DoanhThu"),
-                    rs.getDouble("LoiNhuan")
-                };
-                model.addRow(row);
-            }
+         double tongVon = 0;
+         double tongDoanhThu = 0;
+         double tongLoiNhuan = 0;
+
+         while (rs.next()) {
+             double von = rs.getDouble("Von");
+             double doanhThu = rs.getDouble("DoanhThu");
+             double loiNhuan = rs.getDouble("LoiNhuan");
+
+             Object[] row = new Object[]{
+                 rs.getDate("Ngay"),
+                 von,
+                 doanhThu,
+                 loiNhuan
+             };
+             model.addRow(row);
+
+             tongVon += von;
+             tongDoanhThu += doanhThu;
+             tongLoiNhuan += loiNhuan;
+         }
+            Object[] rowTong = new Object[]{
+                "Tổng",
+                tongVon,
+                tongDoanhThu,
+                tongLoiNhuan
+            };
+            model.addRow(rowTong);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Creates new form panelBaoCaoThongKe
-     */
     public panelDoanhThu() {
         initComponents();
         loadNgayThangNam();
@@ -102,12 +119,6 @@ public class panelDoanhThu extends javax.swing.JPanel {
         cbNam.setSelectedItem(String.valueOf(now.getYear()));
         
     }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
