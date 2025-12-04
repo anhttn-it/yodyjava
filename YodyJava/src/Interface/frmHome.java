@@ -14,6 +14,7 @@ import javax.swing.JPanel;
  * @author ngocanh
  */
 public class frmHome extends javax.swing.JFrame {
+        private final int userRole;
         private void resetButtonColors() {
         btnMua.setBackground(null);
         btnBan.setBackground(null);
@@ -47,6 +48,72 @@ public class frmHome extends javax.swing.JFrame {
 
     public frmHome() {
         initComponents();
+        this.userRole = -1;
+    }
+    public frmHome(int vaiTro) {
+        initComponents();
+        this.userRole = vaiTro;
+        // Gọi hàm phân quyền sau khi các components đã được khởi tạo
+        phanQuyenChucNang(vaiTro); 
+        this.setExtendedState(MAXIMIZED_BOTH); // Mở form toàn màn hình
+        this.setTitle("Hệ thống Quản lý Bán hàng - Vai trò: " + getRoleName(vaiTro));
+    }
+    private void phanQuyenChucNang(int vaiTro) {
+        
+        // Mặc định, ẩn tất cả nút (ngoại trừ nút Đăng Xuất)
+        btnMua.setVisible(false);
+        btnBan.setVisible(false);
+        btnNhap.setVisible(false);
+        btnXuat.setVisible(false);
+        btnSanPham.setVisible(false);
+        btnNhanVien.setVisible(false);
+        btnncc.setVisible(false);
+        btnkh.setVisible(false);
+        btnBaoCao.setVisible(false);
+        
+        switch (vaiTro) {
+            case 0: // QUẢN LÝ (Full Access)
+                // Quản lý có thể thấy TẤT CẢ
+                btnMua.setVisible(true);        // Mua hàng
+                btnBan.setVisible(true);        // Bán hàng
+                btnNhap.setVisible(true);       // Phiếu nhập
+                btnXuat.setVisible(true);       // Phiếu xuất
+                btnSanPham.setVisible(true);    // Sản phẩm
+                btnNhanVien.setVisible(true);   // Nhân viên
+                btnncc.setVisible(true);        // Nhà cung cấp
+                btnkh.setVisible(true);         // Khách hàng
+                btnBaoCao.setVisible(true);     // Báo Cáo/Thống kê
+                break;
+
+            case 1: // NHÂN VIÊN KHO (Warehouse Staff)
+                // Tập trung vào Mua hàng và Quản lý Kho
+                btnMua.setVisible(true);        // Mua hàng (để tạo đơn mua)
+                btnNhap.setVisible(true);       // Phiếu nhập (nhận hàng vào kho)
+                btnXuat.setVisible(true);       // Phiếu xuất (xuất hàng khỏi kho)
+                btnSanPham.setVisible(true);    // Quản lý Sản phẩm (thông tin)
+                btnncc.setVisible(true);        // Nhà cung cấp
+                break;
+
+            case 2: // NHÂN VIÊN THU NGÂN (Sales/Cashier Staff)
+                // Tập trung vào Bán hàng và thông tin khách hàng
+                btnBan.setVisible(true);        // Bán hàng
+                btnkh.setVisible(true);         // Khách hàng
+                btnSanPham.setVisible(true);    
+                break;
+                
+            default: // Vai trò khác hoặc -1
+                JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập chức năng nào. Vui lòng liên hệ Quản trị viên.", "Lỗi Phân Quyền", JOptionPane.WARNING_MESSAGE);
+                break;
+        }
+    }
+    // Hàm phụ trợ để hiển thị tên vai trò (Optional)
+    private String getRoleName(int vaiTro) {
+        switch (vaiTro) {
+            case 0: return "Quản lý";
+            case 1: return "Nhân viên Kho";
+            case 2: return "Nhân viên Thu Ngân";
+            default: return "Không xác định";
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -68,13 +135,13 @@ public class frmHome extends javax.swing.JFrame {
         panelct = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1630, 810));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 800));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("YODY");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoyody.png"))); // NOI18N
 
         btnMua.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         btnMua.setText("Mua hàng");
@@ -108,6 +175,7 @@ public class frmHome extends javax.swing.JFrame {
             }
         });
 
+        btnDangXuat.setBackground(new java.awt.Color(255, 204, 153));
         btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDangXuat.setText("Đăng xuất");
         btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
@@ -163,9 +231,6 @@ public class frmHome extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnncc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -183,13 +248,13 @@ public class frmHome extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(btnBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(16, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(94, 94, 94)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(btnMua)
                 .addGap(18, 18, 18)
                 .addComponent(btnBan)
@@ -205,13 +270,14 @@ public class frmHome extends javax.swing.JFrame {
                 .addComponent(btnncc)
                 .addGap(18, 18, 18)
                 .addComponent(btnkh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnBaoCao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
 
+        pane.setBackground(new java.awt.Color(255, 255, 255));
         pane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pane.setPreferredSize(new java.awt.Dimension(700, 800));
 
@@ -226,6 +292,7 @@ public class frmHome extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        panelct.setBackground(new java.awt.Color(255, 255, 255));
         panelct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelct.setPreferredSize(new java.awt.Dimension(700, 800));
 
@@ -335,9 +402,33 @@ public class frmHome extends javax.swing.JFrame {
     private void btnSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSanPhamActionPerformed
 
         highlightButton(btnSanPham);
-        panelSanPham sp = new panelSanPham();
-        pane.setPreferredSize(new Dimension(700, 800));
-        setPanel(sp, null);
+        try {
+            panelSanPham sp = new panelSanPham();
+            pane.setPreferredSize(new Dimension(700, 800));
+            setPanel(sp, null);
+            sp.gettbSanPham().addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    int row = sp.gettbSanPham().getSelectedRow();
+                    if (row >= 0) {
+                        int masp = (int) sp.gettbSanPham().getValueAt(row, 1);
+                        try {
+                            panelBienTheSanPham detail = new panelBienTheSanPham();
+                            detail.loadData(masp);
+                            panelct.removeAll();
+                            panelct.setLayout(new java.awt.BorderLayout());
+                            panelct.add(detail);
+                            panelct.revalidate();
+                            panelct.repaint();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            });
+        } catch (SQLException ex) {
+            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_btnSanPhamActionPerformed
 
     private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
@@ -374,9 +465,13 @@ public class frmHome extends javax.swing.JFrame {
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         // TODO add your handling code here:
         highlightButton(btnNhanVien);
-        panelNhanVien nv = new panelNhanVien();
-        pane.setPreferredSize(new Dimension(1400, 800));
-        setPanel(nv, null);
+        try {
+            panelNhanVien nv = new panelNhanVien();
+            pane.setPreferredSize(new Dimension(1400, 800));
+            setPanel(nv, null);
+        } catch (SQLException ex) {
+            System.getLogger(frmHome.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_btnNhanVienActionPerformed
 
     private void btnnccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnccActionPerformed

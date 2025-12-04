@@ -64,33 +64,51 @@ public class SanPham {
         }
         return list;
     }
-
+    public SanPham getSanPham (int MaSP) throws SQLException {
+        String sql = "SELECT * FROM SAN_PHAM WHERE MaSanPham=?";
+        try (Connection con = cn.connectSQL();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1,MaSP);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    SanPham obj = new SanPham();
+                    obj.maSanPham = rs.getInt("MaSanPham");
+                    obj.tenSanPham = rs.getString("TenSanPham");
+                    obj.maNCC = rs.getInt("MaNCC");
+                    obj.trangThaiSanPham = rs.getString("TrangThaiSanPham");
+                    obj.giamGia = rs.getDouble("GiamGia");
+                    return obj;
+                }
+            }
+        }
+        return null;
+    }
     // Thêm sản phẩm
-    public boolean insert(SanPham sp) throws SQLException {
+    public boolean insert(SanPham obj) throws SQLException {
         String sql = "INSERT INTO SAN_PHAM (TenSanPham, MaNCC, TrangThaiSanPham, GiamGia) VALUES (?, ?, ?, ?)";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, sp.getTenSanPham());
-            ps.setInt(2, sp.getMaNCC());
-            ps.setString(3, sp.getTrangThaiSanPham());
-            ps.setDouble(4, sp.getGiamGia());
+            ps.setString(1, obj.tenSanPham);
+            ps.setInt(2, obj.maNCC);
+            ps.setString(3, obj.trangThaiSanPham);
+            ps.setDouble(4, obj.giamGia);
 
             return ps.executeUpdate() > 0;
         }
     }
 
     // Sửa sản phẩm
-    public boolean update(SanPham sp) throws SQLException {
+    public boolean update(SanPham obj) throws SQLException {
         String sql = "UPDATE SAN_PHAM SET TenSanPham=?, MaNCC=?, TrangThaiSanPham=?, GiamGia=? WHERE MaSanPham=?";
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, sp.getTenSanPham());
-            ps.setInt(2, sp.getMaNCC());
-            ps.setString(3, sp.getTrangThaiSanPham());
-            ps.setDouble(4, sp.getGiamGia());
-            ps.setInt(5, sp.getMaSanPham());
+            ps.setString(1, obj.tenSanPham);
+            ps.setInt(2, obj.maNCC);
+            ps.setString(3, obj.trangThaiSanPham);
+            ps.setDouble(4, obj.giamGia);
+            ps.setInt(5, obj.maSanPham);
 
             return ps.executeUpdate() > 0;
         }
@@ -98,26 +116,41 @@ public class SanPham {
 
     // Xóa sản phẩm
     public boolean delete(int maSP) throws SQLException {
-        String sql = "DELETE FROM SAN_PHAM WHERE MaSanPham=?";
-        try (Connection con = cn.connectSQL();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = cn.connectSQL()) {
+            con.setAutoCommit(false); // bật transaction
+            try (PreparedStatement ps1 = con.prepareStatement("DELETE FROM BIEN_THE_SAN_PHAM WHERE maSanPham = ?");
+                 PreparedStatement ps2 = con.prepareStatement("DELETE FROM SAN_PHAM WHERE maSanPham = ?")) {
 
-            ps.setInt(1, maSP);
-            return ps.executeUpdate() > 0;
+         ps1.setInt(1, maSP);
+                ps1.executeUpdate();
+
+                ps2.setInt(1, maSP);
+                int rows = ps2.executeUpdate();
+
+                con.commit();
+                return rows > 0;
+            } catch (SQLException e) {
+                con.rollback();
+                throw e;
+            }
         }
     }
 
     // Tìm kiếm sản phẩm
     public List<SanPham> search(String keyword) throws SQLException {
         List<SanPham> list = new ArrayList<>();
-        String sql = "SELECT * FROM SAN_PHAM WHERE TenSanPham LIKE ? OR CONVERT(NVARCHAR(20), MaSanPham) LIKE ? OR CONVERT(NVARCHAR(20), MaNCC) LIKE ?";
+        String sql = """
+            SELECT * FROM SAN_PHAM
+            WHERE MaSanPham LIKE ?
+               OR TenSanPham LIKE ?
+        """;
+
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             String key = "%" + keyword.trim() + "%";
             ps.setString(1, key);
             ps.setString(2, key);
-            ps.setString(3, key);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -130,26 +163,26 @@ public class SanPham {
                     list.add(sp);
                 }
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm KH: " + e.getMessage());
+            throw e;
         }
+
         return list;
     }
 
     // ----------------- PHẦN MỚI: LẤY DANH SÁCH NCC -----------------
-    public List<Integer> getAllNCC() {
-    List<Integer> list = new ArrayList<>();
-    String sql = "SELECT MaNhaCungCap FROM NHA_CUNG_CAP";
-
-    try (Connection con = cn.connectSQL();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-
-        while (rs.next()) {
-            int maNCC = rs.getInt("MaNhaCungCap");
-            list.add(maNCC); // đúng kiểu Integer
+    public List<Integer> getAllNCC() throws SQLException{
+        List<Integer> list = new ArrayList<>();
+        String sql="select MaNhaCungCap from Nha_cung_cap";
+        try(Connection con=cn.connectSQL();
+                PreparedStatement ps=con.prepareStatement(sql);
+                ResultSet rs=ps.executeQuery();){
+            while (rs.next()){
+                list.add(rs.getInt("Manhacungcap"));
+            }
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Phiếu Nhập: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Lỗi load nhà cung cấp: " + e.getMessage());
-    }
-    return list;
-}
-}
+        return list;
+    }}

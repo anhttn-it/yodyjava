@@ -48,20 +48,27 @@ public class DangNhap {
     public void setQuyen(int quyen) {
         this.quyen = quyen;
     }
-    public boolean gettkmk(int tk, String mk) throws SQLException {
-        String sql = "SELECT * FROM nhan_vien WHERE manhanvien = ? AND matkhau = ?";
+    public int getVaiTro(int maNV, String matKhau) {
+        String sql = "SELECT VaiTro FROM NHAN_VIEN WHERE MaNhanVien = ? AND MatKhau = ? AND TrangThai = 1";
+        
         try (Connection con = cn.connectSQL();
-            PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, tk);
-            ps.setString(2, mk);
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setInt(1, maNV);
+            ps.setString(2, matKhau);
+            
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
+                if (rs.next()) {
+                    return rs.getInt("VaiTro");
+                }
             }
-        }catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        
+        return -1; 
     }
+}
 
     
-}
+

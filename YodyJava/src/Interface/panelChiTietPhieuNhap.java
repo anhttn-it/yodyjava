@@ -143,6 +143,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnThemCTPN = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(228, 245, 255));
         setPreferredSize(new java.awt.Dimension(700, 750));
 
         btnSuaCTPN.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -187,11 +188,12 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         jLabel5.setText("Kích cỡ");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel9.setForeground(java.awt.SystemColor.textHighlight);
+        jLabel9.setForeground(new java.awt.Color(0, 51, 204));
         jLabel9.setText("Chi tiết phiếu nhập");
 
         txtTenSP.setEditable(false);
 
+        tblCTPN.setBackground(new java.awt.Color(255, 251, 241));
         tblCTPN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -275,7 +277,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                             .addComponent(cbKichCo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 105, Short.MAX_VALUE))
+                        .addGap(37, 103, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnLuuCTPN)
@@ -321,8 +323,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                     .addComponent(btnThemCTPN)
                     .addComponent(btnXoaCTPN, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
