@@ -23,14 +23,12 @@ public class panelSanPham extends javax.swing.JPanel {
         initComponents();
         tablemodel.setColumnIdentifiers(new Object[]{"Tên Sản Phẩm","Mã Sản Phẩm", "Mã NCC", "Giảm giá", "Trạng thái SP"});
         tbsanpham.setModel(tablemodel);
-        loadNCC(); // Load danh sách nhà cung cấp vào ComboBox
+        loadNCC();
         showdata();
         setnull();
         setButton(true);
         setKhoa(true);
     }
-
-    // Load danh sách NCC vào ComboBox
     private void loadNCC()  {
         try{
             cbmancc.removeAllItems();
@@ -80,21 +78,6 @@ public class panelSanPham extends javax.swing.JPanel {
             tablemodel.addRow(row);
         }
     }
-
-    /*private void fillToForm() {
-        int row = tbsanpham.getSelectedRow();
-        if (row < 0) return;
-
-        txttensp.setText(tbsanpham.getValueAt(row, 0).toString());
-        txtmsp.setText(tbsanpham.getValueAt(row, 1).toString());
-
-        int maNCC = Integer.parseInt(tbsanpham.getValueAt(row, 2).toString());
-        cbmancc.setSelectedItem(maNCC);
-        txtgiamgia.setText(tbsanpham.getValueAt(row, 3).toString());
-        cbtrangthai.setSelectedItem(tbsanpham.getValueAt(row, 4).toString());
-        
-    }*/
-
     private boolean validateInput() {
         if (txttensp.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống!");
@@ -132,6 +115,7 @@ public class panelSanPham extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
         btnLM = new javax.swing.JButton();
         btthem = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -151,13 +135,12 @@ public class panelSanPham extends javax.swing.JPanel {
         txttensp = new javax.swing.JTextField();
         cbtrangthai = new javax.swing.JComboBox<>();
         bttim = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbsanpham = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(228, 245, 255));
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách sản  phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 24), new java.awt.Color(0, 51, 204))); // NOI18N
-        setPreferredSize(new java.awt.Dimension(700, 800));
+        setPreferredSize(new java.awt.Dimension(700, 750));
 
         btnLM.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnLM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Restart1.png"))); // NOI18N
@@ -282,8 +265,6 @@ public class panelSanPham extends javax.swing.JPanel {
             tbsanpham.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jScrollPane2.setViewportView(jScrollPane1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -303,12 +284,9 @@ public class panelSanPham extends javax.swing.JPanel {
                 .addComponent(btkluu)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,20 +306,21 @@ public class panelSanPham extends javax.swing.JPanel {
                                     .addComponent(cbmancc, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txttensp, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(47, 47, 47)
+                                        .addGap(44, 44, 44)
                                         .addComponent(btsua)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btxoa))
-                                    .addComponent(txttensp, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btxoa)))
                                 .addGap(58, 58, 58)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 78, Short.MAX_VALUE))))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txttimkiemsp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,14 +346,14 @@ public class panelSanPham extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtgiamgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btthem, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btsua, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btxoa, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                    .addComponent(btsua)
+                    .addComponent(btxoa)
+                    .addComponent(btthem))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -394,7 +373,7 @@ public class panelSanPham extends javax.swing.JPanel {
         setButton(false);
         setKhoa(false);
         cothem = true;
-        tbsanpham.setEnabled(false); // 
+        tbsanpham.setEnabled(false);
         
     }//GEN-LAST:event_btthemActionPerformed
 
@@ -443,7 +422,6 @@ public class panelSanPham extends javax.swing.JPanel {
         Double giamgiadb = Double.parseDouble(giamgia); 
             try {
                 int mancc = (int) manccObj;
-                //int trangthai = Integer.parseInt(trangthaiStr); 
                 SanPham obj = new SanPham();
                 obj.setMaNCC(mancc);
                 obj.setTrangThaiSanPham(trangthaiStr);
@@ -561,11 +539,4 @@ public class panelSanPham extends javax.swing.JPanel {
     private javax.swing.JTextField txttimkiemsp;
     // End of variables declaration//GEN-END:variables
 
-    private void dispose() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    Object gettbsanpham() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

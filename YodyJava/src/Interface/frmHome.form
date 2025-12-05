@@ -30,7 +30,7 @@
               <Component id="pane" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelct" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="109" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -68,28 +68,18 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="btnncc" alignment="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="btnNhanVien" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnSanPham" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnXuat" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnNhap" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnBan" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnMua" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnkh" pref="170" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnDangXuat" pref="170" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnBaoCao" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="btnncc" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnNhanVien" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnSanPham" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnXuat" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnNhap" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnBan" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnMua" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnkh" alignment="1" pref="170" max="32767" attributes="0"/>
+                      <Component id="btnDangXuat" alignment="0" pref="170" max="32767" attributes="0"/>
+                      <Component id="btnBaoCao" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>

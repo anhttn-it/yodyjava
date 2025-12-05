@@ -361,7 +361,7 @@ public class panelMuaHang extends javax.swing.JPanel {
                             .addComponent(btnSua)
                             .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -423,7 +423,7 @@ public class panelMuaHang extends javax.swing.JPanel {
         // TODO add your handling code here:
         Object manccObj = cbMaNCC.getSelectedItem();
         Object manvObj = cbMaNV.getSelectedItem();
-        String ghichu = txtGhiChuMH.getText().trim(); // dùng textarea đúng tên
+        String ghichu = txtGhiChuMH.getText().trim();
 
         if (manccObj == null || manvObj == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin!");
@@ -435,11 +435,11 @@ public class panelMuaHang extends javax.swing.JPanel {
             int manv = Integer.parseInt(manvObj.toString());
 
             MuaHang obj = new MuaHang();
-            obj.setNgayMua(new Date()); // lấy thời gian hiện tại
+            obj.setNgayMua(new Date());
             obj.setMaNCC(mancc);
             obj.setMaNV(manv);
-            obj.setGhiChu(ghichu);      // ghi chú từ txtGhiChuMH
-            obj.setTongTien(0);         // tổng tiền mặc định 0 khi thêm mới
+            obj.setGhiChu(ghichu);
+            obj.setTongTien(0);
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

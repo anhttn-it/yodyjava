@@ -53,14 +53,11 @@ public class frmHome extends javax.swing.JFrame {
     public frmHome(int vaiTro) {
         initComponents();
         this.userRole = vaiTro;
-        // Gọi hàm phân quyền sau khi các components đã được khởi tạo
         phanQuyenChucNang(vaiTro); 
-        this.setExtendedState(MAXIMIZED_BOTH); // Mở form toàn màn hình
+        this.setPreferredSize(new Dimension(1600, 800));
         this.setTitle("Hệ thống Quản lý Bán hàng - Vai trò: " + getRoleName(vaiTro));
     }
-    private void phanQuyenChucNang(int vaiTro) {
-        
-        // Mặc định, ẩn tất cả nút (ngoại trừ nút Đăng Xuất)
+    private void phanQuyenChucNang(int vaiTro) {       
         btnMua.setVisible(false);
         btnBan.setVisible(false);
         btnNhap.setVisible(false);
@@ -72,41 +69,37 @@ public class frmHome extends javax.swing.JFrame {
         btnBaoCao.setVisible(false);
         
         switch (vaiTro) {
-            case 0: // QUẢN LÝ (Full Access)
-                // Quản lý có thể thấy TẤT CẢ
-                btnMua.setVisible(true);        // Mua hàng
-                btnBan.setVisible(true);        // Bán hàng
-                btnNhap.setVisible(true);       // Phiếu nhập
-                btnXuat.setVisible(true);       // Phiếu xuất
-                btnSanPham.setVisible(true);    // Sản phẩm
-                btnNhanVien.setVisible(true);   // Nhân viên
-                btnncc.setVisible(true);        // Nhà cung cấp
-                btnkh.setVisible(true);         // Khách hàng
-                btnBaoCao.setVisible(true);     // Báo Cáo/Thống kê
+            case 0:
+                btnMua.setVisible(true);
+                btnBan.setVisible(true);
+                btnNhap.setVisible(true);
+                btnXuat.setVisible(true);
+                btnSanPham.setVisible(true);
+                btnNhanVien.setVisible(true);
+                btnncc.setVisible(true);
+                btnkh.setVisible(true);
+                btnBaoCao.setVisible(true);
                 break;
 
-            case 1: // NHÂN VIÊN KHO (Warehouse Staff)
-                // Tập trung vào Mua hàng và Quản lý Kho
-                btnMua.setVisible(true);        // Mua hàng (để tạo đơn mua)
-                btnNhap.setVisible(true);       // Phiếu nhập (nhận hàng vào kho)
-                btnXuat.setVisible(true);       // Phiếu xuất (xuất hàng khỏi kho)
-                btnSanPham.setVisible(true);    // Quản lý Sản phẩm (thông tin)
-                btnncc.setVisible(true);        // Nhà cung cấp
+            case 1:
+                btnMua.setVisible(true);
+                btnNhap.setVisible(true);
+                btnXuat.setVisible(true);
+                btnSanPham.setVisible(true);
+                btnncc.setVisible(true);
                 break;
 
-            case 2: // NHÂN VIÊN THU NGÂN (Sales/Cashier Staff)
-                // Tập trung vào Bán hàng và thông tin khách hàng
-                btnBan.setVisible(true);        // Bán hàng
-                btnkh.setVisible(true);         // Khách hàng
+            case 2:
+                btnBan.setVisible(true);
+                btnkh.setVisible(true);
                 btnSanPham.setVisible(true);    
                 break;
                 
-            default: // Vai trò khác hoặc -1
+            default:
                 JOptionPane.showMessageDialog(this, "Bạn không có quyền truy cập chức năng nào. Vui lòng liên hệ Quản trị viên.", "Lỗi Phân Quyền", JOptionPane.WARNING_MESSAGE);
                 break;
         }
     }
-    // Hàm phụ trợ để hiển thị tên vai trò (Optional)
     private String getRoleName(int vaiTro) {
         switch (vaiTro) {
             case 0: return "Quản lý";
@@ -229,24 +222,18 @@ public class frmHome extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnncc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(btnNhanVien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSanPham, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnXuat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNhap, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnkh, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnncc, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnkh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(btnBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(16, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
@@ -318,7 +305,7 @@ public class frmHome extends javax.swing.JFrame {
                 .addComponent(pane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

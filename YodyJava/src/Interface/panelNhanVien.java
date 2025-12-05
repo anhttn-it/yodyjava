@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Interface;
+import Proccess.MD5Hash;
 import Proccess.NhanVien;
 import java.sql.*;
 import java.util.List;
@@ -526,6 +527,7 @@ public void ShowData() throws SQLException {
             JOptionPane.showMessageDialog(this,"Vui lòng điền đầy đủ thông tin!");
             return;
         }
+        String matkhauMD5 = MD5Hash.encrypt(pass);
         int gioiTinhInt = -1; // -1 là giá trị mặc định báo lỗi
         int vaiTroInt = -1;
         int trangThaiInt = -1;
@@ -562,7 +564,7 @@ public void ShowData() throws SQLException {
                 obj.setTen(ten);
                 obj.setDiaChi(diachi);
                 obj.setEmail(email);
-                obj.setMatKhau(pass);
+                obj.setMatKhau(matkhauMD5);
                 obj.setNgaySinh(ngaySinhUtil);
                 obj.setGioiTinh(gioiTinhInt);        
                 obj.setVaiTro(vaiTroInt);             
