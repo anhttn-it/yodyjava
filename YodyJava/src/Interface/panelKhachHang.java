@@ -94,7 +94,7 @@ public class panelKhachHang extends javax.swing.JPanel {
         }
     }
     private void loadTable(List<KhachHang> list) {
-    clearData(); // xóa hết dữ liệu cũ
+    clearData();
     for (KhachHang k : list) {
         Object[] row = new Object[]{
             k.getMaKH(),

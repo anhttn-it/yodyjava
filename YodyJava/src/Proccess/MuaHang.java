@@ -58,7 +58,7 @@ public class MuaHang {
             obj.setNgayMua(rs.getTimestamp("NgayMua"));
             obj.setMaNCC(rs.getInt("MaNCC"));
             obj.setMaNV(rs.getInt("MaNV"));
-            obj.setTongTien(rs.getDouble("TongTien")); // <-- lấy từ DB
+            obj.setTongTien(rs.getDouble("TongTien"));
             obj.setGhiChu(rs.getString("GhiChu"));
             list.add(obj);
         }

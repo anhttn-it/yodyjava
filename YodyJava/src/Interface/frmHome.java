@@ -489,18 +489,18 @@ public class frmHome extends javax.swing.JFrame {
       // TODO add your handling code here:
         highlightButton(btnMua);
     try {
-        panelMuaHang mh = new panelMuaHang();
+        MuaHangpanel mh = new MuaHangpanel();
         pane.setPreferredSize(new Dimension(700, 800));
         setPanel(mh, null);
-        mh.gettblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
+        mh.getTblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                int row = mh.gettblMuaHang().getSelectedRow();
+                int row = mh.getTblMuaHang().getSelectedRow();
                 if (row >= 0) {
-                    int maMH = (int) mh.gettblMuaHang().getValueAt(row, 0);
+                    int maMH = (int) mh.getTblMuaHang().getValueAt(row, 0);
                     try {
-                        panelChiTietMuaHang detail = new panelChiTietMuaHang();
-                        detail.loadDataByMaMH(maMH);
+                        ChiTietMuaHangpanel detail = new ChiTietMuaHangpanel();
+                        detail.loadData(maMH);
                         panelct.removeAll();
                         panelct.setLayout(new java.awt.BorderLayout());
                         panelct.add(detail);
