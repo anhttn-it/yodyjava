@@ -110,10 +110,8 @@ public class NhaCungCap {
     public List<NhaCungCap> search(String keyword) {
     List<NhaCungCap> list = new ArrayList<>();
     String sql = """
-            SELECT * NHA_CUNG_CAP
-            WHERE MaNhaCungCap LIKE ?
-               OR Ten LIKE ?
-               OR Email LIKE ?
+            SELECT * FROM NHA_CUNG_CAP
+            WHERE Ten LIKE ? OR Email LIKE ? OR MaNhaCungCap LIKE ?
         """;
     try (Connection con = cn.connectSQL();
          PreparedStatement ps = con.prepareStatement(sql)) {

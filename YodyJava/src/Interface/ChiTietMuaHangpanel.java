@@ -149,6 +149,8 @@ public class ChiTietMuaHangpanel extends javax.swing.JPanel {
         btnThemCTPX = new javax.swing.JButton();
         cbMaSP = new javax.swing.JComboBox<>();
 
+        setBackground(new java.awt.Color(228, 245, 255));
+
         btnSuaCTPX.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSuaCTPX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Edit.png"))); // NOI18N
         btnSuaCTPX.addActionListener(new java.awt.event.ActionListener() {

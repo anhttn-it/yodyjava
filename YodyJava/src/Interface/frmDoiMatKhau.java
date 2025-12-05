@@ -64,11 +64,7 @@ public class frmDoiMatKhau extends javax.swing.JFrame {
 
         jLabel4.setText("Mật khẩu mới");
 
-        txtmkcu.setText("jPasswordField1");
-
-        txtmkcu2.setText("jPasswordField2");
-
-        txtmkmoi.setText("jPasswordField3");
+        txtmkmoi.setToolTipText("");
 
         btdangnhap.setBackground(new java.awt.Color(153, 204, 255));
         btdangnhap.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N

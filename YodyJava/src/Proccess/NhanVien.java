@@ -209,7 +209,7 @@ public NhanVien getNhanVien (int MaNV) throws SQLException {
         List<NhanVien> list = new ArrayList<>();
         String sql = """
             SELECT * FROM NHAN_VIEN
-            WHERE Ho LIKE ? OR Ten LIKE ? OR MaNhanVien= ?
+            WHERE Ho LIKE ? OR Ten LIKE ? OR MaNhanVien LIKE ?
         """;
 
         try (Connection con = cn.connectSQL();
@@ -217,14 +217,8 @@ public NhanVien getNhanVien (int MaNV) throws SQLException {
 
             ps.setString(1, "%" + keyword + "%");
             ps.setString(2, "%" + keyword + "%");
-            int maNVToSearch = -1;
-            try {
-            //chuyển keyword sang số nguyên
-            maNVToSearch = Integer.parseInt(keyword.trim());
-            } catch (NumberFormatException e) {
-        
-            }
-            ps.setInt(3, maNVToSearch);
+            ps.setString(3, "%" + keyword + "%");
+            
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {

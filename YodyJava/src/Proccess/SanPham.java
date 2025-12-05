@@ -164,7 +164,7 @@ public class SanPham {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm KH: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Lỗi tìm kiếm SP: " + e.getMessage());
             throw e;
         }
 

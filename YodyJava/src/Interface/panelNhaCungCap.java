@@ -454,19 +454,14 @@ public class panelNhaCungCap extends javax.swing.JPanel {
             clearData();
             List <NhaCungCap> list = nccProcess.search(keyword);
             if(list.isEmpty()){
-                JOptionPane.showMessageDialog(this, "Không tìm thấy sản phẩm nào!");
+                JOptionPane.showMessageDialog(this, "Không tìm thấy nhà cung cấp nào!");
                 
             }
             else{
-                for(NhaCungCap ncc : list){
-                    Object[] row = new Object[3];
-                    row [0] = ncc.getMaNCC();
-                    row [1] = ncc.getTenNCC();
-                    row [2] = ncc.getEmail();
-                    tableModel.addRow(row);
+                loadTable(list);
             }
         } 
-        }catch (Exception e) {
+        catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi tìm kiếm!" +e.getMessage());
         }
         // Thông báo lỗi SQL chi tiết
