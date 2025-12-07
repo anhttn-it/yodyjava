@@ -20,6 +20,7 @@ public class panelPhieuNhap extends javax.swing.JPanel {
     public javax.swing.JTable getTblPhieuNhap() {
     return tblPN;
     }
+    private final int userRole;
     private final PhieuNhap pn= new PhieuNhap();
     private boolean cothem = false;  
     private int mapn = -1;
@@ -67,13 +68,53 @@ public class panelPhieuNhap extends javax.swing.JPanel {
         cbMaMH.setSelectedItem(null);
     }
     public void setbutton(boolean a){
-        btnThemPN.setEnabled(a);
-        btnSuaPN.setEnabled(a);
-        btnXoaPN.setEnabled(a);
         btnLuuPN.setEnabled(!a);
         btnKLuuPN.setEnabled(!a);
+        // Bật/Tắt các nút chính dựa trên vai trò khi không trong chế độ Sửa/Thêm (a=true)
+    if (a) {
+        if (this.userRole == 1) {
+            btnThemPN.setEnabled(true);
+            btnSuaPN.setEnabled(false);
+            btnXoaPN.setEnabled(false);
+        } else if (this.userRole == 0) {
+            btnThemPN.setEnabled(false); // Quản lý không được thêm
+         
+        } else {
+            // Trường hợp khác (ví dụ: nhanvienthungan)
+            btnThemPN.setEnabled(false);
+            btnSuaPN.setEnabled(false);
+            btnXoaPN.setEnabled(false);
+        }
+    } else {
+        // Chế độ Sửa/Thêm (a=false): chỉ cần đảm bảo nút Lưu/Klưu được bật, các nút chính bị tắt
+        btnThemPN.setEnabled(false);
+        btnSuaPN.setEnabled(false);
+        btnXoaPN.setEnabled(false);
+    
+}
         
     }
+    
+
+public void phanquyenbtn() {
+    // Luôn khóa các nút chức năng mặc định (vì hàm setbutton(true) không được gọi nữa)
+    btnThemPN.setEnabled(false);
+    btnSuaPN.setEnabled(false);
+    btnXoaPN.setEnabled(false);
+    btnLuuPN.setEnabled(false);
+    btnKLuuPN.setEnabled(false); // Phân quyền chi tiết
+    if (this.userRole == 0) {
+        btnSuaPN.setEnabled(true);
+        btnXoaPN.setEnabled(true);
+    } else if (this.userRole == 1) {
+        // Nhân viên kho: Chỉ được Thêm
+        btnThemPN.setEnabled(true);
+    } 
+    
+    // Vô hiệu hóa nút Lưu/Klưu cho đến khi nhấn Thêm/Sửa
+    btnLuuPN.setEnabled(false);
+    btnKLuuPN.setEnabled(false);
+}
     public void setKhoa(boolean a){
         txtGhiChu.setEditable(!a);
         cbMaNCC.setEnabled(!a);
@@ -104,8 +145,9 @@ public class panelPhieuNhap extends javax.swing.JPanel {
     /**
      * Creates new form panelPhieuNhap
      */
-    public panelPhieuNhap() throws SQLException {
+    public panelPhieuNhap(int vaiTro) throws SQLException {
         initComponents();
+        this.userRole = vaiTro;
         tableModel.setColumnIdentifiers(new Object[]{"Mã MH","Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền", "Ghi chú"});
         tblPN.setModel(tableModel);
         loadmmh();
@@ -113,7 +155,7 @@ public class panelPhieuNhap extends javax.swing.JPanel {
         loadComboBoxMaNCC();
         ShowData();
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
     }
 
@@ -409,7 +451,14 @@ public class panelPhieuNhap extends javax.swing.JPanel {
             cbMaNV.setSelectedItem(obj.getMaNV());
             cbMaMH.setSelectedItem(obj.getMaMuaHang());
         }
-        panelChiTietPhieuNhap chiTietPanel = new panelChiTietPhieuNhap();
+        if (this.userRole == 0) {
+            btnSuaPN.setEnabled(true);
+            btnXoaPN.setEnabled(true);
+        } else {
+            btnSuaPN.setEnabled(false);
+            btnXoaPN.setEnabled(false);
+        }
+        panelChiTietPhieuNhap chiTietPanel = new panelChiTietPhieuNhap(userRole);
         chiTietPanel.loadData(mapn);
         chiTietPanel.setVisible(true);
 
@@ -499,7 +548,7 @@ public class panelPhieuNhap extends javax.swing.JPanel {
                 ClearData();
                 ShowData();
                 setnull();
-                setbutton(true);
+                phanquyenbtn();
                 setKhoa(true);
                 cothem=false;
                 tblPN.setEnabled(true);
@@ -513,7 +562,8 @@ public class panelPhieuNhap extends javax.swing.JPanel {
         // TODO add your handling code here:
         setnull();
         setKhoa(true);
-        setbutton(true);
+        phanquyenbtn();
+        tblPN.setEnabled(true);
     }//GEN-LAST:event_btnKLuuPNActionPerformed
 
     private void btnLMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLMActionPerformed

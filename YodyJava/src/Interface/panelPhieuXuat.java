@@ -18,6 +18,7 @@ public class panelPhieuXuat extends javax.swing.JPanel {
     public javax.swing.JTable getTblPhieuXuat() {
     return tblPX;
     }
+    private final int userRole;
     private final PhieuXuat px= new PhieuXuat();
     private boolean cothem = false;  
     private int mapx = -1;
@@ -64,13 +65,50 @@ public class panelPhieuXuat extends javax.swing.JPanel {
         cbMaBH.setSelectedItem(null);
     }
     public void setbutton(boolean a){
-        btnThemPX.setEnabled(a);
-        btnSuaPX.setEnabled(a);
-        btnXoaPX.setEnabled(a);
         btnLuuPX.setEnabled(!a);
         btnKLuuPX.setEnabled(!a);
+        if (a) {
+        if (this.userRole == 2) {
+            btnThemPX.setEnabled(true);
+            btnSuaPX.setEnabled(false);
+            btnXoaPX.setEnabled(false);
+        } else if (this.userRole == 0) {
+            btnThemPX.setEnabled(false); // Quản lý không được thêm
+         
+        } else {
+            // Trường hợp khác (ví dụ: nhanvienkho)
+            btnThemPX.setEnabled(false);
+            btnSuaPX.setEnabled(false);
+            btnXoaPX.setEnabled(false);
+        }
+    } else {
+        // Chế độ Sửa/Thêm (a=false): chỉ cần đảm bảo nút Lưu/Klưu được bật, các nút chính bị tắt
+        btnThemPX.setEnabled(false);
+        btnSuaPX.setEnabled(false);
+        btnXoaPX.setEnabled(false);
+    
+}
         
     }
+     public void phanquyenbtn() {
+    // Luôn khóa các nút chức năng mặc định (vì hàm setbutton(true) không được gọi nữa)
+    btnThemPX.setEnabled(false);
+    btnSuaPX.setEnabled(false);
+    btnXoaPX.setEnabled(false);
+    btnLuuPX.setEnabled(false);
+    btnKLuuPX.setEnabled(false); // Phân quyền chi tiết
+    if (this.userRole == 0) {
+        btnSuaPX.setEnabled(true);
+        btnXoaPX.setEnabled(true);
+    } else if (this.userRole == 2) {
+        // Nhân viên tn: Chỉ được Thêm
+        btnThemPX.setEnabled(true);
+    } 
+    
+    // Vô hiệu hóa nút Lưu/Klưu cho đến khi nhấn Thêm/Sửa
+    btnLuuPX.setEnabled(false);
+    btnKLuuPX.setEnabled(false);
+}
     public void setKhoa(boolean a){
         txtGhiChuX.setEditable(!a);
         cbMaNVX.setEnabled(!a);
@@ -95,8 +133,9 @@ public class panelPhieuXuat extends javax.swing.JPanel {
             tableModel.removeRow(i);
         }
     }
-    public panelPhieuXuat() throws SQLException {
+    public panelPhieuXuat(int vaiTro) throws SQLException {
         initComponents();
+        this.userRole = vaiTro;
         tableModel.setColumnIdentifiers(new Object[]{"Mã BH", "Mã phiếu xuất", "Ngày xuất", "Mã NV", "Tổng tiền", "Ghi chú"});
         tblPX.setModel(tableModel);
         loadmbh();
@@ -104,7 +143,7 @@ public class panelPhieuXuat extends javax.swing.JPanel {
 //        loadComboBoxMaKH();
         ShowData();
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
     }
 
@@ -386,7 +425,8 @@ public class panelPhieuXuat extends javax.swing.JPanel {
         // TODO add your handling code here:
         setnull();
         setKhoa(true);
-        setbutton(true);
+        phanquyenbtn();
+        tblPX.setEnabled(true);
     }//GEN-LAST:event_btnKLuuPXActionPerformed
 
     private void btnLMXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLMXActionPerformed
@@ -413,9 +453,16 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                 cbMaNVX.setSelectedItem(obj.getMaNV());
                 cbMaBH.setSelectedItem(obj.getMaBanHang());
             }
+            if (this.userRole == 0) {
+            btnSuaPX.setEnabled(true);
+            btnXoaPX.setEnabled(true);
+        } else {
+            btnSuaPX.setEnabled(false);
+            btnXoaPX.setEnabled(false);
+        }
 
             // --- HIỂN THỊ CHI TIẾT ---
-            panelChiTietPhieuXuat chiTietPanel = new panelChiTietPhieuXuat();
+            panelChiTietPhieuXuat chiTietPanel = new panelChiTietPhieuXuat(userRole);
             chiTietPanel.loadData(mapx);
             chiTietPanel.setVisible(true);
 
@@ -530,7 +577,7 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                 ClearData();
                 ShowData();
                 setnull();
-                setbutton(true);
+                phanquyenbtn();
                 setKhoa(true);
                 cothem=false;
                 tblPX.setEnabled(true);

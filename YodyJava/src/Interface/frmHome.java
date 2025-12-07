@@ -84,13 +84,13 @@ public class frmHome extends javax.swing.JFrame {
             case 1:
                 btnMua.setVisible(true);
                 btnNhap.setVisible(true);
-                btnXuat.setVisible(true);
                 btnSanPham.setVisible(true);
                 btnncc.setVisible(true);
                 break;
 
             case 2:
                 btnBan.setVisible(true);
+                btnXuat.setVisible(true);
                 btnkh.setVisible(true);
                 btnSanPham.setVisible(true);    
                 break;
@@ -326,7 +326,7 @@ public class frmHome extends javax.swing.JFrame {
 
         highlightButton(btnNhap);
         try {
-            panelPhieuNhap pn = new panelPhieuNhap();
+            panelPhieuNhap pn = new panelPhieuNhap(userRole);
             pane.setPreferredSize(new Dimension(700, 800));
             setPanel(pn, null);
             pn.getTblPhieuNhap().addMouseListener(new java.awt.event.MouseAdapter() {
@@ -336,7 +336,7 @@ public class frmHome extends javax.swing.JFrame {
                     if (row >= 0) {
                         int mapn = (int) pn.getTblPhieuNhap().getValueAt(row, 1);
                         try {
-                            panelChiTietPhieuNhap detail = new panelChiTietPhieuNhap();
+                            panelChiTietPhieuNhap detail = new panelChiTietPhieuNhap(userRole);
                             detail.loadData(mapn);
                             panelct.removeAll();
                             panelct.add(detail);
@@ -358,7 +358,7 @@ public class frmHome extends javax.swing.JFrame {
 
         highlightButton(btnXuat);
         try {
-            panelPhieuXuat px = new panelPhieuXuat();
+            panelPhieuXuat px = new panelPhieuXuat(userRole);
             pane.setPreferredSize(new Dimension(700, 800));
             setPanel(px, null);
             px.getTblPhieuXuat().addMouseListener(new java.awt.event.MouseAdapter() {
@@ -368,7 +368,7 @@ public class frmHome extends javax.swing.JFrame {
                     if (row >= 0) {
                         int mapx = (int) px.getTblPhieuXuat().getValueAt(row, 1);
                         try {
-                            panelChiTietPhieuXuat detail = new panelChiTietPhieuXuat();
+                            panelChiTietPhieuXuat detail = new panelChiTietPhieuXuat(userRole);
                             detail.loadData(mapx);
                             panelct.removeAll();
                             panelct.setLayout(new java.awt.BorderLayout());
@@ -391,7 +391,7 @@ public class frmHome extends javax.swing.JFrame {
 
         highlightButton(btnSanPham);
         try {
-            panelSanPham sp = new panelSanPham();
+            panelSanPham sp = new panelSanPham(userRole);
             pane.setPreferredSize(new Dimension(700, 800));
             setPanel(sp, null);
             sp.gettbSanPham().addMouseListener(new java.awt.event.MouseAdapter() {
@@ -401,7 +401,7 @@ public class frmHome extends javax.swing.JFrame {
                     if (row >= 0) {
                         int masp = (int) sp.gettbSanPham().getValueAt(row, 1);
                         try {
-                            panelBienTheSanPham detail = new panelBienTheSanPham();
+                            panelBienTheSanPham detail = new panelBienTheSanPham(userRole);
                             detail.loadData(masp);
                             panelct.removeAll();
                             panelct.setLayout(new java.awt.BorderLayout());
@@ -422,7 +422,7 @@ public class frmHome extends javax.swing.JFrame {
     private void btnBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanActionPerformed
         highlightButton(btnBan);
         try {
-            BanHangpanel px = new BanHangpanel();
+            BanHangpanel px = new BanHangpanel(userRole);
             pane.setPreferredSize(new Dimension(700, 800));
             setPanel(px, null);
             px.getTblBanHang().addMouseListener(new java.awt.event.MouseAdapter() {
@@ -432,7 +432,7 @@ public class frmHome extends javax.swing.JFrame {
                     if (row >= 0) {
                         int mapx = (int) px.getTblBanHang().getValueAt(row, 0);
                         try {
-                            ChiTietBanHangpanel detail = new ChiTietBanHangpanel();
+                            ChiTietBanHangpanel detail = new ChiTietBanHangpanel(userRole);
                             detail.loadData(mapx);
                             panelct.removeAll();
                             panelct.setLayout(new java.awt.BorderLayout());
@@ -490,7 +490,7 @@ public class frmHome extends javax.swing.JFrame {
       // TODO add your handling code here:
         highlightButton(btnMua);
     try {
-        MuaHangpanel mh = new MuaHangpanel();
+        MuaHangpanel mh = new MuaHangpanel(userRole);
         pane.setPreferredSize(new Dimension(700, 800));
         setPanel(mh, null);
         mh.getTblMuaHang().addMouseListener(new java.awt.event.MouseAdapter() {
@@ -500,7 +500,7 @@ public class frmHome extends javax.swing.JFrame {
                 if (row >= 0) {
                     int maMH = (int) mh.getTblMuaHang().getValueAt(row, 0);
                     try {
-                        ChiTietMuaHangpanel detail = new ChiTietMuaHangpanel();
+                        ChiTietMuaHangpanel detail = new ChiTietMuaHangpanel(userRole);
                         detail.loadData(maMH);
                         panelct.removeAll();
                         panelct.setLayout(new java.awt.BorderLayout());

@@ -20,6 +20,7 @@ public class BanHangpanel extends javax.swing.JPanel {
     public javax.swing.JTable getTblBanHang() {
     return tblBH;
     }
+    private final int userRole;
     private final BanHang bh= new BanHang();
     private boolean cothem = false;  
     private int mabh = -1;
@@ -63,13 +64,50 @@ public class BanHangpanel extends javax.swing.JPanel {
         cbMaNV.setSelectedItem(null);
     }
     public void setbutton(boolean a){
-        btnThemBH.setEnabled(a);
-        btnSuaBH.setEnabled(a);
-        btnXoaBH.setEnabled(a);
-        btnLuuBH.setEnabled(!a);
+         btnLuuBH.setEnabled(!a);
         btnKLuuBH.setEnabled(!a);
+        if (a) {
+        if (this.userRole == 2) {
+            btnThemBH.setEnabled(true);
+            btnSuaBH.setEnabled(false);
+            btnXoaBH.setEnabled(false);
+        } else if (this.userRole == 0) {
+            btnThemBH.setEnabled(false); // Quản lý không được thêm
+         
+        } else {
+            // Trường hợp khác (ví dụ: nhanvienkho)
+            btnThemBH.setEnabled(false);
+            btnSuaBH.setEnabled(false);
+            btnXoaBH.setEnabled(false);
+        }
+    } else {
+        // Chế độ Sửa/Thêm (a=false): chỉ cần đảm bảo nút Lưu/Klưu được bật, các nút chính bị tắt
+        btnThemBH.setEnabled(false);
+        btnSuaBH.setEnabled(false);
+        btnXoaBH.setEnabled(false);
+    
+}
         
     }
+     public void phanquyenbtn() {
+    // Luôn khóa các nút chức năng mặc định (vì hàm setbutton(true) không được gọi nữa)
+    btnThemBH.setEnabled(false);
+    btnSuaBH.setEnabled(false);
+    btnXoaBH.setEnabled(false);
+    btnLuuBH.setEnabled(false);
+    btnKLuuBH.setEnabled(false); // Phân quyền chi tiết
+    if (this.userRole == 0) {
+        btnSuaBH.setEnabled(true);
+        btnXoaBH.setEnabled(true);
+    } else if (this.userRole == 2) {
+        // Nhân viên tn: Chỉ được Thêm
+        btnThemBH.setEnabled(true);
+    } 
+    
+    // Vô hiệu hóa nút Lưu/Klưu cho đến khi nhấn Thêm/Sửa
+    btnLuuBH.setEnabled(false);
+    btnKLuuBH.setEnabled(false);
+}
     public void setKhoa(boolean a){
         txtGhiChu.setEditable(!a);
         cbMaKH.setEnabled(!a);
@@ -94,15 +132,16 @@ public class BanHangpanel extends javax.swing.JPanel {
             tableModel.removeRow(i);
         }
     }
-    public BanHangpanel() throws SQLException {
+    public BanHangpanel(int vaiTro) throws SQLException {
         initComponents();
+        this.userRole = vaiTro;
         tableModel.setColumnIdentifiers(new Object[]{"Mã bán hàng", "Ngày bán hàng", "Mã KH", "Mã NV", "Tổng tiền", "Ghi chú"});
         tblBH.setModel(tableModel);
         loadMANv();
         loadComboBoxMaKH();
         ShowData();
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
     }
     @SuppressWarnings("unchecked")
@@ -369,7 +408,8 @@ public class BanHangpanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         setnull();
         setKhoa(true);
-        setbutton(true);
+        phanquyenbtn();
+        tblBH.setEnabled(true);
     }//GEN-LAST:event_btnKLuuBHActionPerformed
 
     private void btnLMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLMActionPerformed
@@ -395,7 +435,14 @@ public class BanHangpanel extends javax.swing.JPanel {
                 selectComboItem(cbMaKH, obj.getMaKH());
                 selectComboItem(cbMaNV, obj.getMaNV());
             }
-            ChiTietBanHangpanel chiTietPanel = new ChiTietBanHangpanel();
+            if (this.userRole == 0) {
+            btnSuaBH.setEnabled(true);
+            btnXoaBH.setEnabled(true);
+        } else {
+            btnSuaBH.setEnabled(false);
+            btnXoaBH.setEnabled(false);
+        }
+            ChiTietBanHangpanel chiTietPanel = new ChiTietBanHangpanel(userRole);
             chiTietPanel.loadData(mabh);
             chiTietPanel.setVisible(true);
 
@@ -513,7 +560,7 @@ public class BanHangpanel extends javax.swing.JPanel {
                 ClearData();
                 ShowData();
                 setnull();
-                setbutton(true);
+                phanquyenbtn();
                 setKhoa(true);
                 cothem=false;
                 tblBH.setEnabled(true);

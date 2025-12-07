@@ -22,6 +22,7 @@ public class panelBienTheSanPham extends javax.swing.JPanel {
     private final DefaultTableModel tableModel = new DefaultTableModel(
     new Object[]{"Mã", "Mã sản phẩm", "Màu sắc", "Kích cỡ", }, 0
     );
+    private final int userRole;
     private int maSP;
     private boolean cothem=true;
     public void ShowData() throws SQLException{
@@ -44,12 +45,55 @@ public class panelBienTheSanPham extends javax.swing.JPanel {
         txtmsp.setText("");
     }
     public void setbutton(boolean a){
-        btthem.setEnabled(a);
-        btsua.setEnabled(a);
-        btxoa.setEnabled(a);
         btluu.setEnabled(!a);
         btkluu.setEnabled(!a);
-        
+        if(a){
+            if(this.userRole == 0){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else if(this.userRole == 1){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else{
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+            }
+        }
+        else{
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+        }
+    }
+    public void phanquyenbtn(){
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+                btluu.setEnabled(false);
+                btkluu.setEnabled(false);
+            if(this.userRole == 0){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else if(this.userRole == 1){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else{
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+            }
+                btluu.setEnabled(false);
+                btkluu.setEnabled(false);
+             
     }
     public void setKhoa(boolean a){
         txtma.setEditable(false);
@@ -58,11 +102,12 @@ public class panelBienTheSanPham extends javax.swing.JPanel {
         txtmsp.setEditable(false); 
     }
 
-    public panelBienTheSanPham() {
+    public panelBienTheSanPham(int vaiTro) {
         initComponents();
+        this.userRole = vaiTro;
         tbbienthesanpham.setModel(tableModel); 
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
     }
 
@@ -369,7 +414,7 @@ public class panelBienTheSanPham extends javax.swing.JPanel {
 
                     setnull();
 
-                    setbutton(true);
+                    phanquyenbtn();
 
                     setKhoa(true);
 
@@ -384,7 +429,7 @@ public class panelBienTheSanPham extends javax.swing.JPanel {
     private void btkluuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btkluuActionPerformed
         // TODO add your handling code here:
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
         tbbienthesanpham.setEnabled(true);
     }//GEN-LAST:event_btkluuActionPerformed
@@ -405,6 +450,21 @@ public class panelBienTheSanPham extends javax.swing.JPanel {
             txtmausac.setText(obj.getMauSac());
             txtkichco.setText(String.valueOf(obj.getKichCo()));
         }
+        if(this.userRole == 0){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else if(this.userRole == 1){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else{
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+            }
     }
     catch (Exception e){
         JOptionPane.showMessageDialog(this, "Lỗi đọc dữ liệu: " + e.getMessage());

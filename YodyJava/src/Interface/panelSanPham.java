@@ -14,19 +14,21 @@ public class panelSanPham extends javax.swing.JPanel {
     public javax.swing.JTable gettbSanPham() {
         return tbsanpham;
     }
+    private final int userRole;
     private final SanPham sp = new SanPham();
     private boolean cothem = false;
     private int masp = -1;
     private final DefaultTableModel tablemodel = new DefaultTableModel();
 
-    public panelSanPham() throws SQLException {
+    public panelSanPham(int vaiTro) throws SQLException {
         initComponents();
+        this.userRole = vaiTro;
         tablemodel.setColumnIdentifiers(new Object[]{"Tên Sản Phẩm","Mã Sản Phẩm", "Mã NCC", "Giảm giá", "Trạng thái SP"});
         tbsanpham.setModel(tablemodel);
         loadNCC();
         showdata();
         setnull();
-        setButton(true);
+        phanquyenbtn();
         setKhoa(true);
     }
     private void loadNCC()  {
@@ -48,11 +50,55 @@ public class panelSanPham extends javax.swing.JPanel {
         cbmancc.setSelectedItem(null);
     }
     private void setButton(boolean enable) {
-        btthem.setEnabled(enable);
-        btsua.setEnabled(enable);
-        btxoa.setEnabled(enable);
         btluuu.setEnabled(!enable);
         btkluu.setEnabled(!enable);
+        if(enable){
+            if(this.userRole == 0){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else if(this.userRole == 1){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else{
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+            }
+        }
+        else{
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+        }
+    }
+    public void phanquyenbtn(){
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+                btluuu.setEnabled(false);
+                btkluu.setEnabled(false);
+            if(this.userRole == 0){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else if(this.userRole == 1){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else{
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+            }
+                btluuu.setEnabled(false);
+                btkluu.setEnabled(false);
+             
     }
         public void setKhoa(boolean enable){
         txttensp.setEditable(!enable);
@@ -67,6 +113,7 @@ public class panelSanPham extends javax.swing.JPanel {
         }
     }
     public void showdata () throws SQLException{
+        cleardata();
         List<SanPham> list = sp.getAll();
         for( SanPham sph : list){
             Object[] row = new Object[5];
@@ -437,7 +484,7 @@ public class panelSanPham extends javax.swing.JPanel {
                 cleardata();
                 showdata();
                 setnull();
-                setButton(true);
+                phanquyenbtn();
                 setKhoa(true);
                 cothem=false;
                 tbsanpham.setEnabled(true);
@@ -462,7 +509,22 @@ public class panelSanPham extends javax.swing.JPanel {
             cbtrangthai.setSelectedItem(obj.getTrangThaiSanPham());
             txtgiamgia.setText(String.valueOf(obj.getGiamGia()));
         }
-        panelBienTheSanPham chiTietPanel = new panelBienTheSanPham();
+        if(this.userRole == 0){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else if(this.userRole == 1){
+                btthem.setEnabled(true);
+                btsua.setEnabled(true);
+                btxoa.setEnabled(true);
+            }
+            else{
+                btthem.setEnabled(false);
+                btsua.setEnabled(false);
+                btxoa.setEnabled(false);
+            }
+        panelBienTheSanPham chiTietPanel = new panelBienTheSanPham(userRole);
         chiTietPanel.loadData(masp);
         chiTietPanel.setVisible(true);
 
@@ -475,7 +537,8 @@ public class panelSanPham extends javax.swing.JPanel {
         // TODO add your handling code here:S
         setnull();
         setKhoa(true);
-        setButton(true);
+        phanquyenbtn();
+        tbsanpham.setEnabled(true);
        
     }//GEN-LAST:event_btkluuActionPerformed
 

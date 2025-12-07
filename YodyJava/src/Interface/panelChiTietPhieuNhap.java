@@ -26,6 +26,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
     private final DefaultTableModel tableModel = new DefaultTableModel(
     new String[] {"Mã SP", "Tên SP", "Màu sắc", "Kích cỡ", "Số lượng", "Đơn giá"}, 0
     );
+    private final int userRole;
     private int maPN;
     private boolean cothem=true;
     public void ShowData() throws SQLException{
@@ -83,13 +84,49 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         cbMauSac.setSelectedItem(null);
     }
     public void setbutton(boolean a){
-        btnThemCTPN.setEnabled(a);
-        btnSuaCTPN.setEnabled(a);
-        btnXoaCTPN.setEnabled(a);
         btnLuuCTPN.setEnabled(!a);
         btnKLuuCTPN.setEnabled(!a);
-        
-    }
+        if (a) {
+        if (this.userRole == 1) {
+            btnThemCTPN.setEnabled(true);
+            btnSuaCTPN.setEnabled(false);
+            btnXoaCTPN.setEnabled(false);
+        } else if (this.userRole == 0) {
+            btnThemCTPN.setEnabled(false); // Quản lý không được thêm
+         
+        } else {
+            // Trường hợp khác (ví dụ: nhanvienthungan)
+            btnThemCTPN.setEnabled(false);
+            btnSuaCTPN.setEnabled(false);
+            btnXoaCTPN.setEnabled(false);
+        }
+    } else {
+        // Chế độ Sửa/Thêm (a=false): chỉ cần đảm bảo nút Lưu/Klưu được bật, các nút chính bị tắt
+        btnThemCTPN.setEnabled(false);
+        btnSuaCTPN.setEnabled(false);
+        btnXoaCTPN.setEnabled(false);
+    
+}
+        }
+    public void phanquyenbtn() {
+    // Luôn khóa các nút chức năng mặc định (vì hàm setbutton(true) không được gọi nữa)
+    btnThemCTPN.setEnabled(false);
+    btnSuaCTPN.setEnabled(false);
+    btnXoaCTPN.setEnabled(false);
+    btnLuuCTPN.setEnabled(false);
+    btnKLuuCTPN.setEnabled(false); // Phân quyền chi tiết
+    if (this.userRole == 0) {
+        btnSuaCTPN.setEnabled(true);
+        btnXoaCTPN.setEnabled(true);
+    } else if (this.userRole == 1) {
+        // Nhân viên kho: Chỉ được Thêm
+        btnThemCTPN.setEnabled(true);
+    } 
+    
+    // Vô hiệu hóa nút Lưu/Klưu cho đến khi nhấn Thêm/Sửa
+    btnLuuCTPN.setEnabled(false);
+    btnKLuuCTPN.setEnabled(false);
+}
     public void setKhoa(boolean a){
         txtDonGia.setEditable(!a);
         txtSoLuong.setEditable(!a);
@@ -97,13 +134,14 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
         cbMaSP.setEnabled(!a); 
         cbMauSac.setEnabled(!a); 
     }
-    public panelChiTietPhieuNhap() {
+    public panelChiTietPhieuNhap(int vaiTro) {
         initComponents();
+        this.userRole = vaiTro;
         tblCTPN.setModel(tableModel); 
         try {
         loadMaSp();
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -405,7 +443,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
                     tableModel.setRowCount(0);
                     ShowData();
                     setnull();
-                    setbutton(true);
+                    phanquyenbtn();
                     setKhoa(true);
                     tblCTPN.setEnabled(true);
                 }
@@ -420,7 +458,7 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
     private void btnKLuuCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKLuuCTPNActionPerformed
         // TODO add your handling code here:
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
         tblCTPN.setEnabled(true);
     }//GEN-LAST:event_btnKLuuCTPNActionPerformed
@@ -446,6 +484,13 @@ public class panelChiTietPhieuNhap extends javax.swing.JPanel {
 
                 cbMauSac.setSelectedItem(obj.getMauSac());
             }
+            if (this.userRole == 0) {
+            btnSuaCTPN.setEnabled(true);
+            btnXoaCTPN.setEnabled(true);
+        } else {
+            btnSuaCTPN.setEnabled(false);
+            btnXoaCTPN.setEnabled(false);
+        }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

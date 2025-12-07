@@ -25,6 +25,7 @@ public javax.swing.JTable getTblCTPX() {
     private final DefaultTableModel tableModel = new DefaultTableModel(
     new String[] {"Mã SP", "Tên SP", "Màu sắc", "Kích cỡ", "Số lượng", "Đơn giá"}, 0
     );
+    private final int userRole;
     private int maPX;
     private boolean cothem=true;
     public void ShowData() throws SQLException{
@@ -82,13 +83,47 @@ public javax.swing.JTable getTblCTPX() {
         cbMauSac.setSelectedItem(null);
     }
     public void setbutton(boolean a){
-        btnThemCTPX.setEnabled(a);
-        btnSuaCTPX.setEnabled(a);
-        btnXoaCTPX.setEnabled(a);
         btnLuuCTPX.setEnabled(!a);
         btnKLuuCTPX.setEnabled(!a);
+        if (a) {
+        if (this.userRole == 2) {
+            btnThemCTPX.setEnabled(true);
+            btnSuaCTPX.setEnabled(false);
+            btnXoaCTPX.setEnabled(false);
+        } else if (this.userRole == 0) {
+            btnThemCTPX.setEnabled(false); // Quản lý không được thêm
+         
+        } else {
+            // Trường hợp khác (ví dụ: nhanvienkho)
+            btnThemCTPX.setEnabled(false);
+            btnSuaCTPX.setEnabled(false);
+            btnXoaCTPX.setEnabled(false);
+        }
+    } else {
+        // Chế độ Sửa/Thêm (a=false): chỉ cần đảm bảo nút Lưu/Klưu được bật, các nút chính bị tắt
+        btnThemCTPX.setEnabled(false);
+        btnSuaCTPX.setEnabled(false);
+        btnXoaCTPX.setEnabled(false);
         
+    }}
+    public void phanquyenbtn() {
+    // Luôn khóa các nút chức năng mặc định (vì hàm setbutton(true) không được gọi nữa)
+    btnThemCTPX.setEnabled(false);
+    btnSuaCTPX.setEnabled(false);
+    btnXoaCTPX.setEnabled(false);
+    btnLuuCTPX.setEnabled(false);
+    btnKLuuCTPX.setEnabled(false); // Phân quyền chi tiết
+    if (this.userRole == 0) {
+        btnSuaCTPX.setEnabled(true);
+        btnXoaCTPX.setEnabled(true);
+    } else if (this.userRole == 2) {
+        // Nhân viên tn: Chỉ được Thêm
+        btnThemCTPX.setEnabled(true);
     }
+    // Vô hiệu hóa nút Lưu/Klưu cho đến khi nhấn Thêm/Sửa
+    btnLuuCTPX.setEnabled(false);
+    btnKLuuCTPX.setEnabled(false);
+    } 
     public void setKhoa(boolean a){
         txtDonGia.setEditable(!a);
         txtSoLuong.setEditable(!a);
@@ -96,13 +131,14 @@ public javax.swing.JTable getTblCTPX() {
         cbMaSP.setEnabled(!a); 
         cbMauSac.setEnabled(!a); 
     }
-    public ChiTietBanHangpanel() {
+    public ChiTietBanHangpanel(int vaiTro) {
         initComponents();
+        this.userRole = vaiTro;
         tblCTPX.setModel(tableModel); 
         try {
         loadMaSp();
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -360,6 +396,13 @@ public javax.swing.JTable getTblCTPX() {
 
                 cbMauSac.setSelectedItem(obj.getMauSac());
             }
+            if (this.userRole == 0) {
+            btnSuaCTPX.setEnabled(true);
+            btnXoaCTPX.setEnabled(true);
+        } else {
+            btnSuaCTPX.setEnabled(false);
+            btnXoaCTPX.setEnabled(false);
+        }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -443,7 +486,7 @@ public javax.swing.JTable getTblCTPX() {
                     tableModel.setRowCount(0);
                     ShowData();
                     setnull();
-                    setbutton(true);
+                    phanquyenbtn();
                     setKhoa(true);
                     tblCTPX.setEnabled(true);
                 }
@@ -458,7 +501,7 @@ public javax.swing.JTable getTblCTPX() {
     private void btnKLuuCTPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKLuuCTPXActionPerformed
         // TODO add your handling code here:
         setnull();
-        setbutton(true);
+        phanquyenbtn();
         setKhoa(true);
         tblCTPX.setEnabled(true);
     }//GEN-LAST:event_btnKLuuCTPXActionPerformed
