@@ -62,53 +62,82 @@ public class BanHang {
     public void setGhiChu(String ghiChu) {
         this.ghiChu = ghiChu;
     }
-    public List<BanHang> getAll() throws SQLException {
+    private String tenKhachHang;
+    private String tenNhanVien;
+
+    public String getTenKhachHang() { return tenKhachHang; }
+    public void setTenKhachHang(String ten) { this.tenKhachHang = ten; }
+
+    public String getTenNhanVien() { return tenNhanVien; }
+    public void setTenNhanVien(String ten) { this.tenNhanVien = ten; }
+
+    public List<BanHang> getAll() {
         List<BanHang> list = new ArrayList<>();
-        String sql = "SELECT * FROM Ban_Hang";
+        String sql = "SELECT bh.MaBanHang, bh.NgayDatHang, kh.TenKhachHang, " +
+        "nv.Ho + ' ' + nv.Ten AS TenNhanVien, bh.TongTien, bh.GhiChu " +
+        "FROM Ban_Hang bh " +
+        "JOIN Khach_Hang kh ON bh.MaKhachHang = kh.MaKhachHang " +
+        "JOIN Nhan_Vien nv ON bh.MaNV = nv.MaNhanVien";
+
         try (Connection con = cn.connectSQL();
              PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             ResultSet rs = ps.executeQuery()) 
+        {
+
             while (rs.next()) {
-                BanHang pn = new BanHang();
-                pn.maBanHang = rs.getInt("MaBanHang");
-                pn.ngayBH = rs.getTimestamp("NgayDatHang");
-                pn.maKH = rs.getInt("MaKhachHang");
-                pn.maNV = rs.getInt("MaNV");
-                pn.tongTien = rs.getDouble("TongTien");
-                pn.ghiChu = rs.getString("GhiChu");
-                list.add(pn);
+                BanHang obj = new BanHang();
+                obj.setMaBanHang(rs.getInt("MaBanHang"));
+                obj.setNgayBH(rs.getTimestamp("NgayDatHang"));
+                obj.setTenKhachHang(rs.getString("TenKhachHang"));
+                obj.setTenNhanVien(rs.getString("TenNhanVien"));
+                obj.setTongTien(rs.getDouble("TongTien"));
+                obj.setGhiChu(rs.getString("GhiChu"));
+
+                list.add(obj);
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Phiếu Xuất: " + e.getMessage());
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return list;
     }
-    public List<Integer> getAllKH() throws SQLException{
-        List<Integer> list = new ArrayList<>();
-        String sql="select MaKhachHang from Khach_hang";
+
+    public List<ComboItem> getAllKH() throws SQLException{
+        List<ComboItem> list = new ArrayList<>();
+        String sql="select MaKhachHang, tenkhachhang from Khach_hang";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps=con.prepareStatement(sql);
                 ResultSet rs=ps.executeQuery();){
             while (rs.next()){
-                list.add(rs.getInt("MaKhachHang"));
+                int ma=rs.getInt("makhachhang");
+                String ten = rs.getString("tenkhachhang");
+                list.add (new ComboItem(ma,ten));
             }
         }catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu BH: " + e.getMessage());
         }
         return list;
     }
-    public List<Integer> getAllMNV() throws SQLException{
-        List<Integer> list=new ArrayList<>();
-        String sql="select Manhanvien from Nhan_vien";
-        try(Connection con=cn.connectSQL();
-                PreparedStatement ps=con.prepareStatement(sql);
-                ResultSet rs=ps.executeQuery()){
-            while (rs.next()){
-                list.add(rs.getInt("manhanvien"));
+    public List<ComboItem> getAllMNV() {
+        List<ComboItem> list = new ArrayList<>();
+        String sql = "SELECT MaNhanVien, Ho, Ten FROM Nhan_vien";
+
+        try (Connection con = cn.connectSQL();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int ma = rs.getInt("MaNhanVien");
+                String hoten = rs.getString("Ho") + " " + rs.getString("Ten");
+
+                list.add(new ComboItem(ma, hoten));
             }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Phiếu Xuất: " + e.getMessage());
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi đọc dữ liệu Nhân Viên: " + e.getMessage());
         }
+
         return list;
     }
     public BanHang getBanHang(int MaPX) throws SQLException{

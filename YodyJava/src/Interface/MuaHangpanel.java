@@ -47,7 +47,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
     }
     public void setnull(){
         txtGhiChu.setText("");
-        txtMaBH.setText("");
+        txtMaMH.setText("");
         txtNgayBH.setText("");
         cbMaKH.setSelectedItem(null);
         cbMaNV.setSelectedItem(null);
@@ -112,7 +112,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
         txtGhiChu = new javax.swing.JTextArea();
         btnKLuuBH = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtMaBH = new javax.swing.JTextField();
+        txtMaMH = new javax.swing.JTextField();
         btnLM = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -149,9 +149,9 @@ public class MuaHangpanel extends javax.swing.JPanel {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Mã bán hàng");
+        jLabel4.setText("Mã mua hàng");
 
-        txtMaBH.setEditable(false);
+        txtMaMH.setEditable(false);
 
         btnLM.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Restart1.png"))); // NOI18N
@@ -266,7 +266,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(txtMaBH, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtMaMH, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1))
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -328,7 +328,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jLabel1)
                     .addComponent(txtNgayBH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMaBH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaMH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -388,7 +388,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
             MuaHang obj = bh.getMuaHang (mabh);
             if (obj != null) {
                 txtGhiChu.setText(obj.getGhiChu());
-                txtMaBH.setText(String.valueOf(obj.getMaMuaHang ()));
+                txtMaMH.setText(String.valueOf(obj.getMaMuaHang ()));
                 txtNgayBH.setText(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(obj.getNgayMua()));
                 cbMaKH.setSelectedItem(obj.getMaNCC());
                 cbMaNV.setSelectedItem(obj.getMaNV());
@@ -442,7 +442,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
 
     private void btnSuaBHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaBHActionPerformed
         // TODO add your handling code here:
-        String mapn=txtMaBH.getText();
+        String mapn=txtMaMH.getText();
         if(mapn.isEmpty()){
             JOptionPane.showMessageDialog(this,"Hãy chọn sản phẩm cần sửa!");
         }
@@ -456,7 +456,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
 
     private void btnXoaBHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaBHActionPerformed
         // TODO add your handling code here:
-        String ma=txtMaBH.getText();
+        String ma=txtMaMH.getText();
         try{
             if(ma.isEmpty()){
                 JOptionPane.showMessageDialog(this,"Hãy chọn sản phẩm cần xóa!");
@@ -479,7 +479,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
         Object makhObj = cbMaKH.getSelectedItem();
         Object manvObj = cbMaNV.getSelectedItem();
         String ghichu = txtGhiChu.getText().trim();
-        String maphieu=txtMaBH.getText();
+        String maphieu=txtMaMH.getText();
 
         if(makhObj == null || manvObj == null){
             JOptionPane.showMessageDialog(this,"Vui lòng điền đầy đủ thông tin!");
@@ -542,7 +542,7 @@ public class MuaHangpanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblBH;
     private javax.swing.JTextArea txtGhiChu;
-    private javax.swing.JTextField txtMaBH;
+    private javax.swing.JTextField txtMaMH;
     private javax.swing.JTextField txtNgayBH;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables

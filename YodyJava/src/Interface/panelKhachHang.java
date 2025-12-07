@@ -405,14 +405,14 @@ public class panelKhachHang extends javax.swing.JPanel {
             }
 
             // Kiểm tra tên KH chỉ có chữ và khoảng trắng
-            if (!ten.matches("[a-zA-ZÀ-ỹ ]+")) {
-                JOptionPane.showMessageDialog(this, "Tên khách hàng chỉ được nhập chữ!");
-                txtTenKH.requestFocus();
-                return;
-            }
+//            if (!ten.matches("[a-zA-ZÀ-ỹ ]+")) {
+//                JOptionPane.showMessageDialog(this, "Tên khách hàng chỉ được nhập chữ!");
+//                txtTenKH.requestFocus();
+//                return;
+//            }
 
             // Kiểm tra số điện thoại chỉ có số và đúng 10 chữ số
-            if (!sdt.matches("\\d+") || sdt.length() != 10) {
+            if (/*!sdt.matches("\\d+") ||*/ sdt.length() != 10) {
                 JOptionPane.showMessageDialog(this, "Số điện thoại phải là 10 chữ số!");
                 txtSoDienThoai.requestFocus();
                 return;
@@ -472,9 +472,7 @@ public class panelKhachHang extends javax.swing.JPanel {
                     txtTenKH.setText(obj.getTenKH());
                     txtDiaChi.setText(obj.getDiaChi());
                     txtSoDienThoai.setText(obj.getSoDienThoai());
-
-                    // Sửa phần GioiTinh
-                    cbGioiTinh.setSelectedItem(obj.getGioiTinh()); // obj.getGioiTinh() = "Nam" hoặc "Nữ"
+                    cbGioiTinh.setSelectedItem(obj.getGioiTinh());
 
                     cbLoaiKH.setSelectedItem(obj.getLoaiKH() + " - " + (obj.getLoaiKH() == 0 ? "Thường" : "VIP"));
                 }

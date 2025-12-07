@@ -23,17 +23,17 @@ public class panelPhieuXuat extends javax.swing.JPanel {
     private int mapx = -1;
     private final DefaultTableModel tableModel= new DefaultTableModel();
     
-    public void loadComboBoxMaKH() {
-        try {
-            cbMaKH.removeAllItems();
-            List<Integer> list = px.getAllKH(); 
-            for (Integer maKH : list) {
-                cbMaKH.addItem(maKH);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi nạp danh sách NCC: " + e.getMessage());
-        }
-    }
+//    public void loadComboBoxMaKH() {
+//        try {
+//            cbMaKH.removeAllItems();
+//            List<Integer> list = px.getAllKH(); 
+//            for (Integer maKH : list) {
+//                cbMaKH.addItem(maKH);
+//            }
+//        } catch (SQLException e) {
+//            JOptionPane.showMessageDialog(this, "Lỗi nạp danh sách NCC: " + e.getMessage());
+//        }
+//    }
     public void loadMANv(){
         try {
             cbMaNVX.removeAllItems();
@@ -60,7 +60,6 @@ public class panelPhieuXuat extends javax.swing.JPanel {
         txtGhiChuX.setText("");
         txtMaPX.setText("");
         txtNgayXuat.setText("");
-        cbMaKH.setSelectedItem(null);
         cbMaNVX.setSelectedItem(null);
         cbMaBH.setSelectedItem(null);
     }
@@ -74,7 +73,6 @@ public class panelPhieuXuat extends javax.swing.JPanel {
     }
     public void setKhoa(boolean a){
         txtGhiChuX.setEditable(!a);
-        cbMaKH.setEnabled(!a);
         cbMaNVX.setEnabled(!a);
         cbMaBH.setEnabled(!a);
     }
@@ -85,10 +83,9 @@ public class panelPhieuXuat extends javax.swing.JPanel {
             row[0] = phieu.getMaBanHang();
             row[1] = phieu.getMaPhieuXuat();
             row[2] = phieu.getNgayXuat();
-            row[3]=phieu.getMaKH();
-            row[4]=phieu.getMaNV();
-            row[5]=phieu.getTongTien();
-            row[6]=phieu.getGhiChu();     
+            row[3]=phieu.getMaNV();
+            row[4]=phieu.getTongTien();
+            row[5]=phieu.getGhiChu();     
             tableModel.addRow(row);
         }
     }
@@ -100,11 +97,11 @@ public class panelPhieuXuat extends javax.swing.JPanel {
     }
     public panelPhieuXuat() throws SQLException {
         initComponents();
-        tableModel.setColumnIdentifiers(new Object[]{"Mã BH", "Mã phiếu xuất", "Ngày xuất", "Mã KH", "Mã NV", "Tổng tiền", "Ghi chú"});
+        tableModel.setColumnIdentifiers(new Object[]{"Mã BH", "Mã phiếu xuất", "Ngày xuất", "Mã NV", "Tổng tiền", "Ghi chú"});
         tblPX.setModel(tableModel);
         loadmbh();
         loadMANv();
-        loadComboBoxMaKH();
+//        loadComboBoxMaKH();
         ShowData();
         setnull();
         setbutton(true);
@@ -133,9 +130,7 @@ public class panelPhieuXuat extends javax.swing.JPanel {
         txtTimKiem = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPX = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         btnTim = new javax.swing.JButton();
-        cbMaKH = new javax.swing.JComboBox<>();
         btnThemPX = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btnSuaPX = new javax.swing.JButton();
@@ -218,9 +213,6 @@ public class panelPhieuXuat extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblPX);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Mã KH");
-
         btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
         btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,16 +271,18 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel5)
-                                    .addComponent(btnThemPX))
+                                .addGap(13, 13, 13)
+                                .addComponent(btnThemPX)
                                 .addGap(91, 91, 91)
                                 .addComponent(btnSuaPX))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6))
                                 .addGap(18, 18, 18)
-                                .addComponent(cbMaBH, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbMaBH, 0, 90, Short.MAX_VALUE)
+                                    .addComponent(cbMaNVX, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnLMX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,22 +295,15 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(cbMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel3))
+                                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnTim))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(45, 45, 45)
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtMaPX, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnTim)))
-                                        .addGap(0, 30, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtMaPX, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
@@ -325,16 +312,15 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(btnLuuPX)
                                         .addGap(31, 31, 31)
-                                        .addComponent(btnKLuuPX))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addComponent(cbMaNVX, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(17, Short.MAX_VALUE))
+                                        .addComponent(btnKLuuPX)))
+                                .addContainerGap(54, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addGap(52, 52, 52)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(85, 85, 85)
                         .addComponent(btnXoaPX)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -367,26 +353,20 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                     .addComponent(txtMaPX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(cbMaBH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbMaNVX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(cbMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(31, 31, 31)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnThemPX)
-                            .addComponent(btnSuaPX)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnXoaPX)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(cbMaNVX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnThemPX)
+                    .addComponent(btnSuaPX)
+                    .addComponent(btnXoaPX))
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -430,7 +410,6 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                 txtGhiChuX.setText(obj.getGhiChu());
                 txtMaPX.setText(String.valueOf(obj.getMaPhieuXuat()));
                 txtNgayXuat.setText(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(obj.getNgayXuat()));
-                cbMaKH.setSelectedItem(obj.getMaKH());
                 cbMaNVX.setSelectedItem(obj.getMaNV());
                 cbMaBH.setSelectedItem(obj.getMaBanHang());
             }
@@ -463,10 +442,9 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                     row[0] = phieu.getMaBanHang();
                     row[1] = phieu.getMaPhieuXuat();
                     row[2] = phieu.getNgayXuat();
-                    row[3] = phieu.getMaKH();
-                    row[4] = phieu.getMaNV();
-                    row[5] = phieu.getTongTien();
-                    row[6] = phieu.getGhiChu();
+                    row[3] = phieu.getMaNV();
+                    row[4] = phieu.getTongTien();
+                    row[5] = phieu.getGhiChu();
                     tableModel.addRow(row);
                 }
             }
@@ -520,26 +498,23 @@ public class panelPhieuXuat extends javax.swing.JPanel {
 
     private void btnLuuPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuPXActionPerformed
         // TODO add your handling code here:
-        Object manccObj = cbMaKH.getSelectedItem();
         Object manvObj = cbMaNVX.getSelectedItem();
         String ghichu = txtGhiChuX.getText().trim();
         String maphieu=txtMaPX.getText();
         Object mabhObj = cbMaBH.getSelectedItem();
-        if(manccObj == null || manvObj == null||mabhObj == null){
+        if(manvObj == null||mabhObj == null){
             JOptionPane.showMessageDialog(this,"Vui lòng điền đầy đủ thông tin!");
         }
 
         else{
             try {
                 int mabh = (int) mabhObj;
-                int mancc = (int) manccObj;
                 int manv = (int) manvObj;
                 PhieuXuat obj = new PhieuXuat();
                 java.util.Date now = new java.util.Date();
                 obj.setNgayXuat(now);   // tự động lấy thời gian hiện tại
                 //            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 //            txtNgayNhap.setText(sdf.format(now));
-                obj.setMaKH(mancc);
                 obj.setMaNV(manv);
                 obj.setTongTien(0);
                 obj.setGhiChu(ghichu);
@@ -575,10 +550,8 @@ public class panelPhieuXuat extends javax.swing.JPanel {
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoaPX;
     private javax.swing.JComboBox<Integer> cbMaBH;
-    private javax.swing.JComboBox<Integer> cbMaKH;
     private javax.swing.JComboBox<Integer> cbMaNVX;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

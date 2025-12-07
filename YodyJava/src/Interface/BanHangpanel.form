@@ -98,7 +98,7 @@
                               <Component id="cbMaNV" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                               <Component id="txtNgayBH" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="53" max="32767" attributes="0"/>
+                          <EmptySpace pref="55" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -342,7 +342,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="M&#xe3; KH"/>
+            <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnTim">
@@ -362,7 +362,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ComboItem&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="btnThemBH">
@@ -406,7 +406,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ComboItem&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="btnXoaBH">

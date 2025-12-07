@@ -26,11 +26,10 @@ public class PhieuXuat {
     public PhieuXuat() {
     }
 
-    public PhieuXuat(int maBanHang, int maPhieuXuat, Date ngayXuat, int maKH, int maNV, double tongTien, String ghiChu) {
+    public PhieuXuat(int maBanHang, int maPhieuXuat, Date ngayXuat, int maNV, double tongTien, String ghiChu) {
         this.maBanHang = maBanHang;
         this.maPhieuXuat = maPhieuXuat;
         this.ngayXuat = ngayXuat;
-        this.maKH = maKH;
         this.maNV = maNV;
         this.tongTien = tongTien;
         this.ghiChu = ghiChu;
@@ -93,7 +92,6 @@ public class PhieuXuat {
                 pn.maBanHang = rs.getInt("MaBanHang");
                 pn.maPhieuXuat = rs.getInt("MaPhieuXuat");
                 pn.ngayXuat = rs.getTimestamp("NgayXuat");
-                pn.maKH = rs.getInt("MaKH");
                 pn.maNV = rs.getInt("MaNV");
                 pn.tongTien = rs.getDouble("TongTien");
                 pn.ghiChu = rs.getString("GhiChu");
@@ -156,7 +154,6 @@ public class PhieuXuat {
                     PhieuXuat obj = new PhieuXuat();
                     obj.maBanHang = rs.getInt("MaBanHang");
                     obj.ghiChu=rs.getString("GhiChu");
-                    obj.maKH=rs.getInt("MaKH");
                     obj.maNV=rs.getInt("MaNV");
                     obj.maPhieuXuat=rs.getInt("MaPhieuXuat");
                     obj.ngayXuat=rs.getTimestamp("NgayXuat");
@@ -188,28 +185,26 @@ public class PhieuXuat {
         }
     }
     public boolean InsertData(PhieuXuat obj) throws SQLException{
-        String sql="INSERT INTO PHIEU_XUAT (NgayXuat, MaKH, MaNV, TongTien, GhiChu, MaBanHang) VALUES (?, ?, ?, ?, ?,?)";
+        String sql="INSERT INTO PHIEU_XUAT (NgayXuat, MaNV, TongTien, GhiChu, MaBanHang) VALUES (?, ?, ?, ?,?)";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps=con.prepareStatement(sql)){
             ps.setTimestamp(1, new java.sql.Timestamp(obj.ngayXuat.getTime()));
-            ps.setInt(2, obj.maKH);
-            ps.setInt(3, obj.maNV);
-            ps.setDouble(4, obj.tongTien);
-            ps.setString(5, obj.ghiChu);
-            ps.setInt(6, obj.maBanHang);
+            ps.setInt(2, obj.maNV);
+            ps.setDouble(3, obj.tongTien);
+            ps.setString(4, obj.ghiChu);
+            ps.setInt(5, obj.maBanHang);
             return ps.executeUpdate()>0;
         }
     }
     public boolean EditData(PhieuXuat obj) throws SQLException{
-        String sql="update Phieu_Xuat set NgayXuat=?, MaKH=?,MaNV=?,TongTien=?,GhiChu=? where MaPhieuxuat=?";
+        String sql="update Phieu_Xuat set NgayXuat=?,MaNV=?,TongTien=?,GhiChu=? where MaPhieuxuat=?";
         try(Connection con=cn.connectSQL();
                 PreparedStatement ps = con.prepareStatement(sql)){
             ps.setTimestamp(1,new java.sql.Timestamp(obj.ngayXuat.getTime()));
-            ps.setInt(2, obj.maKH);
-            ps.setInt(3, obj.maNV);
-            ps.setDouble(4, obj.tongTien);
-            ps.setString(5, obj.ghiChu);
-            ps.setInt(6,obj.maPhieuXuat);
+            ps.setInt(2, obj.maNV);
+            ps.setDouble(3, obj.tongTien);
+            ps.setString(4, obj.ghiChu);
+            ps.setInt(5,obj.maPhieuXuat);
             return ps.executeUpdate()>0;
         }
     }
@@ -226,7 +221,6 @@ public class PhieuXuat {
             px.setMaBanHang(rs.getInt("MaBanHang"));
             px.setMaPhieuXuat(rs.getInt("MaPhieuXuat"));
             px.setNgayXuat(rs.getTimestamp("NgayXuat"));
-            px.setMaKH(rs.getInt("MaKH"));
             px.setMaNV(rs.getInt("MaNV"));
             px.setTongTien(rs.getFloat("TongTien"));
             px.setGhiChu(rs.getString("GhiChu"));

@@ -30,7 +30,7 @@ public class panelThongKe extends javax.swing.JPanel {
         "    FROM CHI_TIET_PHIEU_XUAT " +
         "    GROUP BY MaSanPham " +
         ") AS xuat ON sp.MaSanPham = xuat.MaSanPham " +
-        "ORDER BY sp.MaSanPham";
+        "ORDER BY ISNULL(xuat.TongXuat, 0) DESC";
 
     try (Connection conn = new Connect().connectSQL();
          PreparedStatement ps = conn.prepareStatement(sql);

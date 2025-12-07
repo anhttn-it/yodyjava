@@ -222,8 +222,6 @@ AFTER INSERT, UPDATE, DELETE
 AS
 BEGIN
     SET NOCOUNT ON;
-
-    -- Cập nhật tổng tiền cho tất cả các phiếu bị ảnh hưởng
     UPDATE px
     SET px.TongTien = ISNULL(ct.TongTienTinh, 0)
     FROM PHIEU_XUAT px

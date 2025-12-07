@@ -71,7 +71,7 @@ public class panelNhaCungCap extends javax.swing.JPanel {
         }
     }
     private void loadTable(List<NhaCungCap> list) {
-        clearData(); // xóa hết dữ liệu cũ
+        clearData();
         for (NhaCungCap ncc : list) {
             Object[] row = new Object[]{
                 ncc.getMaNCC(),
@@ -325,7 +325,7 @@ public class panelNhaCungCap extends javax.swing.JPanel {
         setNull();
         setButton(false);
         setKhoa(false);
-        txtMaNCC.setEditable(false); // khóa ô Mã NCC, SQL tự tăng
+        txtMaNCC.setEditable(false);
         cothem = true;
         tblNCC.setEnabled(false);
     }//GEN-LAST:event_btnThemNCCActionPerformed
@@ -366,17 +366,15 @@ public class panelNhaCungCap extends javax.swing.JPanel {
         String ten = txtTenNCC.getText().trim();
         String email = txtEmail.getText().trim();
 
-        // Kiểm tra thông tin trống
         if (ten.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin!");
             return;
         }
 
-        // Kiểm tra email hợp lệ
-        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
-            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
-            return;
-        }
+//        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+//            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+//            return;
+//        }
 
         try {
             NhaCungCap obj = new NhaCungCap();

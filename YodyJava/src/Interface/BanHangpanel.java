@@ -6,8 +6,10 @@ package Interface;
 
 import java.sql.*;
 import Proccess.BanHang;
+import Proccess.ComboItem;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -22,26 +24,34 @@ public class BanHangpanel extends javax.swing.JPanel {
     private boolean cothem = false;  
     private int mabh = -1;
     private final DefaultTableModel tableModel= new DefaultTableModel();
-    
+    private void selectComboItem(JComboBox<ComboItem> combo, int value) {
+    for (int i = 0; i < combo.getItemCount(); i++) {
+        ComboItem item = combo.getItemAt(i);
+        if (item.getValue() == value) {
+            combo.setSelectedIndex(i);
+            return;
+        }
+    }
+}
     public void loadComboBoxMaKH() {
         try {
             cbMaKH.removeAllItems();
-            List<Integer> list = bh.getAllKH(); 
-            for (Integer maKH : list) {
+            List<ComboItem> list = bh.getAllKH(); 
+            for (ComboItem maKH : list) {
                 cbMaKH.addItem(maKH);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Lỗi nạp danh sách NCC: " + e.getMessage());
         }
     }
-    public void loadMANv(){
+    public void loadMANv() {
         try {
             cbMaNV.removeAllItems();
-            List<Integer> list = bh.getAllMNV();
-            for(Integer manv:list){
-                cbMaNV.addItem(manv);
+            List<ComboItem> list = bh.getAllMNV();
+            for (ComboItem nv : list) {
+                cbMaNV.addItem(nv);
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {   // ❗ phải đổi thành Exception
             ex.printStackTrace();
         }
     }
@@ -71,8 +81,8 @@ public class BanHangpanel extends javax.swing.JPanel {
             Object[] row = new Object[6];
             row[0] = phieu.getMaBanHang();
             row[1] = phieu.getNgayBH();
-            row[2]=phieu.getMaKH();
-            row[3]=phieu.getMaNV();
+            row[2] = phieu.getTenKhachHang();
+            row[3] = phieu.getTenNhanVien();
             row[4]=phieu.getTongTien();
             row[5]=phieu.getGhiChu();     
             tableModel.addRow(row);
@@ -194,7 +204,7 @@ public class BanHangpanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblBH);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Mã KH");
+        jLabel2.setText("Khách hàng");
 
         btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
         btnTim.addActionListener(new java.awt.event.ActionListener() {
@@ -282,7 +292,7 @@ public class BanHangpanel extends javax.swing.JPanel {
                                 .addComponent(btnKLuuBH))
                             .addComponent(cbMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNgayBH, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(53, Short.MAX_VALUE))
+                        .addContainerGap(55, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,8 +392,8 @@ public class BanHangpanel extends javax.swing.JPanel {
                 txtGhiChu.setText(obj.getGhiChu());
                 txtMaBH.setText(String.valueOf(obj.getMaBanHang ()));
                 txtNgayBH.setText(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(obj.getNgayBH()));
-                cbMaKH.setSelectedItem(obj.getMaKH());
-                cbMaNV.setSelectedItem(obj.getMaNV());
+                selectComboItem(cbMaKH, obj.getMaKH());
+                selectComboItem(cbMaNV, obj.getMaNV());
             }
             ChiTietBanHangpanel chiTietPanel = new ChiTietBanHangpanel();
             chiTietPanel.loadData(mabh);
@@ -479,8 +489,10 @@ public class BanHangpanel extends javax.swing.JPanel {
 
         else{
             try {
-                int makh = (int) makhObj;
-                int manv = (int) manvObj;
+                ComboItem nvItem = (ComboItem) manvObj;
+                ComboItem khItem = (ComboItem) makhObj;
+                int makh = khItem.getValue();
+                int manv = nvItem.getValue();
                 BanHang obj = new BanHang();
                 java.util.Date now = new java.util.Date();
                 obj.setNgayBH(now);   // tự động lấy thời gian hiện tại
@@ -521,8 +533,8 @@ public class BanHangpanel extends javax.swing.JPanel {
     private javax.swing.JButton btnThemBH;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoaBH;
-    private javax.swing.JComboBox<Integer> cbMaKH;
-    private javax.swing.JComboBox<Integer> cbMaNV;
+    private javax.swing.JComboBox<ComboItem> cbMaKH;
+    private javax.swing.JComboBox<ComboItem> cbMaNV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
