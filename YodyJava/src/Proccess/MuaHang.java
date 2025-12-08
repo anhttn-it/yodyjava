@@ -113,12 +113,24 @@ public class MuaHang {
         return null;
     }
 
-    public boolean deleteData(int maMH) throws SQLException {
-        String sql = "DELETE FROM MUA_HANG WHERE MaMuaHang = ?";
-        try (Connection con = cn.connectSQL();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, maMH);
-            return ps.executeUpdate() > 0;
+    public boolean deleteData(int maPN) throws SQLException {
+        try (Connection con = cn.connectSQL()) {
+            con.setAutoCommit(false); // bật transaction
+            try (PreparedStatement ps1 = con.prepareStatement("DELETE FROM CHI_TIET_MUA_Hang WHERE MaMUAHang = ?");
+                 PreparedStatement ps2 = con.prepareStatement("DELETE FROM MUA_Hang WHERE MaMUAHang = ?")) {
+
+                ps1.setInt(1, maPN);
+                ps1.executeUpdate();
+
+                ps2.setInt(1, maPN);
+                int rows = ps2.executeUpdate();
+
+                con.commit();
+                return rows > 0;
+            } catch (SQLException e) {
+                con.rollback();
+                throw e;
+            }
         }
     }
 

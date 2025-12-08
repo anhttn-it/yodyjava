@@ -539,7 +539,8 @@ public class panelPhieuXuat extends javax.swing.JPanel {
                 setnull();
             }
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,"Xóa thất bại");
+            ex.printStackTrace();
+             JOptionPane.showMessageDialog(this,"Xóa thất bại\n" + ex.getMessage());
         }
     }//GEN-LAST:event_btnXoaPXActionPerformed
 

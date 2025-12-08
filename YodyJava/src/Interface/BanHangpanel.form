@@ -85,7 +85,7 @@
                                   <Component id="txtTimKiem" min="-2" pref="125" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnTim" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="41" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -98,7 +98,7 @@
                               <Component id="cbMaNV" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                               <Component id="txtNgayBH" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="55" max="32767" attributes="0"/>
+                          <EmptySpace pref="56" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -284,8 +284,8 @@
                   <Table columnCount="6" rowCount="4">
                     <Column editable="true" title="M&#xe3; b&#xe1;n h&#xe0;ng" type="java.lang.Integer"/>
                     <Column editable="true" title="Ng&#xe0;y b&#xe1;n h&#xe0;ng" type="java.lang.String"/>
-                    <Column editable="true" title="M&#xe3; KH" type="java.lang.Integer"/>
-                    <Column editable="true" title="M&#xe3; NV" type="java.lang.Integer"/>
+                    <Column editable="true" title="Kh&#xe1;ch h&#xe0;ng" type="java.lang.String"/>
+                    <Column editable="true" title="Nh&#xe2;n vi&#xea;n" type="java.lang.String"/>
                     <Column editable="true" title="T&#x1ed5;ng ti&#x1ec1;n" type="java.lang.Double"/>
                     <Column editable="true" title="Ghi ch&#xfa;" type="java.lang.String"/>
                   </Table>

@@ -155,6 +155,7 @@ CREATE TABLE PHIEU_NHAP (
     FOREIGN KEY (MaNV) REFERENCES NHAN_VIEN(MaNhanVien),
 	FOREIGN KEY (MaMuaHang) REFERENCES MUA_HANG(MaMuaHang)
 );
+alter table phieu_nhap drop column mancc 
 
 INSERT INTO PHIEU_NHAP (NgayNhap, MaNCC, MaNV, TongTien, GhiChu)
 VALUES
@@ -179,6 +180,9 @@ VALUES
 (3, 3, 100, 900.00,4),   -- Áo khoác da
 (4, 2, 200, 320.00,5); 
 
+ALTER TABLE PHIEU_XUAT
+DROP CONSTRAINT FK__PHIEU_XUA__MaBan__01142BA1;
+alter table phieu_xuat drop column Makh
 CREATE TABLE PHIEU_XUAT (
     MaPhieuXuat INT IDENTITY(1,1) PRIMARY KEY,
     NgayXuat DATETIME NOT NULL DEFAULT GETDATE(),

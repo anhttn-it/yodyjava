@@ -167,8 +167,8 @@ public class PhieuXuat {
     public boolean deleteData(int maPN) throws SQLException {
         try (Connection con = cn.connectSQL()) {
             con.setAutoCommit(false); // bật transaction
-            try (PreparedStatement ps1 = con.prepareStatement("DELETE FROM CHI_TIET_PHIEU_NHAP WHERE MaPhieuXuat = ?");
-                 PreparedStatement ps2 = con.prepareStatement("DELETE FROM PHIEU_NHAP WHERE MaPhieuXuat = ?")) {
+            try (PreparedStatement ps1 = con.prepareStatement("DELETE FROM CHI_TIET_PHIEU_XUAT WHERE MaPhieuXuat = ?");
+                 PreparedStatement ps2 = con.prepareStatement("DELETE FROM PHIEU_XUAT WHERE MaPhieuXuat = ?")) {
 
                 ps1.setInt(1, maPN);
                 ps1.executeUpdate();

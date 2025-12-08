@@ -52,7 +52,7 @@ public class BanHangpanel extends javax.swing.JPanel {
             for (ComboItem nv : list) {
                 cbMaNV.addItem(nv);
             }
-        } catch (Exception ex) {   // ❗ phải đổi thành Exception
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -72,16 +72,14 @@ public class BanHangpanel extends javax.swing.JPanel {
             btnSuaBH.setEnabled(false);
             btnXoaBH.setEnabled(false);
         } else if (this.userRole == 0) {
-            btnThemBH.setEnabled(false); // Quản lý không được thêm
+            btnThemBH.setEnabled(false);
          
         } else {
-            // Trường hợp khác (ví dụ: nhanvienkho)
             btnThemBH.setEnabled(false);
             btnSuaBH.setEnabled(false);
             btnXoaBH.setEnabled(false);
         }
     } else {
-        // Chế độ Sửa/Thêm (a=false): chỉ cần đảm bảo nút Lưu/Klưu được bật, các nút chính bị tắt
         btnThemBH.setEnabled(false);
         btnSuaBH.setEnabled(false);
         btnXoaBH.setEnabled(false);
@@ -519,7 +517,8 @@ public class BanHangpanel extends javax.swing.JPanel {
                 setnull();
             }
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,"Xóa thất bại");
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,"Xóa thất bại\n" + ex.getMessage());
         }
     }//GEN-LAST:event_btnXoaBHActionPerformed
 
