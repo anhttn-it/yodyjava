@@ -452,7 +452,7 @@ public class ChiTietMuaHangpanel extends javax.swing.JPanel {
             }
             if(this.userRole == 0){
                 btnSuaCTPX.setEnabled(true);
-                btnXoaCTPX.setEnabled(false);
+                btnXoaCTPX.setEnabled(true);
             }
             else{
                 btnSuaCTPX.setEnabled(false);

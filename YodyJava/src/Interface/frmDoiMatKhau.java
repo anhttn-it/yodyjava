@@ -6,6 +6,7 @@ package Interface;
 import Proccess.DoiMatKhau; // Import lớp xử lý Đổi Mật Khẩu
 import javax.swing.JOptionPane;
 import java.util.logging.Level;
+import Proccess.MD5Hash;
 /**
  *
  * @author Admin
@@ -183,7 +184,8 @@ public class frmDoiMatKhau extends javax.swing.JFrame {
         }
 
         try {
-            boolean thanhCong = doiMK.thucHienDoiMatKhau(maNVHienTai, mkCu, mkMoi);
+            String mkMoimahoa = MD5Hash.encrypt(mkMoi);
+            boolean thanhCong = doiMK.thucHienDoiMatKhau(maNVHienTai, mkCu, mkMoimahoa);
 
             if (thanhCong) {
                 JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công!");
